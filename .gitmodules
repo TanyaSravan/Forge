@@ -1,0 +1,3 @@
+[submodule "Forge/vendor/spdlog"]
+	path = Forge/vendor/spdlog
+	url = https://github.com/gabime/spdlog

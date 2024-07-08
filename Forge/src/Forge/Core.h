@@ -10,3 +10,5 @@
 	#error FORGE RUNS ONLY ON WINDOWS
 #endif
 
+#define BIT(x) (1<<x)
+

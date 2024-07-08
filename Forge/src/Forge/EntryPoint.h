@@ -5,7 +5,10 @@
 extern Forge::Application* Forge::CreateApplication();
 
 int main(int argc, char** argv) {
-	std::cout << "Welcome to Forge Engine" << std::endl;
+	Forge::Log::Init();
+	FG_CORE_WARN("Initialised Logger");
+	int a = 5;
+	FG_INFO("Hello World! Var = {0}",a); 
 	auto app = Forge::CreateApplication();
 	app->Run();
 	delete app;
