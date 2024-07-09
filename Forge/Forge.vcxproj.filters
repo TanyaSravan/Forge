@@ -7,8 +7,12 @@
     <Filter Include="Forge\Event">
       <UniqueIdentifier>{69B7BEE2-D56C-37D8-5E61-31AFCA152EDC}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Platform">
+      <UniqueIdentifier>{2AC788B4-1694-E3BF-3FAD-D1672BD9184E}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\FGpch.h" />
     <ClInclude Include="src\Forge.h" />
     <ClInclude Include="src\Forge\Application.h">
       <Filter>Forge</Filter>
@@ -31,22 +35,26 @@
     <ClInclude Include="src\Forge\Event\MouseEvents.h">
       <Filter>Forge\Event</Filter>
     </ClInclude>
-    <ClInclude Include="src\Forge\FGpch.h">
-      <Filter>Forge</Filter>
-    </ClInclude>
     <ClInclude Include="src\Forge\Log.h">
       <Filter>Forge</Filter>
     </ClInclude>
+    <ClInclude Include="src\Forge\Window.h">
+      <Filter>Forge</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\WindowsWindow.h">
+      <Filter>Platform</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\FGpch.cpp" />
     <ClCompile Include="src\Forge\Application.cpp">
-      <Filter>Forge</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Forge\FGpch.cpp">
       <Filter>Forge</Filter>
     </ClCompile>
     <ClCompile Include="src\Forge\Log.cpp">
       <Filter>Forge</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\WindowsWindow.cpp">
+      <Filter>Platform</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

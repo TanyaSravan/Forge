@@ -5,11 +5,11 @@
 namespace Forge {
 	class FORGE_API WindowResizeEvent : public Event {
 	public:
-		WindowResizeEvent(int width, int height):
+		WindowResizeEvent(unsigned int width, unsigned int height):
 		m_Width(width), m_Height(height) {}
 
-		inline int GetWindowWidth() { return m_Width; }
-		inline int GetWindowHeight() { return m_Height; }
+		inline unsigned int GetWindowWidth() { return m_Width; }
+		inline unsigned int GetWindowHeight() { return m_Height; }
 
 		EVENT_CATEGORY(EventCategoryApplication)
 		EVENT_TYPE(WindowResize)
@@ -21,7 +21,7 @@ namespace Forge {
 		}
 
 	private:
-		int m_Width, m_Height;
+		unsigned int m_Width, m_Height;
 	};
 
 	class FORGE_API WindowCloseEvent : public Event {

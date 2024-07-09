@@ -1,4 +1,4 @@
-workspace "Forge"
+ workspace "Forge"
     architecture "x64"
     configurations{
         "Debug",
@@ -6,6 +6,11 @@ workspace "Forge"
         "Dist"
     }
 outputDir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
+
+IncludeDirs = {}
+IncludeDirs["GLFW"] = "Forge/vendor/GLFW/include"
+
+include "Forge/vendor/GLFW"
 
 project "Forge"
     location "Forge"
@@ -15,7 +20,7 @@ project "Forge"
     objdir ("bin-int/"..outputDir.."/%{prj.name}")
 
     pchheader "FGpch.h"
-    pchsource "Forge/src/Forge/FGpch.cpp"
+    pchsource "Forge/src/FGpch.cpp"
 
     files {
         "%{prj.name}/src/**.h",
@@ -24,7 +29,13 @@ project "Forge"
 
     includedirs{
         "%{prj.name}/vendor/spdlog/include",
-        "%{prj.name}/src"
+        "%{prj.name}/src",
+        "%{IncludeDirs.GLFW}"
+    }
+
+    links{
+        "GLFW",
+        "opengl32.lib"
     }
 
     filter "system:Windows"
@@ -41,7 +52,10 @@ project "Forge"
         }
 
     filter "configurations: Debug"
-        defines "FG_DEBUG"
+        defines {
+            "FG_DEBUG",
+            "FG_ENABLE_ASSERTS"
+        }
         symbols "On"
     
     filter "configurations: Release"
