@@ -56,15 +56,18 @@ project "Forge"
             "FG_DEBUG",
             "FG_ENABLE_ASSERTS"
         }
+        buildoptions "/MDd"
         symbols "On"
     
     filter "configurations: Release"
         defines "FG_RELEASE"
         optimize "On"
+        buildoptions "/MD"
 
     filter "configurations: Dist"
         defines "FG_DIST"
         optimize "On"
+        buildoptions "/MD"
 
 project "Sandbox"
     location "Sandbox"
@@ -99,14 +102,17 @@ project "Sandbox"
     filter "configurations: Debug"
         defines "FG_DEBUG"
         symbols "On"
+        buildoptions "/MDd"
     
     filter "configurations: Release"
         defines "FG_RELEASE"
         optimize "On"
+        buildoptions "/MD"
 
     filter "configurations: Dist"
         defines "FG_DIST"
         optimize "On"
+        buildoptions "/MD"
 
     
     

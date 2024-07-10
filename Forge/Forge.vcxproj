@@ -82,7 +82,7 @@
       <PreprocessorDefinitions>FG_PLATFORM_WINDOWS;FG_BUILD_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>vendor\spdlog\include;src;vendor\GLFW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Disabled</Optimization>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -144,6 +144,8 @@
     <ClInclude Include="src\Forge\Event\Event.h" />
     <ClInclude Include="src\Forge\Event\KeyEvents.h" />
     <ClInclude Include="src\Forge\Event\MouseEvents.h" />
+    <ClInclude Include="src\Forge\Layer.h" />
+    <ClInclude Include="src\Forge\LayerStack.h" />
     <ClInclude Include="src\Forge\Log.h" />
     <ClInclude Include="src\Forge\Window.h" />
     <ClInclude Include="src\Platform\WindowsWindow.h" />
@@ -153,6 +155,8 @@
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="src\Forge\Application.cpp" />
+    <ClCompile Include="src\Forge\Layer.cpp" />
+    <ClCompile Include="src\Forge\LayerStack.cpp" />
     <ClCompile Include="src\Forge\Log.cpp" />
     <ClCompile Include="src\Platform\WindowsWindow.cpp" />
   </ItemGroup>

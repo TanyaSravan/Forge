@@ -14,9 +14,27 @@ namespace Forge {
 	Application::~Application(){}
 
 	void Application::OnEvent(Event& e) {
-		FG_CORE_TRACE("{0}", e);
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowCloseEvent>(FG_BIND_EVENT_FN(OnWindowClose));
+
+		for (auto it = m_layerStack.end(); it != m_layerStack.begin();) {
+			(*--it)->OnEvent(e);
+			if (e.handled)
+				break;
+		}
+	}
+
+	bool Application::OnWindowClose(WindowCloseEvent& e) {
+		m_Running = false;
+		return true;
+	}
+
+	void Application::PushLayer(Layer* layer) {
+		m_layerStack.PushLayer(layer);
+	}
+
+	void Application::PushOverlay(Layer* layer) {
+		m_layerStack.PushOverlay(layer);
 	}
 
 
@@ -24,13 +42,13 @@ namespace Forge {
 		while (m_Running) {
 			glClearColor(1, 0, 1, 1);
 			glClear(GL_COLOR_BUFFER_BIT);
+
+			for (Layer* layer : m_layerStack) {
+				layer->OnUpdate();
+			}
+
 			m_window->OnUpdate();
 		}
-	}
-
-	bool Application::OnWindowClose(WindowCloseEvent& e) {
-		m_Running = false;
-		return true;
 	}
 }
 

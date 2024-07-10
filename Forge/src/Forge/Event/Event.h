@@ -37,8 +37,6 @@ namespace Forge {
 
 
 	class FORGE_API Event {
-		friend class EventDispatcher;
-
 	public:
 		virtual const char* GetName() const = 0;
 		virtual int GetCategoryFlags() const = 0;
@@ -50,8 +48,8 @@ namespace Forge {
 		inline bool IsInCategory(EventCategory category) {
 			return GetCategoryFlags() & category;
 		}
-	protected:
-		bool m_handled = false; 
+
+		bool handled = false;
 	};
 
 	class FORGE_API EventDispatcher {
@@ -65,7 +63,7 @@ namespace Forge {
 		template<typename T>
 		bool Dispatch(EventFn<T> func) {
 			if (m_Event.GetEventType() == T::GetStaticType()) {
-				m_Event.m_handled = func(*(T*)&m_Event);
+				m_Event.handled = func(*(T*)&m_Event);
 				return true;
 			}
 			return false;

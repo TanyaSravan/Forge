@@ -35,6 +35,12 @@
     <ClInclude Include="src\Forge\Event\MouseEvents.h">
       <Filter>Forge\Event</Filter>
     </ClInclude>
+    <ClInclude Include="src\Forge\Layer.h">
+      <Filter>Forge</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Forge\LayerStack.h">
+      <Filter>Forge</Filter>
+    </ClInclude>
     <ClInclude Include="src\Forge\Log.h">
       <Filter>Forge</Filter>
     </ClInclude>
@@ -48,6 +54,12 @@
   <ItemGroup>
     <ClCompile Include="src\FGpch.cpp" />
     <ClCompile Include="src\Forge\Application.cpp">
+      <Filter>Forge</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Forge\Layer.cpp">
+      <Filter>Forge</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Forge\LayerStack.cpp">
       <Filter>Forge</Filter>
     </ClCompile>
     <ClCompile Include="src\Forge\Log.cpp">
