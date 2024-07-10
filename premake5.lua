@@ -9,8 +9,10 @@ outputDir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 IncludeDirs = {}
 IncludeDirs["GLFW"] = "Forge/vendor/GLFW/include"
+IncludeDirs["Glad"] = "Forge/vendor/Glad/include"
 
 include "Forge/vendor/GLFW"
+include "Forge/vendor/Glad"
 
 project "Forge"
     location "Forge"
@@ -30,11 +32,13 @@ project "Forge"
     includedirs{
         "%{prj.name}/vendor/spdlog/include",
         "%{prj.name}/src",
-        "%{IncludeDirs.GLFW}"
+        "%{IncludeDirs.GLFW}",
+        "%{IncludeDirs.Glad}",
     }
 
     links{
         "GLFW",
+        "Glad",
         "opengl32.lib"
     }
 
@@ -44,7 +48,8 @@ project "Forge"
         systemversion "latest"
         defines{
             "FG_PLATFORM_WINDOWS",
-            "FG_BUILD_DLL"
+            "FG_BUILD_DLL",
+            "GLFW_INCLUDE_NONE"
         }
     
         postbuildcommands {

@@ -1,6 +1,6 @@
 #include "FGpch.h"
 #include "Application.h"
-#include "GLFW/glfw3.h"
+#include "glad/glad.h"
 
 namespace Forge {
 
@@ -9,6 +9,7 @@ namespace Forge {
 	Application::Application(){
 		m_window = std::unique_ptr<Window>(Window::Create());
 		m_window->SetEventCallback(FG_BIND_EVENT_FN(OnEvent));
+
 	}
 
 	Application::~Application(){}
