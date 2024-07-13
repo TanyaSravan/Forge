@@ -1,6 +1,8 @@
 #include "FGpch.h"
 #include "Application.h"
+#include "Input.h"
 #include "glad/glad.h"
+#include "GLFW/glfw3.h"
 
 namespace Forge {
 
@@ -51,6 +53,10 @@ namespace Forge {
 			for (Layer* layer : m_layerStack) {
 				layer->OnUpdate();
 			}
+			
+			bool x = Input::IsKeyPressed(67);
+			if (x)
+				FG_CORE_TRACE("Mouse Button is pressed");
 
 			m_window->OnUpdate();
 		}

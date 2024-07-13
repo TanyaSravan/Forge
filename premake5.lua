@@ -1,4 +1,5 @@
  workspace "Forge"
+    startproject "Sandbox"
     architecture "x64"
     configurations{
         "Debug",
@@ -58,7 +59,7 @@ project "Forge"
         }
     
         postbuildcommands {
-            ("{COPY} %{cfg.buildtarget.relpath} ../bin/"..outputDir.."/Sandbox")
+            ("{COPY} %{cfg.buildtarget.relpath} \"../bin/"..outputDir.."/Sandbox/\"")
         }
 
     filter "configurations: Debug"
@@ -68,7 +69,6 @@ project "Forge"
         }
         staticruntime "off"
         runtime "Debug"
-        buildoptions "/MDd"
         symbols "On"
     
     filter "configurations: Release"
@@ -76,14 +76,12 @@ project "Forge"
         optimize "On"
         staticruntime "off"
         runtime "Release"
-        buildoptions "/MD"
 
     filter "configurations: Dist"
         defines "FG_DIST"
         optimize "On"
         staticruntime "off"
         runtime "Release"
-        buildoptions "/MD"
 
 project "Sandbox"
     location "Sandbox"
@@ -120,21 +118,18 @@ project "Sandbox"
         symbols "On"
         runtime "Debug"
         staticruntime "off"
-        buildoptions "/MDd"
     
     filter "configurations: Release"
         defines "FG_RELEASE"
         optimize "On"
         staticruntime "off"
         runtime "Release"
-        buildoptions "/MD"
 
     filter "configurations: Dist"
         defines "FG_DIST"
         optimize "On"
         staticruntime "off"
         runtime "Release"
-        buildoptions "/MD"
 
     
     

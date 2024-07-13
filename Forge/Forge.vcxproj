@@ -91,7 +91,7 @@
       <ImportLibrary>..\bin\Debug-windows-x86_64\Forge\Forge.lib</ImportLibrary>
     </Link>
     <PostBuildEvent>
-      <Command>IF EXIST ..\bin\Debug-windows-x86_64\Forge\Forge.dll\ (xcopy /Q /E /Y /I ..\bin\Debug-windows-x86_64\Forge\Forge.dll ..\bin\Debug-windows-x86_64\Sandbox &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Debug-windows-x86_64\Forge\Forge.dll ..\bin\Debug-windows-x86_64\Sandbox &gt; nul)</Command>
+      <Command>IF EXIST ..\bin\Debug-windows-x86_64\Forge\Forge.dll\ (xcopy /Q /E /Y /I ..\bin\Debug-windows-x86_64\Forge\Forge.dll "..\bin\Debug-windows-x86_64\Sandbox\" &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Debug-windows-x86_64\Forge\Forge.dll "..\bin\Debug-windows-x86_64\Sandbox\" &gt; nul)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -111,7 +111,7 @@
       <ImportLibrary>..\bin\Release-windows-x86_64\Forge\Forge.lib</ImportLibrary>
     </Link>
     <PostBuildEvent>
-      <Command>IF EXIST ..\bin\Release-windows-x86_64\Forge\Forge.dll\ (xcopy /Q /E /Y /I ..\bin\Release-windows-x86_64\Forge\Forge.dll ..\bin\Release-windows-x86_64\Sandbox &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Release-windows-x86_64\Forge\Forge.dll ..\bin\Release-windows-x86_64\Sandbox &gt; nul)</Command>
+      <Command>IF EXIST ..\bin\Release-windows-x86_64\Forge\Forge.dll\ (xcopy /Q /E /Y /I ..\bin\Release-windows-x86_64\Forge\Forge.dll "..\bin\Release-windows-x86_64\Sandbox\" &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Release-windows-x86_64\Forge\Forge.dll "..\bin\Release-windows-x86_64\Sandbox\" &gt; nul)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">
@@ -131,7 +131,7 @@
       <ImportLibrary>..\bin\Dist-windows-x86_64\Forge\Forge.lib</ImportLibrary>
     </Link>
     <PostBuildEvent>
-      <Command>IF EXIST ..\bin\Dist-windows-x86_64\Forge\Forge.dll\ (xcopy /Q /E /Y /I ..\bin\Dist-windows-x86_64\Forge\Forge.dll ..\bin\Dist-windows-x86_64\Sandbox &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Dist-windows-x86_64\Forge\Forge.dll ..\bin\Dist-windows-x86_64\Sandbox &gt; nul)</Command>
+      <Command>IF EXIST ..\bin\Dist-windows-x86_64\Forge\Forge.dll\ (xcopy /Q /E /Y /I ..\bin\Dist-windows-x86_64\Forge\Forge.dll "..\bin\Dist-windows-x86_64\Sandbox\" &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Dist-windows-x86_64\Forge\Forge.dll "..\bin\Dist-windows-x86_64\Sandbox\" &gt; nul)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -145,11 +145,13 @@
     <ClInclude Include="src\Forge\Event\KeyEvents.h" />
     <ClInclude Include="src\Forge\Event\MouseEvents.h" />
     <ClInclude Include="src\Forge\ImGui\ImguiLayer.h" />
+    <ClInclude Include="src\Forge\Input.h" />
     <ClInclude Include="src\Forge\Layer.h" />
     <ClInclude Include="src\Forge\LayerStack.h" />
     <ClInclude Include="src\Forge\Log.h" />
     <ClInclude Include="src\Forge\Window.h" />
     <ClInclude Include="src\Platform\OpenGL\imgui_impl_opengl3.h" />
+    <ClInclude Include="src\Platform\Windows\WindowsInput.h" />
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
   </ItemGroup>
   <ItemGroup>
@@ -162,6 +164,7 @@
     <ClCompile Include="src\Forge\LayerStack.cpp" />
     <ClCompile Include="src\Forge\Log.cpp" />
     <ClCompile Include="src\Platform\OpenGL\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="src\Platform\Windows\WindowsInput.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
