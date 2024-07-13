@@ -49,4 +49,18 @@ namespace Forge {
 		}
 	};
 
+	class FORGE_API KeyTypedEvent : public KeyEvent {
+	public:
+		KeyTypedEvent(int keycode)
+			:KeyEvent(keycode) {}
+
+		EVENT_TYPE(KeyTyped)
+
+		std::string ToString() const override {
+			std::stringstream ss;
+			ss << "KeyTypedEvent -> Keycode: " << m_KeyCode;
+			return ss.str();
+		}
+	};
+
 }

@@ -20,6 +20,7 @@ namespace Forge {
 		void SetVSync(bool enabled) override;
 		bool IsVSync() const override;
 
+
 	private:
 		virtual void Init(const WindowProp& prop);
 		virtual void Shutdown();

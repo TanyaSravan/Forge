@@ -10,9 +10,12 @@ outputDir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 IncludeDirs = {}
 IncludeDirs["GLFW"] = "Forge/vendor/GLFW/include"
 IncludeDirs["Glad"] = "Forge/vendor/Glad/include"
+IncludeDirs["imgui"] = "Forge/vendor/imgui"
+
 
 include "Forge/vendor/GLFW"
 include "Forge/vendor/Glad"
+include "Forge/vendor/imgui"
 
 project "Forge"
     location "Forge"
@@ -34,11 +37,13 @@ project "Forge"
         "%{prj.name}/src",
         "%{IncludeDirs.GLFW}",
         "%{IncludeDirs.Glad}",
+        "%{IncludeDirs.imgui}",
     }
 
     links{
         "GLFW",
         "Glad",
+        "imgui",
         "opengl32.lib"
     }
 
@@ -61,17 +66,23 @@ project "Forge"
             "FG_DEBUG",
             "FG_ENABLE_ASSERTS"
         }
+        staticruntime "off"
+        runtime "Debug"
         buildoptions "/MDd"
         symbols "On"
     
     filter "configurations: Release"
         defines "FG_RELEASE"
         optimize "On"
+        staticruntime "off"
+        runtime "Release"
         buildoptions "/MD"
 
     filter "configurations: Dist"
         defines "FG_DIST"
         optimize "On"
+        staticruntime "off"
+        runtime "Release"
         buildoptions "/MD"
 
 project "Sandbox"
@@ -107,16 +118,22 @@ project "Sandbox"
     filter "configurations: Debug"
         defines "FG_DEBUG"
         symbols "On"
+        runtime "Debug"
+        staticruntime "off"
         buildoptions "/MDd"
     
     filter "configurations: Release"
         defines "FG_RELEASE"
         optimize "On"
+        staticruntime "off"
+        runtime "Release"
         buildoptions "/MD"
 
     filter "configurations: Dist"
         defines "FG_DIST"
         optimize "On"
+        staticruntime "off"
+        runtime "Release"
         buildoptions "/MD"
 
     

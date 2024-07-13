@@ -6,7 +6,6 @@ public:
 		Layer("Example") {}
 
 	void OnUpdate() override {
-		FG_INFO("This is the Example Layer Updatefunc");
 	}
 
 	void OnEvent(Forge::Event& event) override {
@@ -20,6 +19,7 @@ class Sandbox : public Forge::Application {
 public:
 	Sandbox() {
 		PushLayer(new ExampleLayer());
+		PushOverlay(new Forge::ImGuiLayer());
 
 	}
 

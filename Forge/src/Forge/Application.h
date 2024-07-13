@@ -20,12 +20,18 @@ namespace Forge {
 
 		void PushOverlay(Layer* layer);
 
+		inline Window& GetWindow() { return *m_window; }
+
+		static inline Application& Get() { return *s_Instance; }
+
 	private:
 		bool OnWindowClose(WindowCloseEvent& e);
 
 		std::unique_ptr<Window> m_window;
 		bool m_Running = true;
 		LayerStack m_layerStack;
+	private:
+		static Application* s_Instance;
 	};
 
 	//Definition on Client side

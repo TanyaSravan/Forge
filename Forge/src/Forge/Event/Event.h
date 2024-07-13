@@ -12,7 +12,7 @@ namespace Forge {
 		AppTick, AppUpdate, AppRender,
 
 		//Keyboard Events
-		KeyPressed, KeyReleased,
+		KeyPressed, KeyReleased, KeyTyped,
 
 		//Mouse Events
 		MouseButtonPressed, MouseButtonReleased, MouseMoved, MouseScrolled

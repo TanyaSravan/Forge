@@ -4,19 +4,21 @@
 
 namespace Forge {
 
-#define FG_BIND_EVENT_FN(x) std::bind(&Application::x,this,std::placeholders::_1)
+	Application* Application::s_Instance = nullptr;
 
 	Application::Application(){
 		m_window = std::unique_ptr<Window>(Window::Create());
-		m_window->SetEventCallback(FG_BIND_EVENT_FN(OnEvent));
+		m_window->SetEventCallback(FG_BIND_EVENT_FN(Application::OnEvent));
 
+		FG_CORE_ASSERT(!s_Instance, "Application already exists");
+		s_Instance = this;
 	}
 
 	Application::~Application(){}
 
 	void Application::OnEvent(Event& e) {
 		EventDispatcher dispatcher(e);
-		dispatcher.Dispatch<WindowCloseEvent>(FG_BIND_EVENT_FN(OnWindowClose));
+		dispatcher.Dispatch<WindowCloseEvent>(FG_BIND_EVENT_FN(Application::OnWindowClose));
 
 		for (auto it = m_layerStack.end(); it != m_layerStack.begin();) {
 			(*--it)->OnEvent(e);
@@ -32,10 +34,12 @@ namespace Forge {
 
 	void Application::PushLayer(Layer* layer) {
 		m_layerStack.PushLayer(layer);
+		layer->OnAttach();
 	}
 
 	void Application::PushOverlay(Layer* layer) {
 		m_layerStack.PushOverlay(layer);
+		layer->OnAttach();
 	}
 
 

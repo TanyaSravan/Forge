@@ -4,3 +4,6 @@
 [submodule "Forge/vendor/GLFW"]
 	path = Forge/vendor/GLFW
 	url = https://github.com/TanyaSravan/glfw
+[submodule "Forge/vendor/imgui"]
+	path = Forge/vendor/imgui
+	url = https://github.com/TanyaSravan/imgui
