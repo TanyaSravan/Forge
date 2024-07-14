@@ -12,6 +12,7 @@ IncludeDirs = {}
 IncludeDirs["GLFW"] = "Forge/vendor/GLFW/include"
 IncludeDirs["Glad"] = "Forge/vendor/Glad/include"
 IncludeDirs["imgui"] = "Forge/vendor/imgui"
+IncludeDirs["glm"] = "Forge/vendor/glm"
 
 
 include "Forge/vendor/GLFW"
@@ -39,6 +40,7 @@ project "Forge"
         "%{IncludeDirs.GLFW}",
         "%{IncludeDirs.Glad}",
         "%{IncludeDirs.imgui}",
+        "%{IncludeDirs.glm}",
     }
 
     links{
@@ -97,7 +99,8 @@ project "Sandbox"
 
     includedirs{
         "Forge/vendor/spdlog/include",
-        "Forge/src"
+        "Forge/src",
+        "%{IncludeDirs.glm}",
     }
 
     filter "system:Windows"

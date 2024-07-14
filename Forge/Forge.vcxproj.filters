@@ -47,6 +47,12 @@
     <ClInclude Include="src\Forge\ImGui\ImguiLayer.h">
       <Filter>Forge\ImGui</Filter>
     </ClInclude>
+    <ClInclude Include="src\Forge\Input.h">
+      <Filter>Forge</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Forge\Keycodes.h">
+      <Filter>Forge</Filter>
+    </ClInclude>
     <ClInclude Include="src\Forge\Layer.h">
       <Filter>Forge</Filter>
     </ClInclude>
@@ -56,19 +62,21 @@
     <ClInclude Include="src\Forge\Log.h">
       <Filter>Forge</Filter>
     </ClInclude>
+    <ClInclude Include="src\Forge\MouseButtonCodes.h">
+      <Filter>Forge</Filter>
+    </ClInclude>
     <ClInclude Include="src\Forge\Window.h">
       <Filter>Forge</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\imgui_impl_opengl3.h">
       <Filter>Platform\OpenGL</Filter>
     </ClInclude>
+    <ClInclude Include="src\Platform\Windows\WindowsInput.h">
+      <Filter>Platform\Windows</Filter>
+    </ClInclude>
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h">
       <Filter>Platform\Windows</Filter>
     </ClInclude>
-    <ClInclude Include="src\Forge\Input.h" />
-    <ClInclude Include="src\Platform\Windows\WindowsInput.h" />
-    <ClInclude Include="src\Forge\Keycodes.h" />
-    <ClInclude Include="src\Forge\MouseButtonCodes.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\FGpch.cpp" />
@@ -90,9 +98,11 @@
     <ClCompile Include="src\Platform\OpenGL\imgui_impl_opengl3.cpp">
       <Filter>Platform\OpenGL</Filter>
     </ClCompile>
+    <ClCompile Include="src\Platform\Windows\WindowsInput.cpp">
+      <Filter>Platform\Windows</Filter>
+    </ClCompile>
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp">
       <Filter>Platform\Windows</Filter>
     </ClCompile>
-    <ClCompile Include="src\Platform\Windows\WindowsInput.cpp" />
   </ItemGroup>
 </Project>
