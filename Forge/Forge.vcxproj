@@ -150,6 +150,8 @@
     <ClInclude Include="src\Forge\LayerStack.h" />
     <ClInclude Include="src\Forge\Log.h" />
     <ClInclude Include="src\Forge\Window.h" />
+    <ClInclude Include="src\Forge\Keycodes.h" />
+    <ClInclude Include="src\Forge\MouseButtonCodes.h" />
     <ClInclude Include="src\Platform\OpenGL\imgui_impl_opengl3.h" />
     <ClInclude Include="src\Platform\Windows\WindowsInput.h" />
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />

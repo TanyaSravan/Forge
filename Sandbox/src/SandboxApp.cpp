@@ -6,10 +6,18 @@ public:
 		Layer("Example") {}
 
 	void OnUpdate() override {
+		if (Forge::Input::IsKeyPressed(FG_KEY_TAB))
+			FG_TRACE("Tab key is pressed");
 	}
 
 	void OnEvent(Forge::Event& event) override {
-		FG_TRACE("{0}", event);
+		if (event.GetEventType() == Forge::EventType::KeyPressed) {
+			Forge::KeyPressedEvent& e = (Forge::KeyPressedEvent&)event;
+			if (e.GetKeyCode() == FG_KEY_TAB)
+				FG_TRACE("Tab Key Was pressed (Event)"); 
+			FG_TRACE("{0}", (char)e.GetKeyCode());
+
+		}
 	}
 
 };

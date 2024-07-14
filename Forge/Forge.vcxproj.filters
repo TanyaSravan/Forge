@@ -67,6 +67,8 @@
     </ClInclude>
     <ClInclude Include="src\Forge\Input.h" />
     <ClInclude Include="src\Platform\Windows\WindowsInput.h" />
+    <ClInclude Include="src\Forge\Keycodes.h" />
+    <ClInclude Include="src\Forge\MouseButtonCodes.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\FGpch.cpp" />
