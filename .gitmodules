@@ -7,3 +7,6 @@
 [submodule "Forge/vendor/glm"]
 	path = Forge/vendor/glm
 	url = https://github.com/g-truc/glm.git
+[submodule "Forge/vendor/imgui"]
+	path = Forge/vendor/imgui
+	url = https://github.com/TanyaSravan/imgui.git

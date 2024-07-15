@@ -4,6 +4,7 @@
 #include "Forge/Event/Event.h"
 #include "Forge/Event/ApplicationEvents.h"
 #include "LayerStack.h"
+#include "Forge/ImGui/ImguiLayer.h"
 
 namespace Forge {
 	class FORGE_API Application
@@ -28,6 +29,7 @@ namespace Forge {
 		bool OnWindowClose(WindowCloseEvent& e);
 
 		std::unique_ptr<Window> m_window;
+		ImGuiLayer* imgui_layer;
 		bool m_Running = true;
 		LayerStack m_layerStack;
 	private:

@@ -31,7 +31,7 @@ project "Forge"
 
     files {
         "%{prj.name}/src/**.h",
-        "%{prj.name}/src/**.cpp"
+        "%{prj.name}/src/**.cpp",
     }
 
     includedirs{
@@ -100,6 +100,7 @@ project "Sandbox"
     includedirs{
         "Forge/vendor/spdlog/include",
         "Forge/src",
+        "Forge/vendor",
         "%{IncludeDirs.glm}",
     }
 

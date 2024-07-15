@@ -14,18 +14,10 @@ namespace Forge {
 
 		void OnAttach() override;
 		void OnDetach() override;
-		void OnUpdate() override;
-		void OnEvent(Event& event) override;
+		void OnImGuiRender() override;
 
-	private:
-		bool OnMouseButtonPressed(MouseButtonPressedEvent& e);
-		bool OnMouseButtonReleased(MouseButtonReleasedEvent& e);
-		bool OnMouseMoved(MouseMovedEvent& e);
-		bool OnMouseScrolled(MouseScrolledEvent& e);
-		bool OnKeyPressed(KeyPressedEvent& e);
-		bool OnKeyReleased(KeyReleasedEvent& e);
-		bool OnKeyTyped(KeyTypedEvent& e);
-		bool OnWindowResised(WindowResizeEvent& e);
+		void Begin();
+		void End();
 
 	private:
 		float m_Time = 0.0f;

@@ -2,6 +2,7 @@
 #include "Application.h"
 #include "Input.h"
 #include "glad/glad.h"
+#include "Forge/ImGui/ImguiLayer.h"
 
 namespace Forge {
 
@@ -13,9 +14,15 @@ namespace Forge {
 
 		FG_CORE_ASSERT(!s_Instance, "Application already exists");
 		s_Instance = this;
+
+		imgui_layer = new ImGuiLayer();
+		PushOverlay(imgui_layer);
+		
 	}
 
-	Application::~Application(){}
+	Application::~Application(){
+
+	}
 
 	void Application::OnEvent(Event& e) {
 		EventDispatcher dispatcher(e);
@@ -52,6 +59,13 @@ namespace Forge {
 			for (Layer* layer : m_layerStack) {
 				layer->OnUpdate();
 			}
+
+			imgui_layer->Begin();
+
+			for (Layer* layer : m_layerStack) {
+				layer->OnImGuiRender();
+			}
+			imgui_layer->End();
 
 			m_window->OnUpdate();
 		}

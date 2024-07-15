@@ -1,4 +1,6 @@
 #include "Forge.h"
+#include "imgui/imgui.h"
+
 
 class ExampleLayer : public Forge::Layer {
 public:
@@ -8,6 +10,12 @@ public:
 	void OnUpdate() override {
 		if (Forge::Input::IsKeyPressed(FG_KEY_TAB))
 			FG_TRACE("Tab key is pressed");
+	}
+
+	void OnImGuiRender() override {
+		ImGui::Begin("Test");
+		ImGui::Text("Hello World");
+		ImGui::End();
 	}
 
 	void OnEvent(Forge::Event& event) override {
@@ -27,8 +35,6 @@ class Sandbox : public Forge::Application {
 public:
 	Sandbox() {
 		PushLayer(new ExampleLayer());
-		PushOverlay(new Forge::ImGuiLayer());
-
 	}
 
 	~Sandbox() {
