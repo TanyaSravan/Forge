@@ -3,7 +3,8 @@
 #include "Forge/Event/ApplicationEvents.h"
 #include "Forge/Event/KeyEvents.h"
 #include "Forge/Event/MouseEvents.h"
-#include "glad/glad.h"
+
+#include "Platform/OpenGL/OpenGlContext.h"
 
 
 namespace Forge {
@@ -43,9 +44,9 @@ namespace Forge {
 		}
 
 		m_window = glfwCreateWindow((int)prop.Width, (int)prop.Height, m_data.Title.c_str(), nullptr, nullptr);
-		glfwMakeContextCurrent(m_window);
-		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-		FG_ASSERT(status, "GLAD failed to initalize");
+		m_Context = new OpenGlContext(m_window);
+		m_Context->Init();
+
 
 		glfwSetWindowUserPointer(m_window, &m_data);
 		SetVSync(true);
@@ -137,7 +138,7 @@ namespace Forge {
 
 	void WindowsWindow:: OnUpdate() {
 		glfwPollEvents();
-		glfwSwapBuffers(m_window);
+		m_Context->SwapBuffers(); 
 	}
 
 	void WindowsWindow::SetVSync(bool enabled) {

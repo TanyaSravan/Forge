@@ -1,6 +1,7 @@
 #pragma once
 #include "Forge/Window.h"
 #include "GLFW/glfw3.h"
+#include "Forge/Renderer/GraphicsContext.h"
 
 
 namespace Forge {
@@ -27,6 +28,7 @@ namespace Forge {
 		virtual void Shutdown();
 	private:
 		GLFWwindow* m_window;
+		GraphicsContext* m_Context;
 
 		struct WindowData {
 			std::string Title;
