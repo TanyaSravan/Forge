@@ -44,7 +44,6 @@ namespace Forge {
 
 		m_window = glfwCreateWindow((int)prop.Width, (int)prop.Height, m_data.Title.c_str(), nullptr, nullptr);
 		glfwMakeContextCurrent(m_window);
-
 		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 		FG_ASSERT(status, "GLAD failed to initalize");
 

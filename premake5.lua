@@ -21,10 +21,12 @@ include "Forge/vendor/imgui"
 
 project "Forge"
     location "Forge"
-    kind "SharedLib"
+    kind "StaticLib"
     language "C++"
+    cppdialect "C++17"
     targetdir ("bin/"..outputDir.."/%{prj.name}")
     objdir ("bin-int/"..outputDir.."/%{prj.name}")
+    staticruntime "on"
 
     pchheader "FGpch.h"
     pchsource "Forge/src/FGpch.cpp"
@@ -50,8 +52,12 @@ project "Forge"
         "opengl32.lib"
     }
 
+    defines{
+        "_CRT_SECURE_NO_WARNINGS",
+        "FG_ENABLE_ASSERTS"
+    }
+
     filter "system:Windows"
-        cppdialect "C++17"
         staticruntime "on"
         systemversion "latest"
         defines{
@@ -59,38 +65,32 @@ project "Forge"
             "FG_BUILD_DLL",
             "GLFW_INCLUDE_NONE"
         }
-    
-        postbuildcommands {
-            ("{COPY} %{cfg.buildtarget.relpath} \"../bin/"..outputDir.."/Sandbox/\"")
-        }
 
     filter "configurations: Debug"
         defines {
             "FG_DEBUG",
-            "FG_ENABLE_ASSERTS"
         }
-        staticruntime "off"
         runtime "Debug"
-        symbols "On"
+        symbols "on"
     
     filter "configurations: Release"
         defines "FG_RELEASE"
-        optimize "On"
-        staticruntime "off"
+        optimize "on"
         runtime "Release"
 
     filter "configurations: Dist"
         defines "FG_DIST"
-        optimize "On"
-        staticruntime "off"
+        optimize "on"
         runtime "Release"
 
 project "Sandbox"
     location "Sandbox"
     kind "ConsoleApp"
     language "C++"
+    cppdialect "C++17"
     targetdir ("bin/"..outputDir.."/%{prj.name}")
     objdir ("bin-int/"..outputDir.."/%{prj.name}")
+    staticruntime "on"
 
     files {
         "%{prj.name}/src/**.h",
@@ -105,7 +105,6 @@ project "Sandbox"
     }
 
     filter "system:Windows"
-        cppdialect "C++17"
         staticruntime "on"
         systemversion "latest"
 
@@ -119,20 +118,17 @@ project "Sandbox"
 
     filter "configurations: Debug"
         defines "FG_DEBUG"
-        symbols "On"
+        symbols "on"
         runtime "Debug"
-        staticruntime "off"
     
     filter "configurations: Release"
         defines "FG_RELEASE"
-        optimize "On"
-        staticruntime "off"
+        optimize "on"
         runtime "Release"
 
     filter "configurations: Dist"
         defines "FG_DIST"
-        optimize "On"
-        staticruntime "off"
+        optimize "on"
         runtime "Release"
 
     
