@@ -16,6 +16,12 @@ namespace Forge {
 		glfwMakeContextCurrent(m_windowHandle);
 		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 		FG_ASSERT(status, "GLAD failed to initalize");
+
+		FG_CORE_INFO("OpenGl Renderer:");
+
+		FG_CORE_INFO("    Vendor: {0}", (const char*)glGetString(GL_VENDOR));
+		FG_CORE_INFO("    Renderer: {0}", (const char*) glGetString(GL_RENDERER));
+		FG_CORE_INFO("    Version: {0}", (const char*)glGetString(GL_VERSION));
 	}
 
 	void OpenGlContext::SwapBuffers() {

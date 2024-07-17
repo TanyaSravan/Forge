@@ -24,10 +24,8 @@ public:
 			if (e.GetKeyCode() == FG_KEY_TAB)
 				FG_TRACE("Tab Key Was pressed (Event)"); 
 			FG_TRACE("{0}", (char)e.GetKeyCode());
-
 		}
 	}
-
 };
 
 
@@ -40,7 +38,6 @@ public:
 	~Sandbox() {
 
 	}
-
 };
 
 Forge::Application* Forge::CreateApplication() {
