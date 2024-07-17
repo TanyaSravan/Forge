@@ -5,6 +5,7 @@
 #include "Forge/Event/ApplicationEvents.h"
 #include "LayerStack.h"
 #include "Forge/ImGui/ImguiLayer.h"
+#include "Renderer/Shader.h"
 
 namespace Forge {
 	class FORGE_API Application
@@ -36,6 +37,8 @@ namespace Forge {
 		unsigned int m_VertexArray;
 		unsigned int m_VertexBuffer;
 		unsigned int m_IndexBuffer;
+
+		std::unique_ptr<Shader> m_Shader;
 	private:
 		static Application* s_Instance;
 	};

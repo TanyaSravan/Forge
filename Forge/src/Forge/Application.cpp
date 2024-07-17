@@ -4,6 +4,8 @@
 #include "glad/glad.h"
 #include "Forge/ImGui/ImguiLayer.h"
 
+
+
 namespace Forge {
 
 	Application* Application::s_Instance = nullptr;
@@ -40,6 +42,32 @@ namespace Forge {
 		unsigned int indexBuffer[3] = { 0, 1, 2 };
 
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indexBuffer), &indexBuffer, GL_STATIC_DRAW);
+
+		std::string vertexSrc = R"(
+			#version 410 core
+
+			layout(location = 0) in vec4 position;
+
+			out vec4 v_position;
+
+			void main(){
+				gl_Position = position;
+				v_position = position;
+			};
+		)";
+
+		std::string fragmentSrc = R"(
+			#version 410 core
+
+			layout(location = 0) out vec4 color;
+			in vec4 v_position;
+
+			void main(){
+			   color = v_position * 0.5 + 0.5;
+			};
+		)";
+
+		m_Shader.reset(new Shader(vertexSrc, fragmentSrc));
 	}
 
 	Application::~Application(){
@@ -78,6 +106,7 @@ namespace Forge {
 			glClearColor(0.1, 0.1, 0.1, 1);
 			glClear(GL_COLOR_BUFFER_BIT);
 
+			m_Shader->Bind();
 			glBindVertexArray(m_VertexArray);
 			glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
 

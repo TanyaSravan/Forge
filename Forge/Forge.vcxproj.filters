@@ -73,6 +73,7 @@
     </ClInclude>
     <ClInclude Include="src\Forge\Renderer\GraphicsContext.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGlContext.h" />
+    <ClInclude Include="src\Forge\Renderer\Shader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\FGpch.cpp" />
@@ -101,5 +102,6 @@
       <Filter>Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGlContext.cpp" />
+    <ClCompile Include="src\Forge\Renderer\Shader.cpp" />
   </ItemGroup>
 </Project>
