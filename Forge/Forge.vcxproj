@@ -142,10 +142,14 @@
     <ClInclude Include="src\Forge\LayerStack.h" />
     <ClInclude Include="src\Forge\Log.h" />
     <ClInclude Include="src\Forge\MouseButtonCodes.h" />
+    <ClInclude Include="src\Forge\Renderer\Buffers.h" />
     <ClInclude Include="src\Forge\Renderer\GraphicsContext.h" />
+    <ClInclude Include="src\Forge\Renderer\Renderer.h" />
     <ClInclude Include="src\Forge\Renderer\Shader.h" />
     <ClInclude Include="src\Forge\Window.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGlBuffers.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGlContext.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGlShader.h" />
     <ClInclude Include="src\Platform\Windows\WindowsInput.h" />
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
   </ItemGroup>
@@ -159,8 +163,12 @@
     <ClCompile Include="src\Forge\Layer.cpp" />
     <ClCompile Include="src\Forge\LayerStack.cpp" />
     <ClCompile Include="src\Forge\Log.cpp" />
+    <ClCompile Include="src\Forge\Renderer\Buffers.cpp" />
+    <ClCompile Include="src\Forge\Renderer\Renderer.cpp" />
     <ClCompile Include="src\Forge\Renderer\Shader.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGlBuffers.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGlContext.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGlShader.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsInput.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />
   </ItemGroup>

@@ -74,6 +74,10 @@
     <ClInclude Include="src\Forge\Renderer\GraphicsContext.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGlContext.h" />
     <ClInclude Include="src\Forge\Renderer\Shader.h" />
+    <ClInclude Include="src\Forge\Renderer\Buffers.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGlBuffers.h" />
+    <ClInclude Include="src\Forge\Renderer\Renderer.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGlShader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\FGpch.cpp" />
@@ -103,5 +107,9 @@
     </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGlContext.cpp" />
     <ClCompile Include="src\Forge\Renderer\Shader.cpp" />
+    <ClCompile Include="src\Forge\Renderer\Buffers.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGlBuffers.cpp" />
+    <ClCompile Include="src\Forge\Renderer\Renderer.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGlShader.cpp" />
   </ItemGroup>
 </Project>
