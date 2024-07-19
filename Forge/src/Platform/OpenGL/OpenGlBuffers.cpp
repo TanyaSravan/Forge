@@ -24,7 +24,6 @@ namespace Forge {
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 	}
 
-
 	//Index Buffer
 	OpenGlIndexBuffers::OpenGlIndexBuffers(uint32_t* indices, uint32_t count)
 		:m_Count(count) 

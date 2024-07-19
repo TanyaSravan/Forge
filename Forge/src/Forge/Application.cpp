@@ -4,11 +4,30 @@
 #include "glad/glad.h"
 #include "Forge/ImGui/ImguiLayer.h"
 
-
-
 namespace Forge {
 
 	Application* Application::s_Instance = nullptr;
+
+	static GLenum GetShaderDataTypetoOpenGLBaseType(const ShaderDataType& type) {
+		switch (type)
+		{
+		case Forge::ShaderDataType::None:			FG_CORE_ASSERT(false, "Does notsupport none ShaderType"); return GL_NONE;
+		case Forge::ShaderDataType::Float:			return GL_FLOAT;
+		case Forge::ShaderDataType::Float2:			return GL_FLOAT;
+		case Forge::ShaderDataType::Float3:			return GL_FLOAT;
+		case Forge::ShaderDataType::Float4:			return GL_FLOAT;
+		case Forge::ShaderDataType::Int:			return GL_INT;
+		case Forge::ShaderDataType::Int2:			return GL_INT;
+		case Forge::ShaderDataType::Int3:			return GL_INT;
+		case Forge::ShaderDataType::Int4:			return GL_INT;
+		case Forge::ShaderDataType::Mat3:			return GL_FLOAT;
+		case Forge::ShaderDataType::Mat4:			return GL_FLOAT;
+		case Forge::ShaderDataType::Bool:			return GL_BOOL;
+		}
+
+		FG_CORE_ASSERT(false, "Unknown Shader DataType");
+		return 0;
+	}
 
 	Application::Application(){
 		m_window = std::unique_ptr<Window>(Window::Create());
@@ -23,16 +42,36 @@ namespace Forge {
 		glGenVertexArrays(1, &m_VertexArray);
 		glBindVertexArray(m_VertexArray);
 
-		float vertices[3 * 3] = {
-			-0.5f, -0.5f, 0.0f,
-			 0.5f, -0.5f, 0.0f,
-			 0.0f,  0.5f, 0.0f
+		float vertices[3 * 7] = {
+			-0.5f, -0.5f, 0.0f, 0.8f, 0.2f, 1.0f, 1.0f,
+			 0.5f, -0.5f, 0.0f,	0.2f, 0.8f, 0.3f, 1.0f,
+			 0.0f,  0.5f, 0.0f,	0.8f, 0.8f, 0.2f, 1.0f
 		};
 
 		m_VertexBuffer.reset(VertexBuffer::Create(vertices, sizeof(vertices)));
 
-		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3, nullptr);
+		{
+			BufferLayout layout = {
+				{ShaderDataType::Float3, "position"},
+				{ShaderDataType::Float4, "color"},
+			};
+
+			m_VertexBuffer->SetLayout(layout);
+		}
+
+		const auto& layout = m_VertexBuffer->GetLayout();
+		unsigned int index = 0;
+
+		for (auto& element : layout) {
+			glEnableVertexAttribArray(index);
+			glVertexAttribPointer(index,
+				element.GetElementCount(element.Type),
+				GetShaderDataTypetoOpenGLBaseType(element.Type),
+				element.Normalised ? GL_TRUE : GL_FALSE,
+				layout.GetStride(),
+				(const void*)element.Offset);
+			index++;
+		}
 
 		unsigned int indices[3] = { 0, 1, 2 };
 
@@ -42,11 +81,14 @@ namespace Forge {
 			#version 410 core
 
 			layout(location = 0) in vec4 position;
+			layout(location = 1) in vec4 color;
 
 			out vec4 v_position;
+			out vec4 v_color;
 
 			void main(){
 				gl_Position = position;
+				v_color = color;
 				v_position = position;
 			};
 		)";
@@ -56,9 +98,11 @@ namespace Forge {
 
 			layout(location = 0) out vec4 color;
 			in vec4 v_position;
+			in vec4 v_color;
 
 			void main(){
 			   color = v_position * 0.5 + 0.5;
+			   color = v_color;
 			};
 		)";
 
