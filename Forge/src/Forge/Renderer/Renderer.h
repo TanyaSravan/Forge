@@ -1,18 +1,17 @@
 #pragma once
+#include "RenderCommands.h"
 
 namespace Forge {
 
-	enum class RenderAPI
-	{
-		None = 0,
-		OpenGL = 1,
-	};
-
 	class Renderer {
 	public:
-		inline static RenderAPI GetAPI() { return s_RenderAPI; }
+		static void BeginScene() {};
+		static void EndScene() {};
 
-	private:
-		static RenderAPI s_RenderAPI;
+		static void Submit(const std::shared_ptr<VertexArray>& vertexArray) {
+			RenderCommands::DrawIndexed(vertexArray);
+		}
+
+		inline static RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); }
 	};
 }

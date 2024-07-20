@@ -11,8 +11,8 @@ namespace Forge {
 
 		switch (Renderer::GetAPI())
 		{
-			case RenderAPI::None:		FG_CORE_ASSERT(false, "Currently does not support RendererAPI::None"); return nullptr;
-			case RenderAPI::OpenGL:		return new OpenGLShader(VertexShaderSrc, FragmentShaderSrc);
+			case RendererAPI::API::None:		FG_CORE_ASSERT(false, "Currently does not support RendererAPI::None"); return nullptr;
+			case RendererAPI::API::OpenGL:		return new OpenGLShader(VertexShaderSrc, FragmentShaderSrc);
 		}
 
 	}

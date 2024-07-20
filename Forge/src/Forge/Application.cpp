@@ -3,6 +3,7 @@
 #include "Input.h"
 #include "glad/glad.h"
 #include "Forge/ImGui/ImguiLayer.h"
+#include "Forge/Renderer/Renderer.h"
 
 namespace Forge {
 
@@ -156,18 +157,19 @@ namespace Forge {
 
 	void Application::Run() {
 		while (m_Running) {
-			glClearColor(0.1, 0.1, 0.1, 1);
-			glClear(GL_COLOR_BUFFER_BIT);
+
+			RenderCommands::SetClearColor({ 0.1, 0.1, 0.1, 1 });
+			RenderCommands::Clear();
+
+			Renderer::BeginScene();
 
 			m_BlueShader->Bind();
-			m_SquareVA->Bind();
-
-			glDrawElements(GL_TRIANGLES, m_SquareVA->GetIndexBuffers()->GetCount(), GL_UNSIGNED_INT, nullptr);
+			RenderCommands::DrawIndexed(m_SquareVA);
 
 			m_Shader->Bind();
-			m_TriangleVA->Bind();
+			RenderCommands::DrawIndexed(m_TriangleVA);
 
-			glDrawElements(GL_TRIANGLES, m_TriangleVA->GetIndexBuffers()->GetCount(), GL_UNSIGNED_INT, nullptr);
+			Renderer::EndScene();
 
 			for (Layer* layer : m_layerStack) {
 				layer->OnUpdate();
