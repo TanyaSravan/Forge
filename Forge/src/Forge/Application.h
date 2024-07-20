@@ -7,6 +7,7 @@
 #include "Forge/ImGui/ImguiLayer.h"
 #include "Renderer/Shader.h"
 #include "Renderer/Buffers.h"
+#include "Renderer/VertexArray.h"
 
 namespace Forge {
 	class FORGE_API Application
@@ -35,12 +36,11 @@ namespace Forge {
 		bool m_Running = true;
 		LayerStack m_layerStack;
 
-		unsigned int m_VertexArray;
+		std::shared_ptr<Shader> m_Shader;
+		std::shared_ptr<VertexArray> m_TriangleVA;
 
-		std::unique_ptr<Shader> m_Shader;
-		std::unique_ptr<VertexBuffer> m_VertexBuffer;
-		std::unique_ptr<IndexBuffer> m_IndexBuffer;
-
+		std::shared_ptr<VertexArray> m_SquareVA;
+		std::shared_ptr<Shader> m_BlueShader;
 	private:
 		static Application* s_Instance;
 	};

@@ -8,27 +8,6 @@ namespace Forge {
 
 	Application* Application::s_Instance = nullptr;
 
-	static GLenum GetShaderDataTypetoOpenGLBaseType(const ShaderDataType& type) {
-		switch (type)
-		{
-		case Forge::ShaderDataType::None:			FG_CORE_ASSERT(false, "Does notsupport none ShaderType"); return GL_NONE;
-		case Forge::ShaderDataType::Float:			return GL_FLOAT;
-		case Forge::ShaderDataType::Float2:			return GL_FLOAT;
-		case Forge::ShaderDataType::Float3:			return GL_FLOAT;
-		case Forge::ShaderDataType::Float4:			return GL_FLOAT;
-		case Forge::ShaderDataType::Int:			return GL_INT;
-		case Forge::ShaderDataType::Int2:			return GL_INT;
-		case Forge::ShaderDataType::Int3:			return GL_INT;
-		case Forge::ShaderDataType::Int4:			return GL_INT;
-		case Forge::ShaderDataType::Mat3:			return GL_FLOAT;
-		case Forge::ShaderDataType::Mat4:			return GL_FLOAT;
-		case Forge::ShaderDataType::Bool:			return GL_BOOL;
-		}
-
-		FG_CORE_ASSERT(false, "Unknown Shader DataType");
-		return 0;
-	}
-
 	Application::Application(){
 		m_window = std::unique_ptr<Window>(Window::Create());
 		m_window->SetEventCallback(FG_BIND_EVENT_FN(Application::OnEvent));
@@ -39,43 +18,32 @@ namespace Forge {
 		imgui_layer = new ImGuiLayer();
 		PushOverlay(imgui_layer);
 		
-		glGenVertexArrays(1, &m_VertexArray);
-		glBindVertexArray(m_VertexArray);
+		m_TriangleVA.reset(VertexArray::Create());
 
 		float vertices[3 * 7] = {
 			-0.5f, -0.5f, 0.0f, 0.8f, 0.2f, 1.0f, 1.0f,
-			 0.5f, -0.5f, 0.0f,	0.2f, 0.8f, 0.3f, 1.0f,
-			 0.0f,  0.5f, 0.0f,	0.8f, 0.8f, 0.2f, 1.0f
+			 0.5f, -0.5f, 0.0f,	0.8f, 0.2f, 0.1f, 1.0f,
+			 0.0f,  0.5f, 0.0f,	0.2f, 0.3f, 0.8f, 1.0f
 		};
 
-		m_VertexBuffer.reset(VertexBuffer::Create(vertices, sizeof(vertices)));
+		std::shared_ptr<VertexBuffer> triangleVB;
+		triangleVB.reset(VertexBuffer::Create(vertices, sizeof(vertices)));
 
-		{
-			BufferLayout layout = {
-				{ShaderDataType::Float3, "position"},
-				{ShaderDataType::Float4, "color"},
-			};
 
-			m_VertexBuffer->SetLayout(layout);
-		}
+		BufferLayout layout = {
+			{ShaderDataType::Float3, "position"},
+			{ShaderDataType::Float4, "color"},
+		};
 
-		const auto& layout = m_VertexBuffer->GetLayout();
-		unsigned int index = 0;
+		triangleVB->SetLayout(layout);
 
-		for (auto& element : layout) {
-			glEnableVertexAttribArray(index);
-			glVertexAttribPointer(index,
-				element.GetElementCount(element.Type),
-				GetShaderDataTypetoOpenGLBaseType(element.Type),
-				element.Normalised ? GL_TRUE : GL_FALSE,
-				layout.GetStride(),
-				(const void*)element.Offset);
-			index++;
-		}
+		m_TriangleVA->AddVertexBuffer(triangleVB);
 
 		unsigned int indices[3] = { 0, 1, 2 };
 
-		m_IndexBuffer.reset(IndexBuffer::Create(indices, 3));
+		std::shared_ptr<IndexBuffer> triangleIB;
+		triangleIB.reset(IndexBuffer::Create(indices, 3));
+		m_TriangleVA->SetIndexBuffer(triangleIB);
 
 		std::string vertexSrc = R"(
 			#version 410 core
@@ -107,6 +75,52 @@ namespace Forge {
 		)";
 
 		m_Shader.reset(Shader::Create(vertexSrc, fragmentSrc));
+
+		m_SquareVA.reset(VertexArray::Create());
+		float Squarevertices[3 * 4] = {
+			-0.75f, -0.75f, 0.0f,
+			 0.75f, -0.75f, 0.0f,	
+			 0.75f,  0.75f, 0.0f,
+			-0.75f,  0.75f, 0.0f,
+		};
+
+		std::shared_ptr<VertexBuffer> squareVB;
+		squareVB.reset(VertexBuffer::Create(Squarevertices, sizeof(Squarevertices)));
+
+		BufferLayout Squarelayout = {
+			{ShaderDataType::Float3, "position"},
+		};
+
+		squareVB->SetLayout(Squarelayout);
+		m_SquareVA->AddVertexBuffer(squareVB);
+
+		unsigned int Squareindices[6] = { 0, 1, 2, 2, 3, 0 };
+		std::shared_ptr<IndexBuffer>squareIB;
+		squareIB.reset(IndexBuffer::Create(Squareindices, 6));
+
+		m_SquareVA->SetIndexBuffer(squareIB);
+
+		std::string bluevertexSrc = R"(
+			#version 410 core
+			layout(location = 0) in vec4 position;
+
+			void main(){
+				gl_Position = position;
+			};
+		)";
+
+		std::string bluefragmentSrc = R"(
+			#version 410 core
+
+			layout(location = 0) out vec4 color;
+
+			void main(){
+			   color = vec4(0.2f,0.6f,0.6f,1.0f);
+			};
+		)";
+
+		m_BlueShader.reset(Shader::Create(bluevertexSrc, bluefragmentSrc));
+
 	}
 
 	Application::~Application(){
@@ -145,10 +159,15 @@ namespace Forge {
 			glClearColor(0.1, 0.1, 0.1, 1);
 			glClear(GL_COLOR_BUFFER_BIT);
 
-			m_Shader->Bind();
+			m_BlueShader->Bind();
+			m_SquareVA->Bind();
 
-			glBindVertexArray(m_VertexArray);
-			glDrawElements(GL_TRIANGLES, m_IndexBuffer->GetCount(), GL_UNSIGNED_INT, nullptr);
+			glDrawElements(GL_TRIANGLES, m_SquareVA->GetIndexBuffers()->GetCount(), GL_UNSIGNED_INT, nullptr);
+
+			m_Shader->Bind();
+			m_TriangleVA->Bind();
+
+			glDrawElements(GL_TRIANGLES, m_TriangleVA->GetIndexBuffers()->GetCount(), GL_UNSIGNED_INT, nullptr);
 
 			for (Layer* layer : m_layerStack) {
 				layer->OnUpdate();

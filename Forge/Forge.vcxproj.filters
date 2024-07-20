@@ -78,6 +78,8 @@
     <ClInclude Include="src\Platform\OpenGL\OpenGlBuffers.h" />
     <ClInclude Include="src\Forge\Renderer\Renderer.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGlShader.h" />
+    <ClInclude Include="src\Forge\Renderer\VertexArray.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGlVertexArray.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\FGpch.cpp" />
@@ -111,5 +113,7 @@
     <ClCompile Include="src\Platform\OpenGL\OpenGlBuffers.cpp" />
     <ClCompile Include="src\Forge\Renderer\Renderer.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGlShader.cpp" />
+    <ClCompile Include="src\Forge\Renderer\VertexArray.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGlVertexArray.cpp" />
   </ItemGroup>
 </Project>
