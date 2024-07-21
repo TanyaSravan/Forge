@@ -5,9 +5,6 @@
 #include "Forge/Event/ApplicationEvents.h"
 #include "LayerStack.h"
 #include "Forge/ImGui/ImguiLayer.h"
-#include "Renderer/Shader.h"
-#include "Renderer/Buffers.h"
-#include "Renderer/VertexArray.h"
 
 namespace Forge {
 	class FORGE_API Application

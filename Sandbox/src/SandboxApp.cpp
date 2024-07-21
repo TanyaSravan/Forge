@@ -116,11 +116,27 @@ public:
 	}
 
 	void OnUpdate() override {
+
+		if (Forge::Input::IsKeyPressed(FG_KEY_LEFT))
+			m_CamPosition.x += m_CamMoveSpeed;
+		else if (Forge::Input::IsKeyPressed(FG_KEY_RIGHT))
+			m_CamPosition.x -= m_CamMoveSpeed;
+		if (Forge::Input::IsKeyPressed(FG_KEY_UP))
+			m_CamPosition.y += m_CamMoveSpeed;
+		else if (Forge::Input::IsKeyPressed(FG_KEY_DOWN))
+			m_CamPosition.y -= m_CamMoveSpeed;
+
+		if (Forge::Input::IsKeyPressed(FG_KEY_A))
+			m_CamRotation += m_CamRotSpeed;
+		else if (Forge::Input::IsKeyPressed(FG_KEY_D))
+			m_CamRotation -= m_CamRotSpeed;
+
+
 		Forge::RenderCommands::SetClearColor({ 0.1, 0.1, 0.1, 1 });
 		Forge::RenderCommands::Clear();
 
-		m_orthoCam.SetPosition({ 0.5f,0.0f,0.0f });
-		m_orthoCam.SetRotation(45.0f);
+		m_orthoCam.SetPosition(m_CamPosition);
+		m_orthoCam.SetRotation(m_CamRotation);
 
 		Forge::Renderer::BeginScene(m_orthoCam);
 		Forge::Renderer::Submit(m_BlueShader,m_SquareVA);
@@ -136,12 +152,13 @@ public:
 	}
 
 	void OnEvent(Forge::Event& event) override {
-		if (event.GetEventType() == Forge::EventType::KeyPressed) {
-			Forge::KeyPressedEvent& e = (Forge::KeyPressedEvent&)event;
-			if (e.GetKeyCode() == FG_KEY_TAB)
-				FG_TRACE("Tab Key Was pressed (Event)"); 
-			FG_TRACE("{0}", (char)e.GetKeyCode());
-		}
+		Forge::EventDispatcher dispatcher(event);
+		dispatcher.Dispatch<Forge::KeyPressedEvent>(FG_BIND_EVENT_FN(ExampleLayer::OnKeyPressedEvent));
+	}
+
+	bool OnKeyPressedEvent(Forge::KeyPressedEvent& event) {
+
+		return false;
 	}
 
 	private:
@@ -152,6 +169,10 @@ public:
 		std::shared_ptr<Forge::Shader> m_BlueShader;
 
 		Forge::OrthographicCamera m_orthoCam;
+		glm::vec3 m_CamPosition = { 0.0f,0.0f,0.0f };
+		float m_CamRotation = 0.0f;
+		float m_CamMoveSpeed = 0.1f;
+		float m_CamRotSpeed = 2.0f;
 };
 
 
