@@ -83,6 +83,7 @@
     <ClInclude Include="src\Forge\Renderer\RendererAPI.h" />
     <ClInclude Include="src\Forge\Renderer\RenderCommands.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGlRendererAPI.h" />
+    <ClInclude Include="src\Forge\Renderer\Camera.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\FGpch.cpp" />
@@ -121,5 +122,6 @@
     <ClCompile Include="src\Forge\Renderer\RendererAPI.cpp" />
     <ClCompile Include="src\Forge\Renderer\RenderCommands.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLRendererAPI.cpp" />
+    <ClCompile Include="src\Forge\Renderer\Camera.cpp" />
   </ItemGroup>
 </Project>

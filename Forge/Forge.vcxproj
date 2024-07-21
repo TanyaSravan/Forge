@@ -143,6 +143,7 @@
     <ClInclude Include="src\Forge\Log.h" />
     <ClInclude Include="src\Forge\MouseButtonCodes.h" />
     <ClInclude Include="src\Forge\Renderer\Buffers.h" />
+    <ClInclude Include="src\Forge\Renderer\Camera.h" />
     <ClInclude Include="src\Forge\Renderer\GraphicsContext.h" />
     <ClInclude Include="src\Forge\Renderer\RenderCommands.h" />
     <ClInclude Include="src\Forge\Renderer\Renderer.h" />
@@ -169,6 +170,7 @@
     <ClCompile Include="src\Forge\LayerStack.cpp" />
     <ClCompile Include="src\Forge\Log.cpp" />
     <ClCompile Include="src\Forge\Renderer\Buffers.cpp" />
+    <ClCompile Include="src\Forge\Renderer\Camera.cpp" />
     <ClCompile Include="src\Forge\Renderer\RenderCommands.cpp" />
     <ClCompile Include="src\Forge\Renderer\Renderer.cpp" />
     <ClCompile Include="src\Forge\Renderer\RendererAPI.cpp" />

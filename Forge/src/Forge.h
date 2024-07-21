@@ -9,6 +9,12 @@
 #include "Forge/Keycodes.h"
 #include "Forge/MouseButtonCodes.h"
 
+#include "Forge/Renderer/Buffers.h"
+#include "Forge/Renderer/Renderer.h"
+#include "Forge/Renderer/Shader.h"
+
+#include "Forge/Renderer/Camera.h"
+
 //---------------------------ENTRY POINT-------------------------------
 #include "Forge/EntryPoint.h"
 //---------------------------ENTRY POINT-------------------------------
