@@ -3,6 +3,9 @@
 #include "Input.h"
 #include "Forge/ImGui/ImguiLayer.h"
 #include "Forge/Renderer/Renderer.h"
+#include "Forge/Core/Timestep.h"
+
+#include "GLFW/glfw3.h"
 
 namespace Forge {
 
@@ -53,8 +56,12 @@ namespace Forge {
 	void Application::Run() {
 		while (m_Running) {
 
+			float time = (float)glfwGetTime();
+			Timestep deltatime = time - m_LastFrameTime;
+			m_LastFrameTime = time;
+
 			for (Layer* layer : m_layerStack) {
-				layer->OnUpdate();
+				layer->OnUpdate(deltatime);
 			}
 
 			imgui_layer->Begin();

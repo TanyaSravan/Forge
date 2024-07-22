@@ -33,11 +33,8 @@ namespace Forge {
 		bool m_Running = true;
 		LayerStack m_layerStack;
 
-		std::shared_ptr<Shader> m_Shader;
-		std::shared_ptr<VertexArray> m_TriangleVA;
+		float m_LastFrameTime = 0.0f;
 
-		std::shared_ptr<VertexArray> m_SquareVA;
-		std::shared_ptr<Shader> m_BlueShader;
 	private:
 		static Application* s_Instance;
 	};

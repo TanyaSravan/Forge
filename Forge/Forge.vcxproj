@@ -130,6 +130,7 @@
     <ClInclude Include="src\Forge.h" />
     <ClInclude Include="src\Forge\Application.h" />
     <ClInclude Include="src\Forge\Core.h" />
+    <ClInclude Include="src\Forge\Core\Timestep.h" />
     <ClInclude Include="src\Forge\EntryPoint.h" />
     <ClInclude Include="src\Forge\Event\ApplicationEvents.h" />
     <ClInclude Include="src\Forge\Event\Event.h" />

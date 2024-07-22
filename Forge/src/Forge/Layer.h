@@ -1,6 +1,7 @@
 #pragma once
 #include "Core.h"
 #include "Event/Event.h"
+#include "Forge/Core/Timestep.h"
 
 namespace Forge {
 	
@@ -12,7 +13,7 @@ namespace Forge {
 
 		virtual void OnAttach() {}
 		virtual void OnDetach() {}
-		virtual void OnUpdate() {}
+		virtual void OnUpdate(Timestep deltatime) {}
 		virtual void OnImGuiRender() {}
 		virtual void OnEvent(Event& event) {}
 

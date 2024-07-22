@@ -84,6 +84,7 @@
     <ClInclude Include="src\Forge\Renderer\RenderCommands.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGlRendererAPI.h" />
     <ClInclude Include="src\Forge\Renderer\Camera.h" />
+    <ClInclude Include="src\Forge\Core\Timestep.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\FGpch.cpp" />

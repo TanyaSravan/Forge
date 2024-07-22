@@ -9,6 +9,8 @@
 #include "Forge/Keycodes.h"
 #include "Forge/MouseButtonCodes.h"
 
+#include "Forge/Core/Timestep.h"
+
 //------------------Renderer---------------------------
 #include "Forge/Renderer/Buffers.h"
 #include "Forge/Renderer/Shader.h"

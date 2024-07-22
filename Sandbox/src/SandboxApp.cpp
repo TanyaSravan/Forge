@@ -1,5 +1,6 @@
 #include "Forge.h"
 #include "imgui/imgui.h"
+#include "glm/gtc/matrix_transform.hpp"
 
 
 class ExampleLayer : public Forge::Layer {
@@ -41,12 +42,13 @@ public:
 			layout(location = 1) in vec4 color;
 			
 			uniform mat4 u_VP;
+			uniform mat4 u_Transform;
 
 			out vec4 v_position;
 			out vec4 v_color;
 
 			void main(){
-				gl_Position = u_VP * position;
+				gl_Position = u_VP * u_Transform * position;
 				v_color = color;
 				v_position = position;
 			};
@@ -69,10 +71,10 @@ public:
 
 		m_SquareVA.reset(Forge::VertexArray::Create());
 		float Squarevertices[3 * 4] = {
-			-0.75f, -0.75f, 0.0f,
-			 0.75f, -0.75f, 0.0f,
-			 0.75f,  0.75f, 0.0f,
-			-0.75f,  0.75f, 0.0f,
+			-0.5f, -0.5f, 0.0f,
+			 0.5f, -0.5f, 0.0f,
+			 0.5f,  0.5f, 0.0f,
+			-0.5f,  0.5f, 0.0f,
 		};
 
 		std::shared_ptr<Forge::VertexBuffer> squareVB;
@@ -96,9 +98,10 @@ public:
 			layout(location = 0) in vec4 position;
 
 			uniform mat4 u_VP;
+			uniform mat4 u_Transform;
 
 			void main(){
-				gl_Position = u_VP * position;
+				gl_Position = u_VP * u_Transform * position;
 			};
 		)";
 
@@ -115,21 +118,21 @@ public:
 		m_BlueShader.reset(Forge::Shader::Create(bluevertexSrc, bluefragmentSrc));
 	}
 
-	void OnUpdate() override {
+	void OnUpdate(Forge::Timestep time) override {
 
 		if (Forge::Input::IsKeyPressed(FG_KEY_LEFT))
-			m_CamPosition.x += m_CamMoveSpeed;
+			m_CamPosition.x += m_CamMoveSpeed * time;
 		else if (Forge::Input::IsKeyPressed(FG_KEY_RIGHT))
-			m_CamPosition.x -= m_CamMoveSpeed;
+			m_CamPosition.x -= m_CamMoveSpeed * time;
 		if (Forge::Input::IsKeyPressed(FG_KEY_UP))
-			m_CamPosition.y += m_CamMoveSpeed;
+			m_CamPosition.y += m_CamMoveSpeed * time;
 		else if (Forge::Input::IsKeyPressed(FG_KEY_DOWN))
-			m_CamPosition.y -= m_CamMoveSpeed;
+			m_CamPosition.y -= m_CamMoveSpeed * time;
 
 		if (Forge::Input::IsKeyPressed(FG_KEY_A))
-			m_CamRotation += m_CamRotSpeed;
+			m_CamRotation += m_CamRotSpeed * time;
 		else if (Forge::Input::IsKeyPressed(FG_KEY_D))
-			m_CamRotation -= m_CamRotSpeed;
+			m_CamRotation -= m_CamRotSpeed * time;
 
 
 		Forge::RenderCommands::SetClearColor({ 0.1, 0.1, 0.1, 1 });
@@ -138,10 +141,19 @@ public:
 		m_orthoCam.SetPosition(m_CamPosition);
 		m_orthoCam.SetRotation(m_CamRotation);
 
-		Forge::Renderer::BeginScene(m_orthoCam);
-		Forge::Renderer::Submit(m_BlueShader,m_SquareVA);
-		Forge::Renderer::Submit(m_Shader,m_TriangleVA);
+		static glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
 
+		Forge::Renderer::BeginScene(m_orthoCam);
+
+		for (int x = 0; x < 20; x++) {
+			for (int y = 0; y < 20; y++) {
+				glm::vec3 pos = glm::vec3(x * 0.11f, y * 0.11f, 0.0f);
+				glm::mat4 squareTransform = glm::translate(glm::mat4(1.0f), pos) * scale;
+				Forge::Renderer::Submit(m_BlueShader, m_SquareVA, squareTransform);
+			}
+		}
+
+		Forge::Renderer::Submit(m_Shader,m_TriangleVA);
 		Forge::Renderer::EndScene();
 	}
 
@@ -171,8 +183,8 @@ public:
 		Forge::OrthographicCamera m_orthoCam;
 		glm::vec3 m_CamPosition = { 0.0f,0.0f,0.0f };
 		float m_CamRotation = 0.0f;
-		float m_CamMoveSpeed = 0.1f;
-		float m_CamRotSpeed = 2.0f;
+		float m_CamMoveSpeed = 5.0f;
+		float m_CamRotSpeed = 180.0f;
 };
 
 
