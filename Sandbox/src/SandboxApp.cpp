@@ -1,6 +1,11 @@
 #include "Forge.h"
+
+#include "Platform/OpenGL/OpenGlShader.h"
+
 #include "imgui/imgui.h"
+
 #include "glm/gtc/matrix_transform.hpp"
+#include "glm/gtc/type_ptr.hpp"
 
 
 class ExampleLayer : public Forge::Layer {
@@ -109,9 +114,10 @@ public:
 			#version 410 core
 
 			layout(location = 0) out vec4 color;
+			uniform vec3 u_Color;
 
 			void main(){
-			   color = vec4(0.2f,0.6f,0.6f,1.0f);
+			   color = vec4(u_Color,1.0f);
 			};
 		)";
 
@@ -120,18 +126,18 @@ public:
 
 	void OnUpdate(Forge::Timestep time) override {
 
-		if (Forge::Input::IsKeyPressed(FG_KEY_LEFT))
+		if (Forge::Input::IsKeyPressed(FG_KEY_A))
 			m_CamPosition.x += m_CamMoveSpeed * time;
-		else if (Forge::Input::IsKeyPressed(FG_KEY_RIGHT))
+		else if (Forge::Input::IsKeyPressed(FG_KEY_D))
 			m_CamPosition.x -= m_CamMoveSpeed * time;
-		if (Forge::Input::IsKeyPressed(FG_KEY_UP))
+		if (Forge::Input::IsKeyPressed(FG_KEY_W))
 			m_CamPosition.y += m_CamMoveSpeed * time;
-		else if (Forge::Input::IsKeyPressed(FG_KEY_DOWN))
+		else if (Forge::Input::IsKeyPressed(FG_KEY_S))
 			m_CamPosition.y -= m_CamMoveSpeed * time;
 
-		if (Forge::Input::IsKeyPressed(FG_KEY_A))
+		if (Forge::Input::IsKeyPressed(FG_KEY_RIGHT))
 			m_CamRotation += m_CamRotSpeed * time;
-		else if (Forge::Input::IsKeyPressed(FG_KEY_D))
+		else if (Forge::Input::IsKeyPressed(FG_KEY_LEFT))
 			m_CamRotation -= m_CamRotSpeed * time;
 
 
@@ -144,6 +150,9 @@ public:
 		static glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
 
 		Forge::Renderer::BeginScene(m_orthoCam);
+
+		std::dynamic_pointer_cast<Forge::OpenGLShader>(m_BlueShader)->Bind();
+		std::dynamic_pointer_cast<Forge::OpenGLShader>(m_BlueShader)->UploadUniformFloat3("u_Color", m_SquareColor);
 
 		for (int x = 0; x < 20; x++) {
 			for (int y = 0; y < 20; y++) {
@@ -158,8 +167,8 @@ public:
 	}
 
 	void OnImGuiRender() override {
-		ImGui::Begin("Test");
-		ImGui::Text("Hello World");
+		ImGui::Begin("Settings");
+		ImGui::ColorEdit3("Square Color", glm::value_ptr(m_SquareColor));
 		ImGui::End();
 	}
 
@@ -179,6 +188,7 @@ public:
 
 		std::shared_ptr<Forge::VertexArray> m_SquareVA;
 		std::shared_ptr<Forge::Shader> m_BlueShader;
+		glm::vec3 m_SquareColor = { 0.2f,0.6f,0.4f };
 
 		Forge::OrthographicCamera m_orthoCam;
 		glm::vec3 m_CamPosition = { 0.0f,0.0f,0.0f };
