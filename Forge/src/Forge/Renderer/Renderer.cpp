@@ -17,4 +17,8 @@ namespace Forge {
 		std::dynamic_pointer_cast<OpenGLShader>(shader)->UploadUniformMat4("u_Transform", transform);
 		RenderCommands::DrawIndexed(vertexArray);
 	}
+
+	void Renderer::Init() {
+		RenderCommands::Init();
+	}
 }

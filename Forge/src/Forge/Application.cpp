@@ -18,6 +18,8 @@ namespace Forge {
 		FG_CORE_ASSERT(!s_Instance, "Application already exists");
 		s_Instance = this;
 
+		Renderer::Init();
+
 		imgui_layer = new ImGuiLayer();
 		PushOverlay(imgui_layer);
 	}

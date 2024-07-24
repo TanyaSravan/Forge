@@ -18,6 +18,8 @@ namespace Forge {
 
 		virtual void DrawIndexed(const Ref<VertexArray>& vertexArray) = 0;
 
+		virtual void Init() = 0;
+
 		static API GetAPI() { return s_API; }
 
 	private:

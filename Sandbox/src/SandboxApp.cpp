@@ -155,10 +155,11 @@ public:
 		)";
 
 		m_TextureShader = Forge::Shader::Create(TexvertexSrc, TexfragmentSrc);
-		m_Texture2D = Forge::Texture2D::Create("assets/logo.png");
+		m_Texture2D = Forge::Texture2D::Create("assets/CheckerBoard.png");
+		m_LogoTexture = Forge::Texture2D::Create("assets/logo.png");
 
 		std::dynamic_pointer_cast<Forge::OpenGLShader>(m_TextureShader)->Bind();
-		std::dynamic_pointer_cast<Forge::OpenGLShader>(m_TextureShader)->UploadUniformInt("u_Texture", 0);
+		std::dynamic_pointer_cast<Forge::OpenGLShader>(m_TextureShader)->UploadUniformInt("u_Texture", 0);	
 	}
 
 	void OnUpdate(Forge::Timestep time) override {
@@ -202,6 +203,8 @@ public:
 		m_Texture2D->Bind();
 		glm::mat4 TextureTransform = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f));
 		Forge::Renderer::Submit(m_TextureShader, m_SquareVA, TextureTransform);
+		m_LogoTexture->Bind();
+		Forge::Renderer::Submit(m_TextureShader, m_SquareVA, TextureTransform);
 		
 		//Forge::Renderer::Submit(m_Shader,m_TriangleVA);
 		Forge::Renderer::EndScene();
@@ -229,7 +232,7 @@ public:
 
 		Forge::Ref<Forge::VertexArray> m_SquareVA;
 		Forge::Ref<Forge::Shader> m_BlueShader, m_TextureShader;
-		Forge::Ref<Forge::Texture2D> m_Texture2D;
+		Forge::Ref<Forge::Texture2D> m_Texture2D, m_LogoTexture;
 
 		glm::vec3 m_SquareColor = { 0.2f,0.6f,0.4f };
 
