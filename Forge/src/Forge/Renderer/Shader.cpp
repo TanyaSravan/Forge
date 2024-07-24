@@ -7,13 +7,12 @@
 
 
 namespace Forge {
-	Shader* Shader::Create(const std::string& VertexShaderSrc, const std::string& FragmentShaderSrc) {
+	Ref<Shader> Shader::Create(const std::string& VertexShaderSrc, const std::string& FragmentShaderSrc) {
 
 		switch (Renderer::GetAPI())
 		{
 			case RendererAPI::API::None:		FG_CORE_ASSERT(false, "Currently does not support RendererAPI::None"); return nullptr;
-			case RendererAPI::API::OpenGL:		return new OpenGLShader(VertexShaderSrc, FragmentShaderSrc);
+			case RendererAPI::API::OpenGL:		return std::make_shared<OpenGLShader>(VertexShaderSrc, FragmentShaderSrc);
 		}
-
 	}
 }

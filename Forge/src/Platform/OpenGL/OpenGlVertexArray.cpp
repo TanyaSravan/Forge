@@ -41,7 +41,7 @@ namespace Forge {
 		glBindVertexArray(0);
 	}
 
-	void OpenGlVertexArray::AddVertexBuffer(const std::shared_ptr<VertexBuffer>& vertexBuffer) {
+	void OpenGlVertexArray::AddVertexBuffer(const Ref<VertexBuffer>& vertexBuffer) {
 		FG_CORE_ASSERT(vertexBuffer->GetLayout().GetBufferElements().size(), "The Vertex Layout is not set")
 
 		glBindVertexArray(m_RendererID);
@@ -64,7 +64,7 @@ namespace Forge {
 		m_VertexBuffers.push_back(vertexBuffer);
 	}
 
-	void OpenGlVertexArray::SetIndexBuffer(const std::shared_ptr<IndexBuffer>& indexBuffer) {
+	void OpenGlVertexArray::SetIndexBuffer(const Ref<IndexBuffer>& indexBuffer) {
 		glBindVertexArray(m_RendererID);
 		indexBuffer->Bind();
 

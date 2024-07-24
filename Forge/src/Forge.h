@@ -16,6 +16,7 @@
 #include "Forge/Renderer/Shader.h"
 #include "Forge/Renderer/Camera.h"
 #include "Forge/Renderer/VertexArray.h"
+#include "Forge/Renderer/Texture.h"
 
 #include "Forge/Renderer/Renderer.h"
 #include "Forge/Renderer/RenderCommands.h"

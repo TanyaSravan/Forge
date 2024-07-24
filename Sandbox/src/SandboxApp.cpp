@@ -21,8 +21,8 @@ public:
 			 0.0f,  0.5f, 0.0f,	0.2f, 0.3f, 0.8f, 1.0f
 		};
 
-		std::shared_ptr<Forge::VertexBuffer> triangleVB;
-		triangleVB.reset(Forge::VertexBuffer::Create(vertices, sizeof(vertices)));
+		Forge::Ref<Forge::VertexBuffer> triangleVB;
+		triangleVB = Forge::VertexBuffer::Create(vertices, sizeof(vertices));
 
 
 		Forge::BufferLayout layout = {
@@ -36,8 +36,8 @@ public:
 
 		unsigned int indices[3] = { 0, 1, 2 };
 
-		std::shared_ptr<Forge::IndexBuffer> triangleIB;
-		triangleIB.reset(Forge::IndexBuffer::Create(indices, 3));
+		Forge::Ref<Forge::IndexBuffer> triangleIB;
+		triangleIB = Forge::IndexBuffer::Create(indices, 3);
 		m_TriangleVA->SetIndexBuffer(triangleIB);
 
 		std::string vertexSrc = R"(
@@ -72,29 +72,30 @@ public:
 			};
 		)";
 
-		m_Shader.reset(Forge::Shader::Create(vertexSrc, fragmentSrc));
+		m_Shader = Forge::Shader::Create(vertexSrc, fragmentSrc);
 
 		m_SquareVA.reset(Forge::VertexArray::Create());
-		float Squarevertices[3 * 4] = {
-			-0.5f, -0.5f, 0.0f,
-			 0.5f, -0.5f, 0.0f,
-			 0.5f,  0.5f, 0.0f,
-			-0.5f,  0.5f, 0.0f,
+		float Squarevertices[5 * 4] = {
+			-0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
+			 0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
+			 0.5f,  0.5f, 0.0f, 1.0f, 1.0f,
+			-0.5f,  0.5f, 0.0f, 0.0f, 1.0f,
 		};
 
-		std::shared_ptr<Forge::VertexBuffer> squareVB;
-		squareVB.reset(Forge::VertexBuffer::Create(Squarevertices, sizeof(Squarevertices)));
+		Forge::Ref<Forge::VertexBuffer> squareVB;
+		squareVB = Forge::VertexBuffer::Create(Squarevertices, sizeof(Squarevertices));
 
 		Forge::BufferLayout Squarelayout = {
 			{Forge::ShaderDataType::Float3, "position"},
+			{Forge::ShaderDataType::Float2, "TexCoords"},
 		};
 
 		squareVB->SetLayout(Squarelayout);
 		m_SquareVA->AddVertexBuffer(squareVB);
 
 		unsigned int Squareindices[6] = { 0, 1, 2, 2, 3, 0 };
-		std::shared_ptr<Forge::IndexBuffer>squareIB;
-		squareIB.reset(Forge::IndexBuffer::Create(Squareindices, 6));
+		Forge::Ref<Forge::IndexBuffer>squareIB;
+		squareIB = Forge::IndexBuffer::Create(Squareindices, 6);
 
 		m_SquareVA->SetIndexBuffer(squareIB);
 
@@ -121,7 +122,43 @@ public:
 			};
 		)";
 
-		m_BlueShader.reset(Forge::Shader::Create(bluevertexSrc, bluefragmentSrc));
+		m_BlueShader = Forge::Shader::Create(bluevertexSrc, bluefragmentSrc);
+
+		std::string TexvertexSrc = R"(
+			#version 410 core
+			layout(location = 0) in vec4 position;
+			layout(location = 1) in vec2 TexCoord;
+
+			uniform mat4 u_VP;
+			uniform mat4 u_Transform;
+
+			out vec2 v_TexCoord;
+
+			void main(){
+				v_TexCoord = TexCoord;
+				gl_Position = u_VP * u_Transform * position;
+			};
+		)";
+
+		std::string TexfragmentSrc = R"(
+			#version 410 core
+
+			layout(location = 0) out vec4 color;
+				
+			in vec2 v_TexCoord;
+
+			uniform sampler2D u_Texture;
+
+			void main(){
+			   color = texture(u_Texture,v_TexCoord);
+			};
+		)";
+
+		m_TextureShader = Forge::Shader::Create(TexvertexSrc, TexfragmentSrc);
+		m_Texture2D = Forge::Texture2D::Create("assets/logo.png");
+
+		std::dynamic_pointer_cast<Forge::OpenGLShader>(m_TextureShader)->Bind();
+		std::dynamic_pointer_cast<Forge::OpenGLShader>(m_TextureShader)->UploadUniformInt("u_Texture", 0);
 	}
 
 	void OnUpdate(Forge::Timestep time) override {
@@ -162,7 +199,11 @@ public:
 			}
 		}
 
-		Forge::Renderer::Submit(m_Shader,m_TriangleVA);
+		m_Texture2D->Bind();
+		glm::mat4 TextureTransform = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f));
+		Forge::Renderer::Submit(m_TextureShader, m_SquareVA, TextureTransform);
+		
+		//Forge::Renderer::Submit(m_Shader,m_TriangleVA);
 		Forge::Renderer::EndScene();
 	}
 
@@ -183,11 +224,13 @@ public:
 	}
 
 	private:
-		std::shared_ptr<Forge::Shader> m_Shader;
-		std::shared_ptr<Forge::VertexArray> m_TriangleVA;
+		Forge::Ref<Forge::Shader> m_Shader;
+		Forge::Ref<Forge::VertexArray> m_TriangleVA;
 
-		std::shared_ptr<Forge::VertexArray> m_SquareVA;
-		std::shared_ptr<Forge::Shader> m_BlueShader;
+		Forge::Ref<Forge::VertexArray> m_SquareVA;
+		Forge::Ref<Forge::Shader> m_BlueShader, m_TextureShader;
+		Forge::Ref<Forge::Texture2D> m_Texture2D;
+
 		glm::vec3 m_SquareColor = { 0.2f,0.6f,0.4f };
 
 		Forge::OrthographicCamera m_orthoCam;

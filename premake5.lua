@@ -13,6 +13,7 @@ IncludeDirs["GLFW"] = "Forge/vendor/GLFW/include"
 IncludeDirs["Glad"] = "Forge/vendor/Glad/include"
 IncludeDirs["imgui"] = "Forge/vendor/imgui"
 IncludeDirs["glm"] = "Forge/vendor/glm"
+IncludeDirs["stb_image"] = "Forge/vendor/stb_image"
 
 
 include "Forge/vendor/GLFW"
@@ -34,6 +35,8 @@ project "Forge"
     files {
         "%{prj.name}/src/**.h",
         "%{prj.name}/src/**.cpp",
+        "%{prj.name}/vendor/stb_image/**.cpp",
+        "%{prj.name}/vendor/stb_image/**.h",
     }
 
     includedirs{
@@ -43,6 +46,7 @@ project "Forge"
         "%{IncludeDirs.Glad}",
         "%{IncludeDirs.imgui}",
         "%{IncludeDirs.glm}",
+        "%{IncludeDirs.stb_image}",
     }
 
     links{

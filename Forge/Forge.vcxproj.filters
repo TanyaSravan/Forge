@@ -1,128 +1,222 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Forge">
-      <UniqueIdentifier>{1884300D-8498-58BE-4D1A-FC1DB9ED54EF}</UniqueIdentifier>
+    <Filter Include="src">
+      <UniqueIdentifier>{2DAB880B-99B4-887C-2230-9F7C8E38947C}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Forge\Event">
-      <UniqueIdentifier>{69B7BEE2-D56C-37D8-5E61-31AFCA152EDC}</UniqueIdentifier>
+    <Filter Include="src\Forge">
+      <UniqueIdentifier>{6F92EDB2-DBFC-A129-243B-53CF90E47F7E}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Forge\ImGui">
-      <UniqueIdentifier>{42AB01E3-AE60-7AD8-3755-74AFA30971DC}</UniqueIdentifier>
+    <Filter Include="src\Forge\Core">
+      <UniqueIdentifier>{27949E26-1362-922C-FCF5-0253E8626E91}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Platform">
-      <UniqueIdentifier>{2AC788B4-1694-E3BF-3FAD-D1672BD9184E}</UniqueIdentifier>
+    <Filter Include="src\Forge\Event">
+      <UniqueIdentifier>{00EB98FA-6C76-06BF-7587-89B3E19162BF}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Platform\Windows">
-      <UniqueIdentifier>{64FBD71A-50F4-F66C-7926-DCF1657ED678}</UniqueIdentifier>
+    <Filter Include="src\Forge\ImGui">
+      <UniqueIdentifier>{D9DEDBFA-456A-49BF-4E7B-CCB3BA85A5BF}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Forge\Renderer">
+      <UniqueIdentifier>{F502728B-E1E6-32E1-4A47-2D34364A1D63}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Platform">
+      <UniqueIdentifier>{21CA02E5-0D2D-9289-B6B2-CA3FA2F45D0C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Platform\OpenGL">
+      <UniqueIdentifier>{35A49437-A105-7245-2A73-B8F796D3A804}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Platform\Windows">
+      <UniqueIdentifier>{5B054582-4794-CE4B-F0B2-E246DC20DFF1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="vendor">
+      <UniqueIdentifier>{B3738122-9F15-ACF8-88D0-BF4C74113349}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="vendor\stb_image">
+      <UniqueIdentifier>{0DA0BA59-F998-D9AB-22CB-BE300E23B9B7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\FGpch.h" />
-    <ClInclude Include="src\Forge.h" />
+    <ClInclude Include="src\FGpch.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Forge.h">
+      <Filter>src</Filter>
+    </ClInclude>
     <ClInclude Include="src\Forge\Application.h">
-      <Filter>Forge</Filter>
+      <Filter>src\Forge</Filter>
     </ClInclude>
     <ClInclude Include="src\Forge\Core.h">
-      <Filter>Forge</Filter>
+      <Filter>src\Forge</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Forge\Core\Timestep.h">
+      <Filter>src\Forge\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Forge\EntryPoint.h">
-      <Filter>Forge</Filter>
+      <Filter>src\Forge</Filter>
     </ClInclude>
     <ClInclude Include="src\Forge\Event\ApplicationEvents.h">
-      <Filter>Forge\Event</Filter>
+      <Filter>src\Forge\Event</Filter>
     </ClInclude>
     <ClInclude Include="src\Forge\Event\Event.h">
-      <Filter>Forge\Event</Filter>
+      <Filter>src\Forge\Event</Filter>
     </ClInclude>
     <ClInclude Include="src\Forge\Event\KeyEvents.h">
-      <Filter>Forge\Event</Filter>
+      <Filter>src\Forge\Event</Filter>
     </ClInclude>
     <ClInclude Include="src\Forge\Event\MouseEvents.h">
-      <Filter>Forge\Event</Filter>
+      <Filter>src\Forge\Event</Filter>
     </ClInclude>
     <ClInclude Include="src\Forge\ImGui\ImguiLayer.h">
-      <Filter>Forge\ImGui</Filter>
+      <Filter>src\Forge\ImGui</Filter>
     </ClInclude>
     <ClInclude Include="src\Forge\Input.h">
-      <Filter>Forge</Filter>
+      <Filter>src\Forge</Filter>
     </ClInclude>
     <ClInclude Include="src\Forge\Keycodes.h">
-      <Filter>Forge</Filter>
+      <Filter>src\Forge</Filter>
     </ClInclude>
     <ClInclude Include="src\Forge\Layer.h">
-      <Filter>Forge</Filter>
+      <Filter>src\Forge</Filter>
     </ClInclude>
     <ClInclude Include="src\Forge\LayerStack.h">
-      <Filter>Forge</Filter>
+      <Filter>src\Forge</Filter>
     </ClInclude>
     <ClInclude Include="src\Forge\Log.h">
-      <Filter>Forge</Filter>
+      <Filter>src\Forge</Filter>
     </ClInclude>
     <ClInclude Include="src\Forge\MouseButtonCodes.h">
-      <Filter>Forge</Filter>
+      <Filter>src\Forge</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Forge\Renderer\Buffers.h">
+      <Filter>src\Forge\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Forge\Renderer\Camera.h">
+      <Filter>src\Forge\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Forge\Renderer\GraphicsContext.h">
+      <Filter>src\Forge\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Forge\Renderer\RenderCommands.h">
+      <Filter>src\Forge\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Forge\Renderer\Renderer.h">
+      <Filter>src\Forge\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Forge\Renderer\RendererAPI.h">
+      <Filter>src\Forge\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Forge\Renderer\Shader.h">
+      <Filter>src\Forge\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Forge\Renderer\Texture.h">
+      <Filter>src\Forge\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Forge\Renderer\VertexArray.h">
+      <Filter>src\Forge\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\Forge\Window.h">
-      <Filter>Forge</Filter>
+      <Filter>src\Forge</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\OpenGlBuffers.h">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\OpenGlContext.h">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\OpenGlRendererAPI.h">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\OpenGlShader.h">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\OpenGlTextures.h">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\OpenGlVertexArray.h">
+      <Filter>src\Platform\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\Windows\WindowsInput.h">
-      <Filter>Platform\Windows</Filter>
+      <Filter>src\Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h">
-      <Filter>Platform\Windows</Filter>
+      <Filter>src\Platform\Windows</Filter>
     </ClInclude>
-    <ClInclude Include="src\Forge\Renderer\GraphicsContext.h" />
-    <ClInclude Include="src\Platform\OpenGL\OpenGlContext.h" />
-    <ClInclude Include="src\Forge\Renderer\Shader.h" />
-    <ClInclude Include="src\Forge\Renderer\Buffers.h" />
-    <ClInclude Include="src\Platform\OpenGL\OpenGlBuffers.h" />
-    <ClInclude Include="src\Forge\Renderer\Renderer.h" />
-    <ClInclude Include="src\Platform\OpenGL\OpenGlShader.h" />
-    <ClInclude Include="src\Forge\Renderer\VertexArray.h" />
-    <ClInclude Include="src\Platform\OpenGL\OpenGlVertexArray.h" />
-    <ClInclude Include="src\Forge\Renderer\RendererAPI.h" />
-    <ClInclude Include="src\Forge\Renderer\RenderCommands.h" />
-    <ClInclude Include="src\Platform\OpenGL\OpenGlRendererAPI.h" />
-    <ClInclude Include="src\Forge\Renderer\Camera.h" />
-    <ClInclude Include="src\Forge\Core\Timestep.h" />
+    <ClInclude Include="vendor\stb_image\stb_image.h">
+      <Filter>vendor\stb_image</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\FGpch.cpp" />
+    <ClCompile Include="src\FGpch.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
     <ClCompile Include="src\Forge\Application.cpp">
-      <Filter>Forge</Filter>
+      <Filter>src\Forge</Filter>
     </ClCompile>
     <ClCompile Include="src\Forge\ImGui\ImGuiBuild.cpp">
-      <Filter>Forge\ImGui</Filter>
+      <Filter>src\Forge\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="src\Forge\ImGui\ImGuiLayer.cpp">
-      <Filter>Forge\ImGui</Filter>
+      <Filter>src\Forge\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="src\Forge\Layer.cpp">
-      <Filter>Forge</Filter>
+      <Filter>src\Forge</Filter>
     </ClCompile>
     <ClCompile Include="src\Forge\LayerStack.cpp">
-      <Filter>Forge</Filter>
+      <Filter>src\Forge</Filter>
     </ClCompile>
     <ClCompile Include="src\Forge\Log.cpp">
-      <Filter>Forge</Filter>
+      <Filter>src\Forge</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Forge\Renderer\Buffers.cpp">
+      <Filter>src\Forge\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Forge\Renderer\Camera.cpp">
+      <Filter>src\Forge\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Forge\Renderer\RenderCommands.cpp">
+      <Filter>src\Forge\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Forge\Renderer\Renderer.cpp">
+      <Filter>src\Forge\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Forge\Renderer\RendererAPI.cpp">
+      <Filter>src\Forge\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Forge\Renderer\Shader.cpp">
+      <Filter>src\Forge\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Forge\Renderer\Texture.cpp">
+      <Filter>src\Forge\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Forge\Renderer\VertexArray.cpp">
+      <Filter>src\Forge\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLRendererAPI.cpp">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OpenGlBuffers.cpp">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OpenGlContext.cpp">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OpenGlShader.cpp">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OpenGlTextures.cpp">
+      <Filter>src\Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OpenGlVertexArray.cpp">
+      <Filter>src\Platform\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\Windows\WindowsInput.cpp">
-      <Filter>Platform\Windows</Filter>
+      <Filter>src\Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp">
-      <Filter>Platform\Windows</Filter>
+      <Filter>src\Platform\Windows</Filter>
     </ClCompile>
-    <ClCompile Include="src\Platform\OpenGL\OpenGlContext.cpp" />
-    <ClCompile Include="src\Forge\Renderer\Shader.cpp" />
-    <ClCompile Include="src\Forge\Renderer\Buffers.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\OpenGlBuffers.cpp" />
-    <ClCompile Include="src\Forge\Renderer\Renderer.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\OpenGlShader.cpp" />
-    <ClCompile Include="src\Forge\Renderer\VertexArray.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\OpenGlVertexArray.cpp" />
-    <ClCompile Include="src\Forge\Renderer\RendererAPI.cpp" />
-    <ClCompile Include="src\Forge\Renderer\RenderCommands.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\OpenGLRendererAPI.cpp" />
-    <ClCompile Include="src\Forge\Renderer\Camera.cpp" />
+    <ClCompile Include="vendor\stb_image\stb_image.cpp">
+      <Filter>vendor\stb_image</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

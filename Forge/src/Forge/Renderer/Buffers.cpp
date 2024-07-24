@@ -5,23 +5,23 @@
 
 namespace Forge{
 
-	VertexBuffer* VertexBuffer::Create(float* vertices, uint32_t size) {
+	Ref<VertexBuffer> VertexBuffer::Create(float* vertices, uint32_t size) {
 
 		switch (Renderer::GetAPI())
 		{
 			case RendererAPI::API::None:		FG_CORE_ASSERT(false, "Currently does not support RendererAPI::None"); return nullptr;
-			case RendererAPI::API::OpenGL:		return new OpenGlVertexBuffers(vertices, size);
+			case RendererAPI::API::OpenGL:		return std::make_shared<OpenGlVertexBuffers>(vertices, size);
 		}
 
 
 	}
 
-	IndexBuffer* IndexBuffer::Create(uint32_t* indices, uint32_t size) {
+	Ref<IndexBuffer> IndexBuffer::Create(uint32_t* indices, uint32_t size) {
 
 		switch (Renderer::GetAPI())
 		{
 			case RendererAPI::API::None:		FG_CORE_ASSERT(false, "Currently does not support RendererAPI::None"); return nullptr;
-			case RendererAPI::API::OpenGL:		return new OpenGlIndexBuffers(indices, size);
+			case RendererAPI::API::OpenGL:		return std::make_shared<OpenGlIndexBuffers>(indices, size);
 		}
 	}
 }

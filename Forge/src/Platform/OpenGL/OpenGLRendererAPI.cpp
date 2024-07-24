@@ -12,7 +12,7 @@ namespace Forge {
 		glClearColor(color.r, color.g, color.b, color.a);
 	}
 
-	void OpenGlRendererAPI::DrawIndexed(const std::shared_ptr<VertexArray>& vertexArray) {
+	void OpenGlRendererAPI::DrawIndexed(const Ref<VertexArray>& vertexArray) {
 		vertexArray->Bind();
 		glDrawElements(GL_TRIANGLES, vertexArray->GetIndexBuffers()->GetCount(), GL_UNSIGNED_INT, nullptr);
 	}
