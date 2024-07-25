@@ -1,3 +1,3 @@
 # Forge
 
-Currently supports only windows -> clone repo and run GenerateFiles
+Currently supports only windows -> clone repo and run GenerateProjects
