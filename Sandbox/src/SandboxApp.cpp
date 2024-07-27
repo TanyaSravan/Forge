@@ -124,39 +124,9 @@ public:
 
 		m_BlueShader = Forge::Shader::Create(bluevertexSrc, bluefragmentSrc);
 
-		std::string TexvertexSrc = R"(
-			#version 410 core
-			layout(location = 0) in vec4 position;
-			layout(location = 1) in vec2 TexCoord;
-
-			uniform mat4 u_VP;
-			uniform mat4 u_Transform;
-
-			out vec2 v_TexCoord;
-
-			void main(){
-				v_TexCoord = TexCoord;
-				gl_Position = u_VP * u_Transform * position;
-			};
-		)";
-
-		std::string TexfragmentSrc = R"(
-			#version 410 core
-
-			layout(location = 0) out vec4 color;
-				
-			in vec2 v_TexCoord;
-
-			uniform sampler2D u_Texture;
-
-			void main(){
-			   color = texture(u_Texture,v_TexCoord);
-			};
-		)";
-
-		m_TextureShader = Forge::Shader::Create(TexvertexSrc, TexfragmentSrc);
-		m_Texture2D = Forge::Texture2D::Create("assets/CheckerBoard.png");
-		m_LogoTexture = Forge::Texture2D::Create("assets/logo.png");
+		m_TextureShader = Forge::Shader::Create("assets/Shaders/TextureShader.glsl");
+		m_Texture2D = Forge::Texture2D::Create("assets/Textures/CheckerBoard.png");
+		m_LogoTexture = Forge::Texture2D::Create("assets/Textures/logo.png");
 
 		std::dynamic_pointer_cast<Forge::OpenGLShader>(m_TextureShader)->Bind();
 		std::dynamic_pointer_cast<Forge::OpenGLShader>(m_TextureShader)->UploadUniformInt("u_Texture", 0);	

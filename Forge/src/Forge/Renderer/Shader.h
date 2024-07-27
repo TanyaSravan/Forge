@@ -13,5 +13,6 @@ namespace Forge{
 		virtual  void Unbind() const = 0;
 
 		static Ref<Shader> Create(const std::string& vertexShaderSrc, const std::string& fragmentShaderSrc);
+		static Ref<Shader> Create(const std::string& filepath);
 	};
 }
