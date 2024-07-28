@@ -11,7 +11,7 @@
 class ExampleLayer : public Forge::Layer {
 public:
 	ExampleLayer(): Layer("Render Square and Triangle"),
-		m_orthoCam({ -1.6, 1.6, -0.9, 0.9 })
+		m_orthoCamController(1280.0f/720.0f)
 	{
 		m_TriangleVA.reset(Forge::VertexArray::Create());
 
@@ -134,30 +134,14 @@ public:
 
 	void OnUpdate(Forge::Timestep time) override {
 
-		if (Forge::Input::IsKeyPressed(FG_KEY_A))
-			m_CamPosition.x += m_CamMoveSpeed * time;
-		else if (Forge::Input::IsKeyPressed(FG_KEY_D))
-			m_CamPosition.x -= m_CamMoveSpeed * time;
-		if (Forge::Input::IsKeyPressed(FG_KEY_W))
-			m_CamPosition.y += m_CamMoveSpeed * time;
-		else if (Forge::Input::IsKeyPressed(FG_KEY_S))
-			m_CamPosition.y -= m_CamMoveSpeed * time;
-
-		if (Forge::Input::IsKeyPressed(FG_KEY_RIGHT))
-			m_CamRotation += m_CamRotSpeed * time;
-		else if (Forge::Input::IsKeyPressed(FG_KEY_LEFT))
-			m_CamRotation -= m_CamRotSpeed * time;
-
+		m_orthoCamController.OnUpdate(time);
 
 		Forge::RenderCommands::SetClearColor({ 0.1, 0.1, 0.1, 1 });
 		Forge::RenderCommands::Clear();
 
-		m_orthoCam.SetPosition(m_CamPosition);
-		m_orthoCam.SetRotation(m_CamRotation);
-
 		static glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
 
-		Forge::Renderer::BeginScene(m_orthoCam);
+		Forge::Renderer::BeginScene(m_orthoCamController.GetCamera());
 
 		std::dynamic_pointer_cast<Forge::OpenGLShader>(m_BlueShader)->Bind();
 		std::dynamic_pointer_cast<Forge::OpenGLShader>(m_BlueShader)->UploadUniformFloat3("u_Color", m_SquareColor);
@@ -186,14 +170,8 @@ public:
 		ImGui::End();
 	}
 
-	void OnEvent(Forge::Event& event) override {
-		Forge::EventDispatcher dispatcher(event);
-		dispatcher.Dispatch<Forge::KeyPressedEvent>(FG_BIND_EVENT_FN(ExampleLayer::OnKeyPressedEvent));
-	}
-
-	bool OnKeyPressedEvent(Forge::KeyPressedEvent& event) {
-
-		return false;
+	void OnEvent(Forge::Event& e) override {
+		m_orthoCamController.OnEvent(e);
 	}
 
 	private:
@@ -208,11 +186,8 @@ public:
 
 		glm::vec3 m_SquareColor = { 0.2f,0.6f,0.4f };
 
-		Forge::OrthographicCamera m_orthoCam;
-		glm::vec3 m_CamPosition = { 0.0f,0.0f,0.0f };
-		float m_CamRotation = 0.0f;
-		float m_CamMoveSpeed = 5.0f;
-		float m_CamRotSpeed = 180.0f;
+		Forge::OrthographicCameraController m_orthoCamController;
+
 };
 
 

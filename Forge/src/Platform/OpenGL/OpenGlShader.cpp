@@ -151,7 +151,6 @@ namespace Forge {
 
 		CompileShader(sourceShader);
 
-
 	}
 
 	OpenGLShader::~OpenGLShader() {

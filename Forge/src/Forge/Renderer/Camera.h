@@ -5,6 +5,7 @@ namespace Forge {
 	class OrthographicCamera {
 	public:
 		OrthographicCamera(float left, float right, float bottom, float top);
+		void SetCamProjection(float left, float right, float bottom, float top);
 
 		glm::mat4 GetViewMatrix() { return m_ViewMatrix; }
 		glm::mat4 GetProjectionMatrix() { return m_ProjectionMatrix; }

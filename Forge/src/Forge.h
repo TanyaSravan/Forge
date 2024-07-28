@@ -4,6 +4,7 @@
 #include "Forge/Layer.h"
 #include "Forge/Log.h"
 #include "Forge/ImGui/ImguiLayer.h"
+#include "Forge/CameraController.h"
 
 #include "Forge/Input.h"
 #include "Forge/Keycodes.h"

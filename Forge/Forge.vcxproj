@@ -129,6 +129,7 @@
     <ClInclude Include="src\FGpch.h" />
     <ClInclude Include="src\Forge.h" />
     <ClInclude Include="src\Forge\Application.h" />
+    <ClInclude Include="src\Forge\CameraController.h" />
     <ClInclude Include="src\Forge\Core.h" />
     <ClInclude Include="src\Forge\Core\Timestep.h" />
     <ClInclude Include="src\Forge\EntryPoint.h" />
@@ -168,6 +169,7 @@
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="src\Forge\Application.cpp" />
+    <ClCompile Include="src\Forge\CameraController.cpp" />
     <ClCompile Include="src\Forge\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\Forge\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="src\Forge\Layer.cpp" />
