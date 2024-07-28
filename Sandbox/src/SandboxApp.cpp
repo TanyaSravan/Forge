@@ -72,7 +72,7 @@ public:
 			};
 		)";
 
-		m_Shader = Forge::Shader::Create(vertexSrc, fragmentSrc);
+		m_Shader = Forge::Shader::Create("TriangleShader",vertexSrc, fragmentSrc);
 
 		m_SquareVA.reset(Forge::VertexArray::Create());
 		float Squarevertices[5 * 4] = {
@@ -122,14 +122,14 @@ public:
 			};
 		)";
 
-		m_BlueShader = Forge::Shader::Create(bluevertexSrc, bluefragmentSrc);
+		m_BlueShader = Forge::Shader::Create("Flat Color Shader", bluevertexSrc, bluefragmentSrc);
 
-		m_TextureShader = Forge::Shader::Create("assets/Shaders/TextureShader.glsl");
+		Forge::Ref<Forge::Shader> textureShader = m_ShaderLibrary.Load("assets/Shaders/TextureShader.glsl");
 		m_Texture2D = Forge::Texture2D::Create("assets/Textures/CheckerBoard.png");
 		m_LogoTexture = Forge::Texture2D::Create("assets/Textures/logo.png");
 
-		std::dynamic_pointer_cast<Forge::OpenGLShader>(m_TextureShader)->Bind();
-		std::dynamic_pointer_cast<Forge::OpenGLShader>(m_TextureShader)->UploadUniformInt("u_Texture", 0);	
+		std::dynamic_pointer_cast<Forge::OpenGLShader>(textureShader)->Bind();
+		std::dynamic_pointer_cast<Forge::OpenGLShader>(textureShader)->UploadUniformInt("u_Texture", 0);
 	}
 
 	void OnUpdate(Forge::Timestep time) override {
@@ -172,9 +172,9 @@ public:
 
 		m_Texture2D->Bind();
 		glm::mat4 TextureTransform = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f));
-		Forge::Renderer::Submit(m_TextureShader, m_SquareVA, TextureTransform);
+		Forge::Renderer::Submit(m_ShaderLibrary.Get("TextureShader"), m_SquareVA, TextureTransform);
 		m_LogoTexture->Bind();
-		Forge::Renderer::Submit(m_TextureShader, m_SquareVA, TextureTransform);
+		Forge::Renderer::Submit(m_ShaderLibrary.Get("TextureShader"), m_SquareVA, TextureTransform);
 		
 		//Forge::Renderer::Submit(m_Shader,m_TriangleVA);
 		Forge::Renderer::EndScene();
@@ -197,11 +197,13 @@ public:
 	}
 
 	private:
+		Forge::ShaderLibrary m_ShaderLibrary;
+
 		Forge::Ref<Forge::Shader> m_Shader;
 		Forge::Ref<Forge::VertexArray> m_TriangleVA;
 
 		Forge::Ref<Forge::VertexArray> m_SquareVA;
-		Forge::Ref<Forge::Shader> m_BlueShader, m_TextureShader;
+		Forge::Ref<Forge::Shader> m_BlueShader;
 		Forge::Ref<Forge::Texture2D> m_Texture2D, m_LogoTexture;
 
 		glm::vec3 m_SquareColor = { 0.2f,0.6f,0.4f };

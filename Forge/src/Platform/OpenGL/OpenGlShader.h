@@ -6,12 +6,14 @@ typedef unsigned int GLenum;
 namespace Forge {
 	class OpenGLShader : public Shader {
 	public:
-		OpenGLShader(const std::string& vertexShaderSrc, const std::string& fragmentShaderSrc);
+		OpenGLShader(const std::string& name, const std::string& vertexShaderSrc, const std::string& fragmentShaderSrc);
 		OpenGLShader(const std::string& filepath);
 		~OpenGLShader();
 
 		virtual void Bind() const override;
 		virtual void Unbind() const override;
+
+		virtual std::string GetName() const override { return m_name; }
 
 		virtual void UploadUniformMat3(const std::string& name, const glm::mat3& matrix);
 		virtual void UploadUniformMat4(const std::string& name, const glm::mat4& matrix);
@@ -29,5 +31,6 @@ namespace Forge {
 		std::string ReadShader(const std::string& filepath);
 	private:
 		uint32_t m_RendererId;
+		std::string m_name;
 	};
 }

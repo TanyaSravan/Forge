@@ -19,6 +19,13 @@ namespace Forge {
 		std::string source = ReadShader(filepath);
 		std::unordered_map<GLenum, std::string> sourceShader = ParseShader(source);
 		CompileShader(sourceShader);
+
+		// assets/Shader/Texture.glsl
+		auto lastSlash = filepath.find_last_of("/\\");
+		lastSlash = lastSlash == std::string::npos ? 1 : lastSlash + 1;
+		auto lastDot = filepath.rfind(".");
+		auto count = lastDot == std::string::npos ? filepath.size() - lastSlash : lastDot - lastSlash;
+		m_name = filepath.substr(lastSlash, count);
 	}
 
 	std::string OpenGLShader::ReadShader(const std::string& filepath) {
@@ -135,7 +142,9 @@ namespace Forge {
 		m_RendererId = program;
 	}
 
-	OpenGLShader::OpenGLShader(const std::string& vertexShaderSrc, const std::string& fragmentShaderSrc) {
+	OpenGLShader::OpenGLShader(const std::string& name,const std::string& vertexShaderSrc, const std::string& fragmentShaderSrc)
+		:m_name(name)
+	{
 		std::unordered_map<GLenum, std::string> sourceShader;
 		sourceShader[GL_VERTEX_SHADER] = vertexShaderSrc;
 		sourceShader[GL_FRAGMENT_SHADER] = fragmentShaderSrc;
