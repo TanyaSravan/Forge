@@ -23,7 +23,7 @@ namespace Forge {
 
 	std::string OpenGLShader::ReadShader(const std::string& filepath) {
 
-		std::ifstream in(filepath, std::ios::in, std::ios::binary);
+		std::ifstream in(filepath, std::ios::in | std::ios::binary);
 
 		std::string result;
 		if (in) {
@@ -67,7 +67,9 @@ namespace Forge {
 	void OpenGLShader::CompileShader(const std::unordered_map<GLenum, std::string>& sourceShader) {
 
 		GLuint program = glCreateProgram();
-		std::vector<GLenum> glShaderIds(sourceShader.size());
+		FG_CORE_ASSERT(sourceShader.size() <= 2, "We only support 2 shaders");
+		std::array<GLenum,2> glShaderIds;
+		int ArrayIndex = 0;
 
 		for (auto& kv : sourceShader) {
 			GLenum shaderType = kv.first;
@@ -95,7 +97,7 @@ namespace Forge {
 			}
 
 			glAttachShader(program, shader);
-			glShaderIds.push_back(shader);
+			glShaderIds[ArrayIndex++] = shader;
 		}
 
 		// Link our program
