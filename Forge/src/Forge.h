@@ -21,7 +21,3 @@
 
 #include "Forge/Renderer/Renderer.h"
 #include "Forge/Renderer/RenderCommands.h"
-
-//---------------------------ENTRY POINT-------------------------------
-#include "Forge/Core/EntryPoint.h"
-//---------------------------ENTRY POINT-------------------------------

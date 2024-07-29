@@ -15,6 +15,6 @@ namespace Forge {
 		virtual std::vector<Ref<VertexBuffer>> GetVertexBuffers() const = 0;
 		virtual Ref<IndexBuffer> GetIndexBuffers() const = 0;
 
-		static VertexArray* Create();
+		static Ref<VertexArray> Create();
 	};
 }

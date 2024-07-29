@@ -1,4 +1,5 @@
 #include "Forge.h"
+#include "Forge/Core/EntryPoint.h"
 
 #include "Platform/OpenGL/OpenGlShader.h"
 
@@ -7,13 +8,15 @@
 #include "glm/gtc/matrix_transform.hpp"
 #include "glm/gtc/type_ptr.hpp"
 
+#include "Sandbox2D.h"
+
 
 class ExampleLayer : public Forge::Layer {
 public:
 	ExampleLayer(): Layer("Render Square and Triangle"),
 		m_orthoCamController(1280.0f/720.0f)
 	{
-		m_TriangleVA.reset(Forge::VertexArray::Create());
+		m_TriangleVA = Forge::VertexArray::Create();
 
 		float vertices[3 * 7] = {
 			-0.5f, -0.5f, 0.0f, 0.8f, 0.2f, 1.0f, 1.0f,
@@ -74,7 +77,7 @@ public:
 
 		m_Shader = Forge::Shader::Create("TriangleShader",vertexSrc, fragmentSrc);
 
-		m_SquareVA.reset(Forge::VertexArray::Create());
+		m_SquareVA = Forge::VertexArray::Create();
 		float Squarevertices[5 * 4] = {
 			-0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
 			 0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
@@ -194,7 +197,8 @@ public:
 class Sandbox : public Forge::Application {
 public:
 	Sandbox() {
-		PushLayer(new ExampleLayer());
+		//PushLayer(new ExampleLayer());
+		PushLayer(new Sandbox2D());
 	}
 
 	~Sandbox() {
