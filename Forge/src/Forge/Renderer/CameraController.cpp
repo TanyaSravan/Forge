@@ -1,8 +1,8 @@
 #include "FGpch.h"
 #include "CameraController.h"
-#include "Forge/Input.h"
-#include "Forge/Keycodes.h"
-#include "Forge/Core.h"
+#include "Forge/Core/Input.h"
+#include "Forge/Core/Keycodes.h"
+#include "Forge/Core/Core.h"
 
 namespace Forge {
 

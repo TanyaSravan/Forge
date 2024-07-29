@@ -1,5 +1,5 @@
 #pragma once
-#include "Forge/Window.h"
+#include "Forge/Core/Window.h"
 #include "GLFW/glfw3.h"
 #include "Forge/Renderer/GraphicsContext.h"
 

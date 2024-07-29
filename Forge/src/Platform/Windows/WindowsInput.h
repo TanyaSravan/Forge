@@ -1,5 +1,5 @@
 #pragma once
-#include "Forge/Input.h"
+#include "Forge/Core/Input.h"
 
 namespace Forge {
 	class WindowsInput : public Input {

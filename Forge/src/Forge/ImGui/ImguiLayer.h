@@ -1,6 +1,6 @@
 #pragma once
-#include "Forge/Core.h"
-#include "Forge/Layer.h"
+#include "Forge/Core/Core.h"
+#include "Forge/Core/Layer.h"
 #include "Forge/Event/MouseEvents.h"
 #include "Forge/Event/ApplicationEvents.h"
 #include "Forge/Event/KeyEvents.h"

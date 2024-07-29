@@ -1,6 +1,6 @@
 #include "FGpch.h"
 #include "OpenGlContext.h"
-#include "Forge/Core.h"
+#include "Forge/Core/Core.h"
 
 #include "GLFW/glfw3.h"
 #include "glad/glad.h"

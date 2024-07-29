@@ -1,7 +1,7 @@
  #pragma once
 #include <string>
 #include "glm/glm.hpp"
-#include "Forge/Core.h"
+#include "Forge/Core/Core.h"
 
 namespace Forge{
 

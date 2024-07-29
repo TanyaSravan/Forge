@@ -42,16 +42,19 @@
     <ClInclude Include="src\Forge.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="src\Forge\Application.h">
+    <ClInclude Include="src\Forge\Core\Application.h">
       <Filter>src\Forge</Filter>
     </ClInclude>
-    <ClInclude Include="src\Forge\Core.h">
+    <ClInclude Include="src\Forge\Renderer\CameraController.h">
+      <Filter>src\Forge</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Forge\Core\Core.h">
       <Filter>src\Forge</Filter>
     </ClInclude>
     <ClInclude Include="src\Forge\Core\Timestep.h">
       <Filter>src\Forge\Core</Filter>
     </ClInclude>
-    <ClInclude Include="src\Forge\EntryPoint.h">
+    <ClInclude Include="src\Forge\Core\EntryPoint.h">
       <Filter>src\Forge</Filter>
     </ClInclude>
     <ClInclude Include="src\Forge\Event\ApplicationEvents.h">
@@ -69,22 +72,22 @@
     <ClInclude Include="src\Forge\ImGui\ImguiLayer.h">
       <Filter>src\Forge\ImGui</Filter>
     </ClInclude>
-    <ClInclude Include="src\Forge\Input.h">
+    <ClInclude Include="src\Forge\Core\Input.h">
       <Filter>src\Forge</Filter>
     </ClInclude>
-    <ClInclude Include="src\Forge\Keycodes.h">
+    <ClInclude Include="src\Forge\Core\Keycodes.h">
       <Filter>src\Forge</Filter>
     </ClInclude>
-    <ClInclude Include="src\Forge\Layer.h">
+    <ClInclude Include="src\Forge\Core\Layer.h">
       <Filter>src\Forge</Filter>
     </ClInclude>
-    <ClInclude Include="src\Forge\LayerStack.h">
+    <ClInclude Include="src\Forge\Core\LayerStack.h">
       <Filter>src\Forge</Filter>
     </ClInclude>
-    <ClInclude Include="src\Forge\Log.h">
+    <ClInclude Include="src\Forge\Core\Log.h">
       <Filter>src\Forge</Filter>
     </ClInclude>
-    <ClInclude Include="src\Forge\MouseButtonCodes.h">
+    <ClInclude Include="src\Forge\Core\MouseButtonCodes.h">
       <Filter>src\Forge</Filter>
     </ClInclude>
     <ClInclude Include="src\Forge\Renderer\Buffers.h">
@@ -114,7 +117,7 @@
     <ClInclude Include="src\Forge\Renderer\VertexArray.h">
       <Filter>src\Forge\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="src\Forge\Window.h">
+    <ClInclude Include="src\Forge\Core\Window.h">
       <Filter>src\Forge</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGlBuffers.h">
@@ -144,13 +147,15 @@
     <ClInclude Include="vendor\stb_image\stb_image.h">
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
-    <ClInclude Include="src\Forge\CameraController.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\FGpch.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\Forge\Application.cpp">
+    <ClCompile Include="src\Forge\Core\Application.cpp">
+      <Filter>src\Forge</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Forge\Renderer\CameraController.cpp">
       <Filter>src\Forge</Filter>
     </ClCompile>
     <ClCompile Include="src\Forge\ImGui\ImGuiBuild.cpp">
@@ -159,13 +164,13 @@
     <ClCompile Include="src\Forge\ImGui\ImGuiLayer.cpp">
       <Filter>src\Forge\ImGui</Filter>
     </ClCompile>
-    <ClCompile Include="src\Forge\Layer.cpp">
+    <ClCompile Include="src\Forge\Core\Layer.cpp">
       <Filter>src\Forge</Filter>
     </ClCompile>
-    <ClCompile Include="src\Forge\LayerStack.cpp">
+    <ClCompile Include="src\Forge\Core\LayerStack.cpp">
       <Filter>src\Forge</Filter>
     </ClCompile>
-    <ClCompile Include="src\Forge\Log.cpp">
+    <ClCompile Include="src\Forge\Core\Log.cpp">
       <Filter>src\Forge</Filter>
     </ClCompile>
     <ClCompile Include="src\Forge\Renderer\Buffers.cpp">
@@ -219,6 +224,5 @@
     <ClCompile Include="vendor\stb_image\stb_image.cpp">
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
-    <ClCompile Include="src\Forge\CameraController.cpp" />
   </ItemGroup>
 </Project>

@@ -9,10 +9,11 @@ namespace Forge {
 	static GLenum ShaderStringtoGLType(const std::string& type) {
 		if (type == "Vertex")
 			return GL_VERTEX_SHADER;
-		else if (type == "Fragment" | type == "Pixel")
+		else if (type == "Fragment" || type == "Pixel")
 			return GL_FRAGMENT_SHADER;
 		
 		FG_CORE_ASSERT(false, "Unknown shader type");
+		return GL_FALSE;
 	}
 
 	OpenGLShader::OpenGLShader(const std::string& filepath) {

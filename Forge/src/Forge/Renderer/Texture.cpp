@@ -9,8 +9,10 @@ namespace Forge {
 
 		switch (Renderer::GetAPI())
 		{
-		case RendererAPI::API::None:		FG_CORE_ASSERT(false, "Currently does not support RendererAPI::None"); return nullptr;
-		case RendererAPI::API::OpenGL:		return std::make_shared<OpenGlTexture2D>(filepath);
+			case RendererAPI::API::None:		FG_CORE_ASSERT(false, "Currently does not support RendererAPI::None"); return nullptr;
+			case RendererAPI::API::OpenGL:		return std::make_shared<OpenGlTexture2D>(filepath);
 		}
+
+		return nullptr;
 	}
 }

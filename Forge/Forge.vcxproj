@@ -26,19 +26,19 @@
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dist|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -79,8 +79,9 @@
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;FG_ENABLE_ASSERTS;FG_PLATFORM_WINDOWS;FG_BUILD_DLL;GLFW_INCLUDE_NONE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>vendor\spdlog\include;src;vendor\GLFW\include;vendor\Glad\include;vendor\imgui;vendor\glm;vendor\stb_image;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Disabled</Optimization>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <ExternalWarningLevel>Level3</ExternalWarningLevel>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -99,6 +100,7 @@
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <ExternalWarningLevel>Level3</ExternalWarningLevel>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -117,6 +119,7 @@
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <ExternalWarningLevel>Level3</ExternalWarningLevel>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -128,22 +131,22 @@
   <ItemGroup>
     <ClInclude Include="src\FGpch.h" />
     <ClInclude Include="src\Forge.h" />
-    <ClInclude Include="src\Forge\Application.h" />
-    <ClInclude Include="src\Forge\CameraController.h" />
-    <ClInclude Include="src\Forge\Core.h" />
+    <ClInclude Include="src\Forge\Core\Application.h" />
+    <ClInclude Include="src\Forge\Renderer\CameraController.h" />
+    <ClInclude Include="src\Forge\Core\Core.h" />
     <ClInclude Include="src\Forge\Core\Timestep.h" />
-    <ClInclude Include="src\Forge\EntryPoint.h" />
+    <ClInclude Include="src\Forge\Core\EntryPoint.h" />
     <ClInclude Include="src\Forge\Event\ApplicationEvents.h" />
     <ClInclude Include="src\Forge\Event\Event.h" />
     <ClInclude Include="src\Forge\Event\KeyEvents.h" />
     <ClInclude Include="src\Forge\Event\MouseEvents.h" />
     <ClInclude Include="src\Forge\ImGui\ImguiLayer.h" />
-    <ClInclude Include="src\Forge\Input.h" />
-    <ClInclude Include="src\Forge\Keycodes.h" />
-    <ClInclude Include="src\Forge\Layer.h" />
-    <ClInclude Include="src\Forge\LayerStack.h" />
-    <ClInclude Include="src\Forge\Log.h" />
-    <ClInclude Include="src\Forge\MouseButtonCodes.h" />
+    <ClInclude Include="src\Forge\Core\Input.h" />
+    <ClInclude Include="src\Forge\Core\Keycodes.h" />
+    <ClInclude Include="src\Forge\Core\Layer.h" />
+    <ClInclude Include="src\Forge\Core\LayerStack.h" />
+    <ClInclude Include="src\Forge\Core\Log.h" />
+    <ClInclude Include="src\Forge\Core\MouseButtonCodes.h" />
     <ClInclude Include="src\Forge\Renderer\Buffers.h" />
     <ClInclude Include="src\Forge\Renderer\Camera.h" />
     <ClInclude Include="src\Forge\Renderer\GraphicsContext.h" />
@@ -153,7 +156,7 @@
     <ClInclude Include="src\Forge\Renderer\Shader.h" />
     <ClInclude Include="src\Forge\Renderer\Texture.h" />
     <ClInclude Include="src\Forge\Renderer\VertexArray.h" />
-    <ClInclude Include="src\Forge\Window.h" />
+    <ClInclude Include="src\Forge\Core\Window.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGlBuffers.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGlContext.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGlRendererAPI.h" />
@@ -168,13 +171,13 @@
     <ClCompile Include="src\FGpch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="src\Forge\Application.cpp" />
-    <ClCompile Include="src\Forge\CameraController.cpp" />
+    <ClCompile Include="src\Forge\Core\Application.cpp" />
+    <ClCompile Include="src\Forge\Renderer\CameraController.cpp" />
     <ClCompile Include="src\Forge\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\Forge\ImGui\ImGuiLayer.cpp" />
-    <ClCompile Include="src\Forge\Layer.cpp" />
-    <ClCompile Include="src\Forge\LayerStack.cpp" />
-    <ClCompile Include="src\Forge\Log.cpp" />
+    <ClCompile Include="src\Forge\Core\Layer.cpp" />
+    <ClCompile Include="src\Forge\Core\LayerStack.cpp" />
+    <ClCompile Include="src\Forge\Core\Log.cpp" />
     <ClCompile Include="src\Forge\Renderer\Buffers.cpp" />
     <ClCompile Include="src\Forge\Renderer\Camera.cpp" />
     <ClCompile Include="src\Forge\Renderer\RenderCommands.cpp" />

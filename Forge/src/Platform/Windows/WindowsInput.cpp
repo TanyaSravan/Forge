@@ -1,6 +1,6 @@
 #include "FGpch.h"
 #include "WindowsInput.h"
-#include "Forge/Application.h"
+#include "Forge/Core/Application.h"
 
 #include "GLFW/glfw3.h"
 

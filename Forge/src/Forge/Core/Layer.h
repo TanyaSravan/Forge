@@ -1,6 +1,6 @@
 #pragma once
 #include "Core.h"
-#include "Event/Event.h"
+#include "Forge/Event/Event.h"
 #include "Forge/Core/Timestep.h"
 
 namespace Forge {

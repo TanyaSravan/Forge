@@ -13,7 +13,7 @@
 #include <unordered_map>
 #include <unordered_set>
 
-#include "Forge/Log.h"
+#include "Forge/Core/Log.h"
 
 #ifdef FG_PLATFORM_WINDOWS
 	#include <Windows.h>

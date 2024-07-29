@@ -12,7 +12,7 @@ namespace Forge{
 			case RendererAPI::API::None:		FG_CORE_ASSERT(false, "Currently does not support RendererAPI::None"); return nullptr;
 			case RendererAPI::API::OpenGL:		return std::make_shared<OpenGlVertexBuffers>(vertices, size);
 		}
-
+		return nullptr;
 
 	}
 
@@ -23,5 +23,6 @@ namespace Forge{
 			case RendererAPI::API::None:		FG_CORE_ASSERT(false, "Currently does not support RendererAPI::None"); return nullptr;
 			case RendererAPI::API::OpenGL:		return std::make_shared<OpenGlIndexBuffers>(indices, size);
 		}
+		return nullptr;
 	}
 }

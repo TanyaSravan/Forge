@@ -14,15 +14,17 @@ namespace Forge {
 			case RendererAPI::API::None:		FG_CORE_ASSERT(false, "Currently does not support RendererAPI::None"); return nullptr;
 			case RendererAPI::API::OpenGL:		return std::make_shared<OpenGLShader>(name,VertexShaderSrc, FragmentShaderSrc);
 		}
+		return nullptr;
 	}
 
 	Ref<Shader> Shader::Create(const std::string& filepath) {
 
 		switch (Renderer::GetAPI())
 		{
-		case RendererAPI::API::None:		FG_CORE_ASSERT(false, "Currently does not support RendererAPI::None"); return nullptr;
-		case RendererAPI::API::OpenGL:		return std::make_shared<OpenGLShader>(filepath);
+			case RendererAPI::API::None:		FG_CORE_ASSERT(false, "Currently does not support RendererAPI::None"); return nullptr;
+			case RendererAPI::API::OpenGL:		return std::make_shared<OpenGLShader>(filepath);
 		}
+		return nullptr;
 	}
 
 	Ref<Shader> ShaderLibrary::Get(const std::string& name) {
