@@ -21,4 +21,8 @@ namespace Forge {
 	void Renderer::Init() {
 		RenderCommands::Init();
 	}
+
+	void Renderer::SetViewport(uint32_t width, uint32_t height) {
+		RenderCommands::SetViewport(0, 0, width, height);
+	}
 }

@@ -31,17 +31,13 @@ namespace Forge {
 	void Application::OnEvent(Event& e) {
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowCloseEvent>(FG_BIND_EVENT_FN(Application::OnWindowClose));
+		dispatcher.Dispatch<WindowResizeEvent>(FG_BIND_EVENT_FN(Application::OnWindowResize));
 
 		for (auto it = m_layerStack.end(); it != m_layerStack.begin();) {
 			(*--it)->OnEvent(e);
 			if (e.handled)
 				break;
 		}
-	}
-
-	bool Application::OnWindowClose(WindowCloseEvent& e) {
-		m_Running = false;
-		return true;
 	}
 
 	void Application::PushLayer(Layer* layer) {
@@ -62,19 +58,41 @@ namespace Forge {
 			Timestep deltatime = time - m_LastFrameTime;
 			m_LastFrameTime = time;
 
-			for (Layer* layer : m_layerStack) {
-				layer->OnUpdate(deltatime);
+			if (!m_Minimised) {
+				for (Layer* layer : m_layerStack) {
+					layer->OnUpdate(deltatime);
+				}
 			}
+
 
 			imgui_layer->Begin();
 
 			for (Layer* layer : m_layerStack) {
 				layer->OnImGuiRender();
 			}
+
 			imgui_layer->End();
 
 			m_window->OnUpdate();
 		}
+	}
+
+	bool Application::OnWindowClose(WindowCloseEvent& e) {
+		m_Running = false;
+		return true;
+	}
+
+	bool Application::OnWindowResize(WindowResizeEvent& e) {
+
+		if (e.GetWindowWidth() == 0 || e.GetWindowHeight() == 0) {
+			m_Minimised = true;
+		}
+
+		m_Minimised = false;
+
+		Renderer::SetViewport(e.GetWindowWidth(), e.GetWindowHeight());
+
+		return false;
 	}
 }
 
