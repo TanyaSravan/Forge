@@ -1,8 +1,6 @@
 #include "Forge.h"
 #include "Forge/Core/EntryPoint.h"
 
-#include "Platform/OpenGL/OpenGlShader.h"
-
 #include "imgui/imgui.h"
 
 #include "glm/gtc/matrix_transform.hpp"
@@ -131,8 +129,8 @@ public:
 		m_Texture2D = Forge::Texture2D::Create("assets/Textures/CheckerBoard.png");
 		m_LogoTexture = Forge::Texture2D::Create("assets/Textures/logo.png");
 
-		std::dynamic_pointer_cast<Forge::OpenGLShader>(textureShader)->Bind();
-		std::dynamic_pointer_cast<Forge::OpenGLShader>(textureShader)->UploadUniformInt("u_Texture", 0);
+		textureShader->Bind();
+		textureShader->SetInt("u_Texture", 0);
 	}
 
 	void OnUpdate(Forge::Timestep time) override {
@@ -146,8 +144,8 @@ public:
 
 		Forge::Renderer::BeginScene(m_orthoCamController.GetCamera());
 
-		std::dynamic_pointer_cast<Forge::OpenGLShader>(m_BlueShader)->Bind();
-		std::dynamic_pointer_cast<Forge::OpenGLShader>(m_BlueShader)->UploadUniformFloat3("u_Color", m_SquareColor);
+		m_BlueShader->Bind();
+		m_BlueShader->SetFloat3("u_Color", m_SquareColor);
 
 		for (int x = 0; x < 20; x++) {
 			for (int y = 0; y < 20; y++) {

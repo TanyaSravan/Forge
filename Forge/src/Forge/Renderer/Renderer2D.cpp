@@ -3,7 +3,9 @@
 #include "RenderCommands.h"
 #include "VertexArray.h"
 #include "Shader.h"
-#include "Platform/OpenGL/OpenGlShader.h"
+
+#include "glm/gtc/matrix_transform.hpp"
+#include "glm/gtc/type_ptr.hpp"
 
 namespace Forge {
 
@@ -16,8 +18,8 @@ namespace Forge {
 
 	void Renderer2D::BeginScene(OrthographicCamera& camera)
 	{
-		std::dynamic_pointer_cast<OpenGLShader>(s_data->BlueShader)->Bind();
-		std::dynamic_pointer_cast<OpenGLShader>(s_data->BlueShader)->UploadUniformMat4("u_VP", camera.GetVPMatrix());
+		s_data->BlueShader->Bind();
+		s_data->BlueShader->SetMat4("u_VP", camera.GetVPMatrix());
 	}
 	void Renderer2D::Init()
 	{
@@ -55,9 +57,12 @@ namespace Forge {
 
 	void Renderer2D::DrawQuad(const glm::vec3& pos, const glm::vec2 size, const glm::vec4 color)
 	{
-		std::dynamic_pointer_cast<OpenGLShader>(s_data->BlueShader)->Bind();
-		std::dynamic_pointer_cast<Forge::OpenGLShader>(s_data->BlueShader)->UploadUniformFloat3("u_Color", color);
-		std::dynamic_pointer_cast<OpenGLShader>(s_data->BlueShader)->UploadUniformMat4("u_Transform", glm::mat4(1.0f));
+		s_data->BlueShader->Bind();
+		s_data->BlueShader->SetFloat3("u_Color", color);
+
+		glm::mat4 squareTransform = glm::translate(glm::mat4(1.0f), pos) * glm::scale(glm::mat4(1.0f), { size,1.0f });
+
+		s_data->BlueShader->SetMat4("u_Transform", squareTransform);
 		RenderCommands::DrawIndexed(s_data->SquareVA);
 	}
 
