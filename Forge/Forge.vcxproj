@@ -152,6 +152,7 @@
     <ClInclude Include="src\Forge\Renderer\GraphicsContext.h" />
     <ClInclude Include="src\Forge\Renderer\RenderCommands.h" />
     <ClInclude Include="src\Forge\Renderer\Renderer.h" />
+    <ClInclude Include="src\Forge\Renderer\Renderer2D.h" />
     <ClInclude Include="src\Forge\Renderer\RendererAPI.h" />
     <ClInclude Include="src\Forge\Renderer\Shader.h" />
     <ClInclude Include="src\Forge\Renderer\Texture.h" />
@@ -182,6 +183,7 @@
     <ClCompile Include="src\Forge\Renderer\Camera.cpp" />
     <ClCompile Include="src\Forge\Renderer\RenderCommands.cpp" />
     <ClCompile Include="src\Forge\Renderer\Renderer.cpp" />
+    <ClCompile Include="src\Forge\Renderer\Renderer2D.cpp" />
     <ClCompile Include="src\Forge\Renderer\RendererAPI.cpp" />
     <ClCompile Include="src\Forge\Renderer\Shader.cpp" />
     <ClCompile Include="src\Forge\Renderer\Texture.cpp" />

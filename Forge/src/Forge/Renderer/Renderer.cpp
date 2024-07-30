@@ -1,5 +1,6 @@
 #include "FGpch.h"
 #include "Renderer.h"
+#include "Renderer2D.h"
 #include "Platform/OpenGL/OpenGlShader.h"
 
 namespace Forge {
@@ -20,6 +21,7 @@ namespace Forge {
 
 	void Renderer::Init() {
 		RenderCommands::Init();
+		Renderer2D::Init();
 	}
 
 	void Renderer::SetViewport(uint32_t width, uint32_t height) {

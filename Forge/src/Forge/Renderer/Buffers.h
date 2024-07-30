@@ -76,7 +76,7 @@ namespace Forge {
 		{
 			SetElementOffsetandStride();
 		}
-
+		 
 		BufferLayout() {}
 
 		inline const std::vector<BufferElement> GetBufferElements() const { return m_Elements; }
