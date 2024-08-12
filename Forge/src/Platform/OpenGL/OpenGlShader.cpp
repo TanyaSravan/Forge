@@ -171,6 +171,11 @@ namespace Forge {
 		UploadUniformMat4(name, value);
 	}
 
+	void OpenGLShader::SetFloat(const std::string& name, const float& value)
+	{
+		UploadUniformFloat(name, value);
+	}
+
 	void OpenGLShader::SetFloat4(const std::string& name, const glm::vec4& value)
 	{
 		UploadUniformFloat4(name, value);

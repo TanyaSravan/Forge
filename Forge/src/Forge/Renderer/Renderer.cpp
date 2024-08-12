@@ -1,7 +1,6 @@
 #include "FGpch.h"
 #include "Renderer.h"
 #include "Renderer2D.h"
-#include "Platform/OpenGL/OpenGlShader.h"
 
 namespace Forge {
 
@@ -14,8 +13,8 @@ namespace Forge {
 	void Renderer::Submit(const Ref<Shader>& shader, const Ref<VertexArray>& vertexArray, const glm::mat4& transform) {
 
 		shader->Bind();
-		std::dynamic_pointer_cast<OpenGLShader>(shader)->UploadUniformMat4("u_VP", s_SceneData->m_VPMatrix);
-		std::dynamic_pointer_cast<OpenGLShader>(shader)->UploadUniformMat4("u_Transform", transform);
+		shader->SetMat4("u_VP", s_SceneData->m_VPMatrix);
+		shader->SetMat4("u_Transform", transform);
 		RenderCommands::DrawIndexed(vertexArray);
 	}
 
