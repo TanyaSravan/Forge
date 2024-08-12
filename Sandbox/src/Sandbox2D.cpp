@@ -25,7 +25,7 @@ void Sandbox2D:: OnUpdate(Forge::Timestep time) {
 	Forge::Renderer2D::DrawQuad({ 0.5f,0.0f,0.0f }, glm::vec2(1.0f), { m_SquareColor, 1.0f });
 	Forge::Renderer2D::DrawQuad({ 1.5f,-0.5f,0.0f }, glm::vec2(0.5f, 0.8f), { 0.8f,0.2f,0.2f, 1.0f });
 
-	Forge::Renderer2D::DrawQuad({ -1.0f,0.5f,-0.1f }, glm::vec2(10.0f), m_Texture2D);
+	Forge::Renderer2D::DrawQuad({ -1.0f,0.5f,-0.1f }, glm::vec2(10.0f), m_Texture2D,10);
 
 	Forge::Renderer::EndScene();
 }
