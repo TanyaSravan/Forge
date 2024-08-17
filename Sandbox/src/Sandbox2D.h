@@ -22,4 +22,11 @@ private:
 
 	Forge::OrthographicCameraController m_orthoCamController;
 
+	struct ProfileData {
+		const char* name;
+		float time;
+	};
+
+	std::vector<ProfileData> m_Profile;
+
 };
