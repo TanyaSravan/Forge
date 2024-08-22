@@ -13,6 +13,7 @@ namespace Forge {
 	}
 
 	void OpenGlContext::Init() {
+		FG_PROFILE_FUNCTION();
 		glfwMakeContextCurrent(m_windowHandle);
 		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 		FG_ASSERT(status, "GLAD failed to initalize");
@@ -25,6 +26,7 @@ namespace Forge {
 	}
 
 	void OpenGlContext::SwapBuffers() {
+		FG_PROFILE_FUNCTION();
 		glfwSwapBuffers(m_windowHandle);
 	}
 }

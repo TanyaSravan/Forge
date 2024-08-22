@@ -8,7 +8,7 @@ namespace Forge {
 	class Renderer {
 	public:
 		static void BeginScene(OrthographicCamera& camera);
-		static void EndScene() {};
+		static void EndScene();
 
 		static void Init();
 		static void SetViewport(uint32_t width, uint32_t height);

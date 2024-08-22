@@ -20,14 +20,17 @@ namespace Forge {
 	}
 
 	WindowsWindow::WindowsWindow(const WindowProp& prop) {
+		FG_PROFILE_FUNCTION();
 		Init(prop);
 	}
 
 	WindowsWindow::~WindowsWindow() {
+		FG_PROFILE_FUNCTION();
 		Shutdown();
 	}
 
 	void WindowsWindow::Init(const WindowProp& prop) {
+		FG_PROFILE_FUNCTION();
 		m_data.Title = prop.Title;
 		m_data.Width = prop.Width;
 		m_data.Height = prop.Height;
@@ -36,17 +39,22 @@ namespace Forge {
 			prop.Title, prop.Width, prop.Height);
 
 		if (!s_GLFWInitialised) {
-			int success = glfwInit();
-			FG_CORE_ASSERT(success, "GLFW Initialisation failed");
-			glfwSetErrorCallback(GLFWErrorCallback);
+			{
+				FG_PROFILE_SCOPE("GLFW Init");
+				int success = glfwInit();
+				FG_CORE_ASSERT(success, "GLFW Initialisation failed");
+				glfwSetErrorCallback(GLFWErrorCallback);
 
-			s_GLFWInitialised = true;
+				s_GLFWInitialised = true;
+			}
 		}
 
-		m_window = glfwCreateWindow((int)prop.Width, (int)prop.Height, m_data.Title.c_str(), nullptr, nullptr);
-		m_Context = new OpenGlContext(m_window);
-		m_Context->Init();
-
+		{
+			FG_PROFILE_SCOPE("GLFW Create Window");
+			m_window = glfwCreateWindow((int)prop.Width, (int)prop.Height, m_data.Title.c_str(), nullptr, nullptr);
+			m_Context = new OpenGlContext(m_window);
+			m_Context->Init();
+		}
 
 		glfwSetWindowUserPointer(m_window, &m_data);
 		SetVSync(true);
@@ -133,15 +141,18 @@ namespace Forge {
 	}
 
 	void WindowsWindow::Shutdown() {
+		FG_PROFILE_FUNCTION();
 		glfwDestroyWindow(m_window);
 	}
 
 	void WindowsWindow:: OnUpdate() {
+		FG_PROFILE_FUNCTION();
 		glfwPollEvents();
 		m_Context->SwapBuffers(); 
 	}
 
 	void WindowsWindow::SetVSync(bool enabled) {
+		FG_PROFILE_FUNCTION();
 		if (enabled)
 			glfwSwapInterval(1);
 		else

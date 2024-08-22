@@ -5,11 +5,13 @@
 #include "Forge/Core/Log.h"
 #include "Forge/ImGui/ImguiLayer.h"
 
-#include "Forge/COre/Input.h"
-#include "Forge/COre/Keycodes.h"
-#include "Forge/COre/MouseButtonCodes.h"
+#include "Forge/Core/Input.h"
+#include "Forge/Core/Keycodes.h"
+#include "Forge/Core/MouseButtonCodes.h"
 
 #include "Forge/Core/Timestep.h"
+
+#include "Forge/Debug/Profiling.h"
 
 //------------------Renderer---------------------------
 #include "Forge/Renderer/Buffers.h"

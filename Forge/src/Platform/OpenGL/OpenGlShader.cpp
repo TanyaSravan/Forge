@@ -17,6 +17,7 @@ namespace Forge {
 	}
 
 	OpenGLShader::OpenGLShader(const std::string& filepath) {
+		FG_PROFILE_FUNCTION();
 		std::string source = ReadShader(filepath);
 		std::unordered_map<GLenum, std::string> sourceShader = ParseShader(source);
 		CompileShader(sourceShader);
@@ -30,6 +31,7 @@ namespace Forge {
 	}
 
 	std::string OpenGLShader::ReadShader(const std::string& filepath) {
+		FG_PROFILE_FUNCTION();
 
 		std::ifstream in(filepath, std::ios::in | std::ios::binary);
 
@@ -48,6 +50,7 @@ namespace Forge {
 	}
 
 	std::unordered_map<GLenum, std::string> OpenGLShader::ParseShader(const std::string& source) {
+		FG_PROFILE_FUNCTION();
 
 		std::unordered_map<GLenum, std::string> sourceShader;
 
@@ -73,6 +76,7 @@ namespace Forge {
 	}
 
 	void OpenGLShader::CompileShader(const std::unordered_map<GLenum, std::string>& sourceShader) {
+		FG_PROFILE_FUNCTION();
 
 		GLuint program = glCreateProgram();
 		FG_CORE_ASSERT(sourceShader.size() <= 2, "We only support 2 shaders");
@@ -146,6 +150,7 @@ namespace Forge {
 	OpenGLShader::OpenGLShader(const std::string& name,const std::string& vertexShaderSrc, const std::string& fragmentShaderSrc)
 		:m_name(name)
 	{
+		FG_PROFILE_FUNCTION();
 		std::unordered_map<GLenum, std::string> sourceShader;
 		sourceShader[GL_VERTEX_SHADER] = vertexShaderSrc;
 		sourceShader[GL_FRAGMENT_SHADER] = fragmentShaderSrc;
@@ -155,39 +160,47 @@ namespace Forge {
 	}
 
 	OpenGLShader::~OpenGLShader() {
+		FG_PROFILE_FUNCTION();
 		glDeleteProgram(m_RendererId);
 	}
 
 	void OpenGLShader::Bind() const {
+		FG_PROFILE_FUNCTION();
 		glUseProgram(m_RendererId);
 	}
 	
 	void OpenGLShader::Unbind() const {
+		FG_PROFILE_FUNCTION();
 		glUseProgram(0);
 	}
 
 	void OpenGLShader::SetMat4(const std::string& name, const glm::mat4& value)
 	{
+		FG_PROFILE_FUNCTION();
 		UploadUniformMat4(name, value);
 	}
 
 	void OpenGLShader::SetFloat(const std::string& name, const float& value)
 	{
+		FG_PROFILE_FUNCTION();
 		UploadUniformFloat(name, value);
 	}
 
 	void OpenGLShader::SetFloat4(const std::string& name, const glm::vec4& value)
 	{
+		FG_PROFILE_FUNCTION();
 		UploadUniformFloat4(name, value);
 	}
 
 	void OpenGLShader::SetFloat3(const std::string& name, const glm::vec3& value)
 	{
+		FG_PROFILE_FUNCTION();
 		UploadUniformFloat3(name, value);
 	}
 
 	void OpenGLShader::SetInt(const std::string& name, const int& value)
 	{
+		FG_PROFILE_FUNCTION();
 		UploadUniformInt(name, value);
 	}
 

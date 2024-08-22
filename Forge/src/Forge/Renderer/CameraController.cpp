@@ -12,6 +12,7 @@ namespace Forge {
 		m_rotation(rotation) {}
 
 	void OrthographicCameraController::OnUpdate(Timestep time) {
+		FG_PROFILE_FUNCTION();
 		if (Input::IsKeyPressed(FG_KEY_A))
 			m_CamPosition.x += m_CamMoveSpeed * time;
 		else if (Input::IsKeyPressed(FG_KEY_D))
@@ -36,12 +37,14 @@ namespace Forge {
 	}
 
 	void OrthographicCameraController::OnEvent(Event& e) {
+		FG_PROFILE_FUNCTION();
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<MouseScrolledEvent>(FG_BIND_EVENT_FN(OrthographicCameraController::OnMouseScrolledEvent));
 		dispatcher.Dispatch<WindowResizeEvent>(FG_BIND_EVENT_FN(OrthographicCameraController::OnWindowResisedEvent));
 	}
 
 	bool OrthographicCameraController::OnMouseScrolledEvent(MouseScrolledEvent& e) {
+		FG_PROFILE_FUNCTION();
 		m_ZoomLevel -= e.GetYOffset()* 0.25f;
 		m_ZoomLevel = std::max(m_ZoomLevel, 0.25f);
 
@@ -50,6 +53,7 @@ namespace Forge {
 	}
 
 	bool OrthographicCameraController::OnWindowResisedEvent(WindowResizeEvent& e) {
+		FG_PROFILE_FUNCTION();
 		m_aspectRatio = (float)e.GetWindowWidth() / (float)e.GetWindowHeight();
 		m_Camera.SetCamProjection(-m_aspectRatio * m_ZoomLevel, m_aspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel);
 		return false;

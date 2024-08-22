@@ -9,6 +9,7 @@ namespace Forge {
 	OpenGlTexture2D::OpenGlTexture2D(const int& width, const int& height)
 		:m_Width(width), m_Height(height)
 	{
+		FG_PROFILE_FUNCTION();
 		m_InternalFormat = GL_RGBA8, m_DataFormat = GL_RGBA;
 
 		glCreateTextures(GL_TEXTURE_2D, 1, &m_RendererId);
@@ -22,10 +23,14 @@ namespace Forge {
 	OpenGlTexture2D::OpenGlTexture2D(const std::string& filepath )
 		:m_filepath(filepath)
 	{
+		FG_PROFILE_FUNCTION();
 		int width, height, channels;
+		stbi_uc* data = nullptr;
 		stbi_set_flip_vertically_on_load(1);
-		stbi_uc* data = stbi_load(filepath.c_str(), &width, &height, &channels, 0);
-
+		{
+			FG_PROFILE_SCOPE("STBI Load: OpenGlTexture2D(const std::string& filepath )");
+			data = stbi_load(filepath.c_str(), &width, &height, &channels, 0);
+		}
 		m_Width = width;
 		m_Height = height;
 
@@ -54,16 +59,20 @@ namespace Forge {
 		stbi_image_free(data);
 	}
 
+
 	OpenGlTexture2D::~OpenGlTexture2D() {
+		FG_PROFILE_FUNCTION();
 		glDeleteTextures(1, &m_RendererId);
 	}
 
 	void OpenGlTexture2D::SetData(const void* data, const int& size)
 	{
+		FG_PROFILE_FUNCTION();
 		glTextureSubImage2D(m_RendererId, 0, 0, 0, m_Width, m_Width, m_DataFormat, GL_UNSIGNED_BYTE, data);
 	}
 
 	void OpenGlTexture2D::Bind(unsigned int slot) const {
+		FG_PROFILE_FUNCTION();
 		glBindTextureUnit(0, m_RendererId);
 	}
 }

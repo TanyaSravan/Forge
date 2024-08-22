@@ -19,11 +19,13 @@ namespace Forge {
 
 	void Renderer2D::BeginScene(OrthographicCamera& camera)
 	{
+		FG_PROFILE_FUNCTION();
 		s_data->TextureShader->Bind();
 		s_data->TextureShader->SetMat4("u_VP", camera.GetVPMatrix());
 	}
 	void Renderer2D::Init()
 	{
+		FG_PROFILE_FUNCTION();
 		s_data = new Renderer2DStorage();
 		s_data->SquareVA = VertexArray::Create();
 		float Squarevertices[5 * 4] = {
@@ -66,6 +68,7 @@ namespace Forge {
 
 	void Renderer2D::DrawQuad(const glm::vec3& pos, const glm::vec2 size, const glm::vec4& color)
 	{
+		FG_PROFILE_FUNCTION();
 
 		s_data->DefaultTexture->Bind();
 		s_data->TextureShader->SetFloat("u_NumTiles", 1);
@@ -86,6 +89,8 @@ namespace Forge {
 
 	void Renderer2D::DrawQuad(const glm::vec3& pos, const glm::vec2 size, const Ref<Texture>& texture, const float& numTiles , const glm::vec4& color)
 	{
+		FG_PROFILE_FUNCTION();
+
 		texture->Bind();
 
 		s_data->TextureShader->SetFloat4("u_Color", color);

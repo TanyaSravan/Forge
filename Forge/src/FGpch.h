@@ -14,6 +14,7 @@
 #include <unordered_set>
 
 #include "Forge/Core/Log.h"
+#include "Forge/Debug/Profiling.h"
 
 #ifdef FG_PLATFORM_WINDOWS
 	#include <Windows.h>

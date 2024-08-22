@@ -10,6 +10,11 @@ namespace Forge {
 		s_SceneData->m_VPMatrix = camera.GetVPMatrix();
 	}
 
+	void Renderer::EndScene()
+	{
+		FG_PROFILE_FUNCTION();
+	}
+
 	void Renderer::Submit(const Ref<Shader>& shader, const Ref<VertexArray>& vertexArray, const glm::mat4& transform) {
 
 		shader->Bind();
@@ -19,6 +24,7 @@ namespace Forge {
 	}
 
 	void Renderer::Init() {
+		FG_PROFILE_FUNCTION();
 		RenderCommands::Init();
 		Renderer2D::Init();
 	}
