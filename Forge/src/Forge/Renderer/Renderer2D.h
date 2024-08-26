@@ -14,7 +14,19 @@ namespace Forge {
 		static void DrawQuad(const glm::vec2& pos, const glm::vec2 size, const glm::vec4& color);
 		static void DrawQuad(const glm::vec3& pos, const glm::vec2 size, const glm::vec4& color);
 
+		static void DrawQuad(const glm::vec2& pos, const glm::vec2 size, const Ref<Texture>& texture, const glm::vec4& color = { 1.0f,1.0f,1.0f,1.0f });
+		static void DrawQuad(const glm::vec3& pos, const glm::vec2 size, const Ref<Texture>& texture, const glm::vec4& color = { 1.0f,1.0f,1.0f,1.0f });
+
 		static void DrawQuad(const glm::vec2& pos, const glm::vec2 size, const Ref<Texture>& texture, const float& numTiles = 1, const glm::vec4& color = { 1.0f,1.0f,1.0f,1.0f });
 		static void DrawQuad(const glm::vec3& pos, const glm::vec2 size, const Ref<Texture>& texture, const float& numTiles = 1, const glm::vec4& color = { 1.0f,1.0f,1.0f,1.0f });
+
+		static void DrawRotatedQuad(const glm::vec2& pos, const glm::vec2 size, const float& rotate, const glm::vec4& color);
+		static void DrawRotatedQuad(const glm::vec3& pos, const glm::vec2 size, const float& rotate, const glm::vec4& color);
+																			    
+		static void DrawRotatedQuad(const glm::vec2& pos, const glm::vec2 size, const float& rotate, const Ref<Texture>& texture, const glm::vec4& color = { 1.0f,1.0f,1.0f,1.0f });
+		static void DrawRotatedQuad(const glm::vec3& pos, const glm::vec2 size, const float& rotate, const Ref<Texture>& texture, const glm::vec4& color = { 1.0f,1.0f,1.0f,1.0f });
+
+		static void DrawRotatedQuad(const glm::vec2& pos, const glm::vec2 size, const float& rotate, const Ref<Texture>& texture, const float& numTiles = 1, const glm::vec4& color = { 1.0f,1.0f,1.0f,1.0f });
+		static void DrawRotatedQuad(const glm::vec3& pos, const glm::vec2 size, const float& rotate, const Ref<Texture>& texture, const float& numTiles = 1, const glm::vec4& color = { 1.0f,1.0f,1.0f,1.0f });
 	};
 }

@@ -87,6 +87,27 @@ namespace Forge {
 		Renderer2D::DrawQuad(glm::vec3(pos, 0.0f), size, color);
 	}
 
+	void Renderer2D::DrawQuad(const glm::vec3& pos, const glm::vec2 size, const Ref<Texture>& texture, const glm::vec4& color)
+	{
+		FG_PROFILE_FUNCTION();
+
+		texture->Bind();
+
+		s_data->TextureShader->SetFloat4("u_Color", color);
+
+		s_data->TextureShader->SetFloat("u_NumTiles", 1);
+
+		glm::mat4 squareTransform = glm::translate(glm::mat4(1.0f), pos) * glm::scale(glm::mat4(1.0f), { size,1.0f });
+		s_data->TextureShader->SetMat4("u_Transform", squareTransform);
+
+		RenderCommands::DrawIndexed(s_data->SquareVA);
+	}
+
+	void Renderer2D::DrawQuad(const glm::vec2& pos, const glm::vec2 size, const Ref<Texture>& texture, const glm::vec4& color)
+	{
+		Renderer2D::DrawQuad(glm::vec3(pos, 0.0f), size, texture, color);
+	}
+
 	void Renderer2D::DrawQuad(const glm::vec3& pos, const glm::vec2 size, const Ref<Texture>& texture, const float& numTiles , const glm::vec4& color)
 	{
 		FG_PROFILE_FUNCTION();
@@ -102,9 +123,78 @@ namespace Forge {
 
 		RenderCommands::DrawIndexed(s_data->SquareVA);
 	}
-
+	
 	void Renderer2D::DrawQuad(const glm::vec2& pos, const glm::vec2 size, const Ref<Texture>& texture, const float& numTiles, const glm::vec4& color)
 	{
 		Renderer2D::DrawQuad(glm::vec3(pos, 0.0f), size, texture, numTiles, color);
+	}
+
+	void Renderer2D::DrawRotatedQuad(const glm::vec3& pos, const glm::vec2 size, const float& rotate, const glm::vec4& color)
+	{
+		FG_PROFILE_FUNCTION();
+
+		s_data->DefaultTexture->Bind();
+		s_data->TextureShader->SetFloat("u_NumTiles", 1);
+
+		s_data->TextureShader->SetFloat4("u_Color", color);
+
+		glm::mat4 squareTransform = glm::translate(glm::mat4(1.0f), pos) *
+			glm::rotate(glm::mat4(1.0f), glm::radians(rotate), glm::vec3(0.0f, 0.0f, 1.0f)) *
+			glm::scale(glm::mat4(1.0f), { size,1.0f });
+		s_data->TextureShader->SetMat4("u_Transform", squareTransform);
+
+		s_data->SquareVA->Bind();
+		RenderCommands::DrawIndexed(s_data->SquareVA);
+	}
+
+	void Renderer2D::DrawRotatedQuad(const glm::vec2& pos, const glm::vec2 size, const float& rotate, const glm::vec4& color)
+	{
+		Renderer2D::DrawRotatedQuad(glm::vec3(pos, 0.0f), size, rotate, color);
+	}
+
+	void Renderer2D::DrawRotatedQuad(const glm::vec3& pos, const glm::vec2 size, const float& rotate, const Ref<Texture>& texture, const glm::vec4& color)
+	{
+		FG_PROFILE_FUNCTION();
+
+		texture->Bind();
+		s_data->TextureShader->SetFloat("u_NumTiles", 1);
+
+		s_data->TextureShader->SetFloat4("u_Color", color);
+
+		glm::mat4 squareTransform = glm::translate(glm::mat4(1.0f), pos) *
+			glm::rotate(glm::mat4(1.0f), glm::radians(rotate), glm::vec3(0.0f, 0.0f, 1.0f)) *
+			glm::scale(glm::mat4(1.0f), { size,1.0f });
+		s_data->TextureShader->SetMat4("u_Transform", squareTransform);
+
+		s_data->SquareVA->Bind();
+		RenderCommands::DrawIndexed(s_data->SquareVA);
+	}
+
+	void Renderer2D::DrawRotatedQuad(const glm::vec2& pos, const glm::vec2 size, const float& rotate, const Ref<Texture>& texture, const glm::vec4& color)
+	{
+		Renderer2D::DrawRotatedQuad(glm::vec3(pos, 0.0f), size, rotate, texture, color);
+	}
+
+	void Renderer2D::DrawRotatedQuad(const glm::vec3& pos, const glm::vec2 size, const float& rotate, const Ref<Texture>& texture, const float& numTiles, const glm::vec4& color)
+	{
+		FG_PROFILE_FUNCTION();
+
+		texture->Bind();
+		s_data->TextureShader->SetFloat("u_NumTiles", numTiles);
+
+		s_data->TextureShader->SetFloat4("u_Color", color);
+
+		glm::mat4 squareTransform = glm::translate(glm::mat4(1.0f), pos) *
+			glm::rotate(glm::mat4(1.0f), glm::radians(rotate), glm::vec3(0.0f, 0.0f, 1.0f)) *
+			glm::scale(glm::mat4(1.0f), { size,1.0f });
+		s_data->TextureShader->SetMat4("u_Transform", squareTransform);
+
+		s_data->SquareVA->Bind();
+		RenderCommands::DrawIndexed(s_data->SquareVA);
+	}
+
+	void Renderer2D::DrawRotatedQuad(const glm::vec2& pos, const glm::vec2 size, const float& rotate, const Ref<Texture>& texture, const float& numTiles, const glm::vec4& color)
+	{
+		Renderer2D::DrawRotatedQuad(glm::vec3(pos, 0.0f), size, rotate, texture, numTiles, color);
 	}
 }
