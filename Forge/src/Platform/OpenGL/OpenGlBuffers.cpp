@@ -6,6 +6,14 @@
 namespace Forge {
 
 	//VertexBuffer
+	OpenGlVertexBuffers::OpenGlVertexBuffers(uint32_t size)
+	{
+		FG_PROFILE_FUNCTION();
+		glCreateBuffers(1, &m_RendererId);
+		glBindBuffer(GL_ARRAY_BUFFER, m_RendererId);
+		glBufferData(GL_ARRAY_BUFFER, size, nullptr, GL_DYNAMIC_DRAW);
+	}
+
 	OpenGlVertexBuffers::OpenGlVertexBuffers(float* vertices, uint32_t size) {
 		FG_PROFILE_FUNCTION();
 		glCreateBuffers(1, &m_RendererId);
@@ -26,6 +34,12 @@ namespace Forge {
 	void OpenGlVertexBuffers::Unbind() const {
 		FG_PROFILE_FUNCTION();
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
+	}
+
+	void OpenGlVertexBuffers::SetData(const void* VertexBuffer, uint32_t size)
+	{
+		glBindBuffer(GL_ARRAY_BUFFER, m_RendererId);
+		glBufferSubData(GL_ARRAY_BUFFER, 0, size, VertexBuffer);
 	}
 
 	//Index Buffer

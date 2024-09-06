@@ -11,9 +11,10 @@ namespace Forge {
 		glClearColor(color.r, color.g, color.b, color.a);
 	}
 
-	void OpenGlRendererAPI::DrawIndexed(const Ref<VertexArray>& vertexArray) {
+	void OpenGlRendererAPI::DrawIndexed(const Ref<VertexArray>& vertexArray, uint32_t indexCount) {
 		vertexArray->Bind();
-		glDrawElements(GL_TRIANGLES, vertexArray->GetIndexBuffers()->GetCount(), GL_UNSIGNED_INT, nullptr);
+		uint32_t count = indexCount == 0 ? vertexArray->GetIndexBuffers()->GetCount() : indexCount;
+		glDrawElements(GL_TRIANGLES, count , GL_UNSIGNED_INT, nullptr);
 	}
 
 	void OpenGlRendererAPI::Init() {

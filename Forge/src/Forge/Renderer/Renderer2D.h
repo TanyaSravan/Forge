@@ -6,7 +6,9 @@ namespace Forge {
 	class Renderer2D {
 	public:
 		static void BeginScene(OrthographicCamera& camera);
-		static void EndScene() {};
+		static void EndScene();
+
+		static void Flush();
 
 		static void Init();
 		static void Shutdown();

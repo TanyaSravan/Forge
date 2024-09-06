@@ -118,16 +118,16 @@ namespace Forge {
 }
 
 
-#define FG_PROFILING 1
+#define FG_PROFILING 0
 #if FG_PROFILING	
 	#define FG_BEGIN_PROFILE_SESSION(name,filepath) Forge::Instrumentation::Get().BeginSession(name,filepath)
 	#define FG_END_PROFILE_SESSION() Forge::Instrumentation::Get().EndSession();
 	#define FG_PROFILE_SCOPE(name) Forge::Timer timer##__LINE__(name)
 	#define FG_PROFILE_FUNCTION() Forge::Timer timer##__LINE__(__FUNCSIG__)
 #else
-	#define FG_BEGIN_SESSION(name,filepath)
-	#define FG_END_SESSION(name)
-	#define PROFILE_SCOPE(name)
-	#define PROFILE_FUNCTION()
+	#define FG_BEGIN_PROFILE_SESSION(name,filepath)
+	#define FG_END_PROFILE_SESSION(name)
+	#define FG_PROFILE_SCOPE(name)
+	#define FG_PROFILE_FUNCTION()
 #endif
 

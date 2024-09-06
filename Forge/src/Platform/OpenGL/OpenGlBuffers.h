@@ -6,12 +6,15 @@ namespace Forge {
 	
 	class OpenGlVertexBuffers : public VertexBuffer {
 	public:
+		OpenGlVertexBuffers(uint32_t size);
 		OpenGlVertexBuffers(float* vertices, uint32_t size);
 
 		~OpenGlVertexBuffers();
 
 		virtual void Bind() const override;
 		virtual void Unbind() const override;
+
+		virtual void SetData(const void* VertexBuffer, uint32_t size) override;
 
 		virtual void SetLayout(BufferLayout layout) override { m_Layout = layout; }
 		virtual const BufferLayout GetLayout() const override { return m_Layout; }

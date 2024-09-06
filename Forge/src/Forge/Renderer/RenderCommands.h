@@ -17,8 +17,8 @@ namespace Forge {
 			s_RendererAPI->Clear();
 		}
 
-		inline static void DrawIndexed(const Ref<VertexArray>& vertexArray) {
-			s_RendererAPI->DrawIndexed(vertexArray);
+		inline static void DrawIndexed(const Ref<VertexArray>& vertexArray, uint32_t IndexCount = 0) {
+			s_RendererAPI->DrawIndexed(vertexArray, IndexCount);
 		}
 
 		inline static void Init() {
