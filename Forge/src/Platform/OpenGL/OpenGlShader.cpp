@@ -204,6 +204,12 @@ namespace Forge {
 		UploadUniformInt(name, value);
 	}
 
+	void OpenGLShader::SetIntArray(const std::string& name, const int32_t* values, uint32_t count)
+	{
+		FG_PROFILE_FUNCTION();
+		UploadUniformIntArray(name, values,count);
+	}
+
 	void OpenGLShader::UploadUniformMat3(const std::string& name, const glm::mat3& matrix) {
 		GLint location = glGetUniformLocation(m_RendererId, name.c_str());
 		glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(matrix));
@@ -218,6 +224,12 @@ namespace Forge {
 	void OpenGLShader::UploadUniformInt(const std::string& name, const int& value) {
 		GLint location = glGetUniformLocation(m_RendererId, name.c_str());
 		glUniform1i(location, value);
+	}
+
+	void OpenGLShader::UploadUniformIntArray(const std::string& name, const int* values, uint32_t count)
+	{
+		GLint location = glGetUniformLocation(m_RendererId, name.c_str());
+		glUniform1iv(location, count, values);
 	}
 
 	void OpenGLShader::UploadUniformFloat(const std::string& name, const float& value) {

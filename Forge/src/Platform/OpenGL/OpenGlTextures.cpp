@@ -72,7 +72,7 @@ namespace Forge {
 	}
 
 	void OpenGlTexture2D::Bind(unsigned int slot) const {
-		FG_PROFILE_FUNCTION();
-		glBindTextureUnit(0, m_RendererId);
+		FG_PROFILE_FUNCTION()
+		glBindTextureUnit(slot , m_RendererId);
 	}
 }

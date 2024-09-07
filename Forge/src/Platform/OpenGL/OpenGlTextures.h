@@ -18,6 +18,10 @@ namespace Forge {
 
 		virtual void Bind(unsigned int slot = 0) const override;
 
+		virtual bool operator == (const Texture& other) const override {
+			return (m_RendererId == ((OpenGlTexture2D&)other).m_RendererId);
+		}
+
 	private:
 		std::string m_filepath;
 		unsigned int m_Width, m_Height;
