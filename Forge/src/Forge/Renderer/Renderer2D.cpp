@@ -35,6 +35,8 @@ namespace Forge {
 		static const uint32_t MaxTextureSlots = 32;
 		std::array<Ref<Texture2D>, MaxTextureSlots> TextureSlots;
 		uint32_t TextureSlotIndex = 1;
+
+		glm::vec4 QuadVertices[4];
 	};
 
 	static Renderer2DStorage s_data;
@@ -120,6 +122,11 @@ namespace Forge {
 		s_data.DefaultTexture->SetData(&WhiteTexData, sizeof(uint32_t));
 
 		s_data.TextureSlots[0] = s_data.DefaultTexture;
+
+		s_data.QuadVertices[0] = { -0.5f,-0.5f,0.0f,0.0f };
+		s_data.QuadVertices[1] = {  0.5f,-0.5f,0.0f,0.0f };
+		s_data.QuadVertices[2] = {  0.5f, 0.5f,0.0f,0.0f };
+		s_data.QuadVertices[3] = { -0.5f, 0.5f,0.0f,0.0f };
 	}
 	void Renderer2D::Shutdown()
 	{
@@ -161,18 +168,6 @@ namespace Forge {
 		s_data.QuadVertexptr++;
 
 		s_data.QuadIndexCount += 6;
-
-		/*
-		s_data.DefaultTexture->Bind();
-		s_data.TextureShader->SetFloat("u_NumTiles", 1);
-
-		glm::mat4 squareTransform = glm::mat4(1.0f);
-		squareTransform = glm::translate(glm::mat4(1.0f), pos) * glm::scale(glm::mat4(1.0f), { size,1.0f });
-		s_data.TextureShader->SetMat4("u_Transform", squareTransform);
-
-		s_data.SquareVA->Bind();
-		RenderCommands::DrawIndexed(s_data.SquareVA);
-		*/
 	}
 
 	void Renderer2D::DrawQuad(const glm::vec2& pos, const glm::vec2 size, const glm::vec4& color)
@@ -232,20 +227,6 @@ namespace Forge {
 
 		s_data.QuadIndexCount += 6;
 
-		/*
-
-		texture->Bind();
-
-		s_data.TextureShader->SetFloat4("u_Color", color);
-
-		s_data.TextureShader->SetFloat("u_NumTiles", 1);
-
-		glm::mat4 squareTransform = glm::mat4(1.0f);
-		squareTransform = glm::translate(glm::mat4(1.0f), pos) * glm::scale(glm::mat4(1.0f), { size,1.0f });
-		s_data.TextureShader->SetMat4("u_Transform", squareTransform);
-
-		RenderCommands::DrawIndexed(s_data.SquareVA);
-		*/
 	}
 
 	void Renderer2D::DrawQuad(const glm::vec2& pos, const glm::vec2 size, const Ref<Texture2D>& texture)
@@ -414,21 +395,8 @@ namespace Forge {
 
 		s_data.QuadIndexCount += 6;
 
-		/*
-		texture->Bind();
-
-		s_data.TextureShader->SetFloat4("u_Color", color);
-
-		s_data.TextureShader->SetFloat("u_NumTiles", numTiles);
-
-		glm::mat4 squareTransform = glm::mat4(1.0f);
-		squareTransform = glm::translate(glm::mat4(1.0f), pos) * glm::scale(glm::mat4(1.0f), { size,1.0f });
-		s_data.TextureShader->SetMat4("u_Transform", squareTransform);
-
-		RenderCommands::DrawIndexed(s_data.SquareVA);
-		*/
 	}
-	
+
 	void Renderer2D::DrawQuad(const glm::vec2& pos, const glm::vec2 size, const Ref<Texture2D>& texture, const float& numTiles, const glm::vec4& color)
 	{
 		Renderer2D::DrawQuad(glm::vec3(pos, 0.0f), size, texture, numTiles, color);
@@ -438,43 +406,170 @@ namespace Forge {
 	{
 		FG_PROFILE_FUNCTION();
 
-		s_data.DefaultTexture->Bind();
-		s_data.TextureShader->SetFloat("u_NumTiles", 1);
-
-		s_data.TextureShader->SetFloat4("u_Color", color);
-
 		glm::mat4 squareTransform = glm::mat4(1.0f);
-		glm::translate(glm::mat4(1.0f), pos) *
-			glm::rotate(glm::mat4(1.0f), glm::radians(rotate), glm::vec3(0.0f, 0.0f, 1.0f)) *
+		squareTransform = glm::translate(glm::mat4(1.0f), pos)*
+			glm::rotate(glm::mat4(1.0f), glm::radians(rotate), glm::vec3(0.0f, 0.0f, 1.0f))*
 			glm::scale(glm::mat4(1.0f), { size,1.0f });
-		s_data.TextureShader->SetMat4("u_Transform", squareTransform);
 
-		s_data.SquareVA->Bind();
-		RenderCommands::DrawIndexed(s_data.SquareVA);
+		float textureIndex = 0.0f;
+		float numTiles = 1.0f;
+
+		s_data.QuadVertexptr->Pos = squareTransform * s_data.QuadVertices[0];
+		s_data.QuadVertexptr->Color = color;
+		s_data.QuadVertexptr->TexCoord = { 0.0f,0.0f };
+		s_data.QuadVertexptr->TexIndex = textureIndex;
+		s_data.QuadVertexptr->Numtiles = numTiles;
+		s_data.QuadVertexptr++;
+
+		s_data.QuadVertexptr->Pos = squareTransform * s_data.QuadVertices[1];
+		s_data.QuadVertexptr->Color = color;
+		s_data.QuadVertexptr->TexCoord = { 1.0f,0.0f };
+		s_data.QuadVertexptr->TexIndex = textureIndex;
+		s_data.QuadVertexptr->Numtiles = numTiles;
+		s_data.QuadVertexptr++;
+
+		s_data.QuadVertexptr->Pos = squareTransform * s_data.QuadVertices[2];
+		s_data.QuadVertexptr->Color = color;
+		s_data.QuadVertexptr->TexCoord = { 1.0f, 1.0f };
+		s_data.QuadVertexptr->TexIndex = textureIndex;
+		s_data.QuadVertexptr->Numtiles = numTiles;
+		s_data.QuadVertexptr++;
+
+		s_data.QuadVertexptr->Pos = squareTransform * s_data.QuadVertices[3];
+		s_data.QuadVertexptr->Color = color;
+		s_data.QuadVertexptr->TexCoord = { 0.0f,1.0f };
+		s_data.QuadVertexptr->TexIndex = textureIndex;
+		s_data.QuadVertexptr->Numtiles = numTiles;
+		s_data.QuadVertexptr++;
+
+		s_data.QuadIndexCount += 6;
 	}
+
 
 	void Renderer2D::DrawRotatedQuad(const glm::vec2& pos, const glm::vec2 size, const float& rotate, const glm::vec4& color)
 	{
 		Renderer2D::DrawRotatedQuad(glm::vec3(pos, 0.0f), size, rotate, color);
 	}
 
+	void Renderer2D::DrawRotatedQuad(const glm::vec3& pos, const glm::vec2 size, const float& rotate, const Ref<Texture2D>& texture)
+	{
+		FG_PROFILE_FUNCTION();
+
+		glm::mat4 squareTransform = glm::mat4(1.0f);
+		squareTransform = glm::translate(glm::mat4(1.0f), pos)*
+			glm::rotate(glm::mat4(1.0f), glm::radians(rotate), glm::vec3(0.0f, 0.0f, 1.0f))*
+			glm::scale(glm::mat4(1.0f), { size,1.0f });
+
+		float textureIndex = 0.0f;
+		float numTiles = 1.0f;
+
+
+		for (uint32_t i = 1; i < s_data.TextureSlotIndex; i++) {
+			if (*s_data.TextureSlots[i].get() == *texture.get()) {
+				textureIndex = (float)i;
+				break;
+			}
+		}
+
+		if (textureIndex == 0) {
+			textureIndex = (float)s_data.TextureSlotIndex;
+			s_data.TextureSlots[s_data.TextureSlotIndex] = texture;
+			s_data.TextureSlotIndex++;
+		}
+
+		constexpr glm::vec4 color = { 1.0f,1.0f,1.0f,1.0f };
+
+		s_data.QuadVertexptr->Pos = squareTransform * s_data.QuadVertices[0];
+		s_data.QuadVertexptr->Color = color;
+		s_data.QuadVertexptr->TexCoord = { 0.0f,0.0f };
+		s_data.QuadVertexptr->TexIndex = textureIndex;
+		s_data.QuadVertexptr->Numtiles = numTiles;
+		s_data.QuadVertexptr++;
+
+		s_data.QuadVertexptr->Pos = squareTransform * s_data.QuadVertices[1];
+		s_data.QuadVertexptr->Color = color;
+		s_data.QuadVertexptr->TexCoord = { 1.0f,0.0f };
+		s_data.QuadVertexptr->TexIndex = textureIndex;
+		s_data.QuadVertexptr->Numtiles = numTiles;
+		s_data.QuadVertexptr++;
+
+		s_data.QuadVertexptr->Pos = squareTransform * s_data.QuadVertices[2];
+		s_data.QuadVertexptr->Color = color;
+		s_data.QuadVertexptr->TexCoord = { 1.0f, 1.0f };
+		s_data.QuadVertexptr->TexIndex = textureIndex;
+		s_data.QuadVertexptr->Numtiles = numTiles;
+		s_data.QuadVertexptr++;
+
+		s_data.QuadVertexptr->Pos = squareTransform * s_data.QuadVertices[3];
+		s_data.QuadVertexptr->Color = color;
+		s_data.QuadVertexptr->TexCoord = { 0.0f,1.0f };
+		s_data.QuadVertexptr->TexIndex = textureIndex;
+		s_data.QuadVertexptr->Numtiles = numTiles;
+		s_data.QuadVertexptr++;
+
+		s_data.QuadIndexCount += 6;
+	}
+
+	void Renderer2D::DrawRotatedQuad(const glm::vec2& pos, const glm::vec2 size, const float& rotate, const Ref<Texture2D>& texture)
+	{
+		Renderer2D::DrawRotatedQuad(glm::vec3(pos, 0.0f), size, rotate, texture);
+	}
+
 	void Renderer2D::DrawRotatedQuad(const glm::vec3& pos, const glm::vec2 size, const float& rotate, const Ref<Texture2D>& texture, const glm::vec4& color)
 	{
 		FG_PROFILE_FUNCTION();
 
-		texture->Bind();
-		s_data.TextureShader->SetFloat("u_NumTiles", 1);
-
-		s_data.TextureShader->SetFloat4("u_Color", color);
-
 		glm::mat4 squareTransform = glm::mat4(1.0f);
-		squareTransform = glm::translate(glm::mat4(1.0f), pos) *
-			glm::rotate(glm::mat4(1.0f), glm::radians(rotate), glm::vec3(0.0f, 0.0f, 1.0f)) *
+		squareTransform = glm::translate(glm::mat4(1.0f), pos)*
+			glm::rotate(glm::mat4(1.0f), glm::radians(rotate), glm::vec3(0.0f, 0.0f, 1.0f))*
 			glm::scale(glm::mat4(1.0f), { size,1.0f });
-		s_data.TextureShader->SetMat4("u_Transform", squareTransform);
 
-		s_data.SquareVA->Bind();
-		RenderCommands::DrawIndexed(s_data.SquareVA);
+		float textureIndex = 0.0f;
+		float numTiles = 1.0f;
+
+
+		for (uint32_t i = 1; i < s_data.TextureSlotIndex; i++) {
+			if (*s_data.TextureSlots[i].get() == *texture.get()) {
+				textureIndex = (float)i;
+				break;
+			}
+		}
+
+		if (textureIndex == 0) {
+			textureIndex = (float)s_data.TextureSlotIndex;
+			s_data.TextureSlots[s_data.TextureSlotIndex] = texture;
+			s_data.TextureSlotIndex++;
+		}
+
+		s_data.QuadVertexptr->Pos = squareTransform * s_data.QuadVertices[0];
+		s_data.QuadVertexptr->Color = color;
+		s_data.QuadVertexptr->TexCoord = { 0.0f,0.0f };
+		s_data.QuadVertexptr->TexIndex = textureIndex;
+		s_data.QuadVertexptr->Numtiles = numTiles;
+		s_data.QuadVertexptr++;
+
+		s_data.QuadVertexptr->Pos = squareTransform * s_data.QuadVertices[1];
+		s_data.QuadVertexptr->Color = color;
+		s_data.QuadVertexptr->TexCoord = { 1.0f,0.0f };
+		s_data.QuadVertexptr->TexIndex = textureIndex;
+		s_data.QuadVertexptr->Numtiles = numTiles;
+		s_data.QuadVertexptr++;
+
+		s_data.QuadVertexptr->Pos = squareTransform * s_data.QuadVertices[2];
+		s_data.QuadVertexptr->Color = color;
+		s_data.QuadVertexptr->TexCoord = { 1.0f, 1.0f };
+		s_data.QuadVertexptr->TexIndex = textureIndex;
+		s_data.QuadVertexptr->Numtiles = numTiles;
+		s_data.QuadVertexptr++;
+
+		s_data.QuadVertexptr->Pos = squareTransform * s_data.QuadVertices[3];
+		s_data.QuadVertexptr->Color = color;
+		s_data.QuadVertexptr->TexCoord = { 0.0f,1.0f };
+		s_data.QuadVertexptr->TexIndex = textureIndex;
+		s_data.QuadVertexptr->Numtiles = numTiles;
+		s_data.QuadVertexptr++;
+
+		s_data.QuadIndexCount += 6;
 	}
 
 	void Renderer2D::DrawRotatedQuad(const glm::vec2& pos, const glm::vec2 size, const float& rotate, const Ref<Texture2D>& texture, const glm::vec4& color)
@@ -482,27 +577,127 @@ namespace Forge {
 		Renderer2D::DrawRotatedQuad(glm::vec3(pos, 0.0f), size, rotate, texture, color);
 	}
 
+	void Renderer2D::DrawRotatedQuad(const glm::vec3& pos, const glm::vec2 size, const float& rotate, const Ref<Texture2D>& texture, const float& numTiles)
+	{
+		FG_PROFILE_FUNCTION();
+
+		glm::mat4 squareTransform = glm::mat4(1.0f);
+		squareTransform = glm::translate(glm::mat4(1.0f), pos)*
+			glm::rotate(glm::mat4(1.0f), glm::radians(rotate), glm::vec3(0.0f, 0.0f, 1.0f))*
+			glm::scale(glm::mat4(1.0f), { size, 1.0f });
+
+		float textureIndex = 0.0f;
+
+
+		for (uint32_t i = 1; i < s_data.TextureSlotIndex; i++) {
+			if (*s_data.TextureSlots[i].get() == *texture.get()) {
+				textureIndex = (float)i;
+				break;
+			}
+		}
+
+		if (textureIndex == 0) {
+			textureIndex = (float)s_data.TextureSlotIndex;
+			s_data.TextureSlots[s_data.TextureSlotIndex] = texture;
+			s_data.TextureSlotIndex++;
+		}
+
+		constexpr glm::vec4 color = { 1.0f,1.0f,1.0f,1.0f };
+
+		s_data.QuadVertexptr->Pos = squareTransform * s_data.QuadVertices[0];
+		s_data.QuadVertexptr->Color = color;
+		s_data.QuadVertexptr->TexCoord = { 0.0f,0.0f };
+		s_data.QuadVertexptr->TexIndex = textureIndex;
+		s_data.QuadVertexptr->Numtiles = numTiles;
+		s_data.QuadVertexptr++;
+
+		s_data.QuadVertexptr->Pos = squareTransform * s_data.QuadVertices[1];
+		s_data.QuadVertexptr->Color = color;
+		s_data.QuadVertexptr->TexCoord = { 1.0f,0.0f };
+		s_data.QuadVertexptr->TexIndex = textureIndex;
+		s_data.QuadVertexptr->Numtiles = numTiles;
+		s_data.QuadVertexptr++;
+
+		s_data.QuadVertexptr->Pos = squareTransform * s_data.QuadVertices[2];
+		s_data.QuadVertexptr->Color = color;
+		s_data.QuadVertexptr->TexCoord = { 1.0f, 1.0f };
+		s_data.QuadVertexptr->TexIndex = textureIndex;
+		s_data.QuadVertexptr->Numtiles = numTiles;
+		s_data.QuadVertexptr++;
+
+		s_data.QuadVertexptr->Pos = squareTransform * s_data.QuadVertices[3];
+		s_data.QuadVertexptr->Color = color;
+		s_data.QuadVertexptr->TexCoord = { 0.0f,1.0f };
+		s_data.QuadVertexptr->TexIndex = textureIndex;
+		s_data.QuadVertexptr->Numtiles = numTiles;
+		s_data.QuadVertexptr++;
+
+		s_data.QuadIndexCount += 6;
+	}
+
+	void Renderer2D::DrawRotatedQuad(const glm::vec2& pos, const glm::vec2 size, const float& rotate, const Ref<Texture2D>& texture, const float& numTiles)
+	{
+		Renderer2D::DrawRotatedQuad(glm::vec3(pos, 0.0f), size, rotate, texture, numTiles);
+	}
+
 	void Renderer2D::DrawRotatedQuad(const glm::vec3& pos, const glm::vec2 size, const float& rotate, const Ref<Texture2D>& texture, const float& numTiles, const glm::vec4& color)
 	{
 		FG_PROFILE_FUNCTION();
 
-		texture->Bind();
-		s_data.TextureShader->SetFloat("u_NumTiles", numTiles);
-
-		s_data.TextureShader->SetFloat4("u_Color", color);
-
 		glm::mat4 squareTransform = glm::mat4(1.0f);
-		squareTransform = glm::translate(glm::mat4(1.0f), pos) *
-			glm::rotate(glm::mat4(1.0f), glm::radians(rotate), glm::vec3(0.0f, 0.0f, 1.0f)) *
+		squareTransform =  glm::translate(glm::mat4(1.0f), pos)*
+			glm::rotate(glm::mat4(1.0f), glm::radians(rotate), glm::vec3(0.0f, 0.0f, 1.0f))*
 			glm::scale(glm::mat4(1.0f), { size,1.0f });
-		s_data.TextureShader->SetMat4("u_Transform", squareTransform);
 
-		s_data.SquareVA->Bind();
-		RenderCommands::DrawIndexed(s_data.SquareVA);
+		float textureIndex = 0.0f;
+
+		for (uint32_t i = 1; i < s_data.TextureSlotIndex; i++) {
+			if (*s_data.TextureSlots[i].get() == *texture.get()) {
+				textureIndex = (float)i;
+				break;
+			}
+		}
+
+		if (textureIndex == 0) {
+			textureIndex = (float)s_data.TextureSlotIndex;
+			s_data.TextureSlots[s_data.TextureSlotIndex] = texture;
+			s_data.TextureSlotIndex++;
+		}
+
+		s_data.QuadVertexptr->Pos = squareTransform * s_data.QuadVertices[0];
+		s_data.QuadVertexptr->Color = color;
+		s_data.QuadVertexptr->TexCoord = { 0.0f,0.0f };
+		s_data.QuadVertexptr->TexIndex = textureIndex;
+		s_data.QuadVertexptr->Numtiles = numTiles;
+		s_data.QuadVertexptr++;
+
+		s_data.QuadVertexptr->Pos = squareTransform * s_data.QuadVertices[1];
+		s_data.QuadVertexptr->Color = color;
+		s_data.QuadVertexptr->TexCoord = { 1.0f,0.0f };
+		s_data.QuadVertexptr->TexIndex = textureIndex;
+		s_data.QuadVertexptr->Numtiles = numTiles;
+		s_data.QuadVertexptr++;
+
+		s_data.QuadVertexptr->Pos = squareTransform * s_data.QuadVertices[2];
+		s_data.QuadVertexptr->Color = color;
+		s_data.QuadVertexptr->TexCoord = { 1.0f, 1.0f };
+		s_data.QuadVertexptr->TexIndex = textureIndex;
+		s_data.QuadVertexptr->Numtiles = numTiles;
+		s_data.QuadVertexptr++;
+
+		s_data.QuadVertexptr->Pos = squareTransform * s_data.QuadVertices[3];
+		s_data.QuadVertexptr->Color = color;
+		s_data.QuadVertexptr->TexCoord = { 0.0f,1.0f };
+		s_data.QuadVertexptr->TexIndex = textureIndex;
+		s_data.QuadVertexptr->Numtiles = numTiles;
+		s_data.QuadVertexptr++;
+
+		s_data.QuadIndexCount += 6;
 	}
 
 	void Renderer2D::DrawRotatedQuad(const glm::vec2& pos, const glm::vec2 size, const float& rotate, const Ref<Texture2D>& texture, const float& numTiles, const glm::vec4& color)
 	{
-		Renderer2D::DrawRotatedQuad(glm::vec3(pos, 0.0f), size, rotate, texture, numTiles, color);
+		Renderer2D::DrawRotatedQuad(glm::vec3(pos, 0.0f), size, rotate, texture, numTiles,color);
 	}
+
 }
