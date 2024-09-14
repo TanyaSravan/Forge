@@ -37,6 +37,8 @@ namespace Forge {
 		uint32_t TextureSlotIndex = 1;
 
 		glm::vec4 QuadVertices[4];
+		
+		Renderer2D::RendererStats stats;
 	};
 
 	static Renderer2DStorage s_data;
@@ -65,6 +67,15 @@ namespace Forge {
 			s_data.TextureSlots[i]->Bind(i);
 		}
 		RenderCommands::DrawIndexed(s_data.SquareVA, s_data.QuadIndexCount);
+		s_data.stats.DrawCalls++;
+	}
+
+	void Renderer2D::ResetAndFlush()
+	{
+		Renderer2D::EndScene();
+		s_data.QuadVertexptr = s_data.QuadVertexBase;
+		s_data.QuadIndexCount = 0;
+		s_data.TextureSlotIndex = 1;
 	}
 
 	void Renderer2D::Init()
@@ -123,10 +134,10 @@ namespace Forge {
 
 		s_data.TextureSlots[0] = s_data.DefaultTexture;
 
-		s_data.QuadVertices[0] = { -0.5f,-0.5f,0.0f,0.0f };
-		s_data.QuadVertices[1] = {  0.5f,-0.5f,0.0f,0.0f };
-		s_data.QuadVertices[2] = {  0.5f, 0.5f,0.0f,0.0f };
-		s_data.QuadVertices[3] = { -0.5f, 0.5f,0.0f,0.0f };
+		s_data.QuadVertices[0] = { -0.5f,-0.5f,0.0f,1.0f };
+		s_data.QuadVertices[1] = {  0.5f,-0.5f,0.0f,1.0f };
+		s_data.QuadVertices[2] = {  0.5f, 0.5f,0.0f,1.0f };
+		s_data.QuadVertices[3] = { -0.5f, 0.5f,0.0f,1.0f };
 	}
 	void Renderer2D::Shutdown()
 	{
@@ -135,6 +146,10 @@ namespace Forge {
 	void Renderer2D::DrawQuad(const glm::vec3& pos, const glm::vec2 size, const glm::vec4& color)
 	{
 		FG_PROFILE_FUNCTION();
+
+		if (s_data.QuadIndexCount >= s_data.MaxIndices) {
+			Renderer2D::ResetAndFlush();
+		}
 
 		float textureIndex = 0.0f;
 		float numTiles = 1.0f;
@@ -168,6 +183,8 @@ namespace Forge {
 		s_data.QuadVertexptr++;
 
 		s_data.QuadIndexCount += 6;
+
+		s_data.stats.NumQuads++;
 	}
 
 	void Renderer2D::DrawQuad(const glm::vec2& pos, const glm::vec2 size, const glm::vec4& color)
@@ -178,6 +195,10 @@ namespace Forge {
 	void Renderer2D::DrawQuad(const glm::vec3& pos, const glm::vec2 size, const Ref<Texture2D>& texture)
 	{
 		FG_PROFILE_FUNCTION();
+
+		if (s_data.QuadIndexCount >= s_data.MaxIndices) {
+			Renderer2D::ResetAndFlush();
+		}
 
 		float numTiles = 1.0f;
 		float textureIndex = 0.0f;
@@ -226,6 +247,7 @@ namespace Forge {
 		s_data.QuadVertexptr++;
 
 		s_data.QuadIndexCount += 6;
+		s_data.stats.NumQuads++;
 
 	}
 
@@ -238,6 +260,10 @@ namespace Forge {
 	{
 		FG_PROFILE_FUNCTION();
 
+		if (s_data.QuadIndexCount >= s_data.MaxIndices) {
+			Renderer2D::ResetAndFlush();
+		}
+
 		float numTiles = 1.0f;
 		float textureIndex = 0.0f;
 
@@ -283,6 +309,7 @@ namespace Forge {
 		s_data.QuadVertexptr++;
 
 		s_data.QuadIndexCount += 6;
+		s_data.stats.NumQuads++;
 	}
 
 	void Renderer2D::DrawQuad(const glm::vec2& pos, const glm::vec2 size, const Ref<Texture2D>& texture, const glm::vec4& color)
@@ -293,6 +320,11 @@ namespace Forge {
 	void Renderer2D::DrawQuad(const glm::vec3& pos, const glm::vec2 size, const Ref<Texture2D>& texture, const float& numTiles)
 	{
 		FG_PROFILE_FUNCTION();
+
+		if (s_data.QuadIndexCount >= s_data.MaxIndices) {
+			Renderer2D::ResetAndFlush();
+		}
+
 		float textureIndex = 0.0f;
 
 		for (uint32_t i = 1; i < s_data.TextureSlotIndex; i++) {
@@ -339,6 +371,7 @@ namespace Forge {
 		s_data.QuadVertexptr++;
 
 		s_data.QuadIndexCount += 6;
+		s_data.stats.NumQuads++;
 	}
 
 	void Renderer2D::DrawQuad(const glm::vec2& pos, const glm::vec2 size, const Ref<Texture2D>& texture, const float& numTiles)
@@ -349,6 +382,10 @@ namespace Forge {
 	void Renderer2D::DrawQuad(const glm::vec3& pos, const glm::vec2 size, const Ref<Texture2D>& texture, const float& numTiles , const glm::vec4& color)
 	{
 		FG_PROFILE_FUNCTION();
+
+		if (s_data.QuadIndexCount >= s_data.MaxIndices) {
+			Renderer2D::ResetAndFlush();
+		}
 
 		float textureIndex = 0.0f;
 
@@ -394,6 +431,7 @@ namespace Forge {
 		s_data.QuadVertexptr++;
 
 		s_data.QuadIndexCount += 6;
+		s_data.stats.NumQuads++;
 
 	}
 
@@ -406,6 +444,10 @@ namespace Forge {
 	{
 		FG_PROFILE_FUNCTION();
 
+		if (s_data.QuadIndexCount >= s_data.MaxIndices) {
+			Renderer2D::ResetAndFlush();
+		}
+
 		glm::mat4 squareTransform = glm::mat4(1.0f);
 		squareTransform = glm::translate(glm::mat4(1.0f), pos)*
 			glm::rotate(glm::mat4(1.0f), glm::radians(rotate), glm::vec3(0.0f, 0.0f, 1.0f))*
@@ -443,6 +485,7 @@ namespace Forge {
 		s_data.QuadVertexptr++;
 
 		s_data.QuadIndexCount += 6;
+		s_data.stats.NumQuads++;
 	}
 
 
@@ -454,6 +497,10 @@ namespace Forge {
 	void Renderer2D::DrawRotatedQuad(const glm::vec3& pos, const glm::vec2 size, const float& rotate, const Ref<Texture2D>& texture)
 	{
 		FG_PROFILE_FUNCTION();
+
+		if (s_data.QuadIndexCount >= s_data.MaxIndices) {
+			Renderer2D::ResetAndFlush();
+		}
 
 		glm::mat4 squareTransform = glm::mat4(1.0f);
 		squareTransform = glm::translate(glm::mat4(1.0f), pos)*
@@ -508,6 +555,7 @@ namespace Forge {
 		s_data.QuadVertexptr++;
 
 		s_data.QuadIndexCount += 6;
+		s_data.stats.NumQuads++;
 	}
 
 	void Renderer2D::DrawRotatedQuad(const glm::vec2& pos, const glm::vec2 size, const float& rotate, const Ref<Texture2D>& texture)
@@ -518,6 +566,10 @@ namespace Forge {
 	void Renderer2D::DrawRotatedQuad(const glm::vec3& pos, const glm::vec2 size, const float& rotate, const Ref<Texture2D>& texture, const glm::vec4& color)
 	{
 		FG_PROFILE_FUNCTION();
+
+		if (s_data.QuadIndexCount >= s_data.MaxIndices) {
+			Renderer2D::ResetAndFlush();
+		}
 
 		glm::mat4 squareTransform = glm::mat4(1.0f);
 		squareTransform = glm::translate(glm::mat4(1.0f), pos)*
@@ -570,6 +622,7 @@ namespace Forge {
 		s_data.QuadVertexptr++;
 
 		s_data.QuadIndexCount += 6;
+		s_data.stats.NumQuads++;
 	}
 
 	void Renderer2D::DrawRotatedQuad(const glm::vec2& pos, const glm::vec2 size, const float& rotate, const Ref<Texture2D>& texture, const glm::vec4& color)
@@ -580,6 +633,10 @@ namespace Forge {
 	void Renderer2D::DrawRotatedQuad(const glm::vec3& pos, const glm::vec2 size, const float& rotate, const Ref<Texture2D>& texture, const float& numTiles)
 	{
 		FG_PROFILE_FUNCTION();
+
+		if (s_data.QuadIndexCount >= s_data.MaxIndices) {
+			Renderer2D::ResetAndFlush();
+		}
 
 		glm::mat4 squareTransform = glm::mat4(1.0f);
 		squareTransform = glm::translate(glm::mat4(1.0f), pos)*
@@ -633,6 +690,7 @@ namespace Forge {
 		s_data.QuadVertexptr++;
 
 		s_data.QuadIndexCount += 6;
+		s_data.stats.NumQuads++;
 	}
 
 	void Renderer2D::DrawRotatedQuad(const glm::vec2& pos, const glm::vec2 size, const float& rotate, const Ref<Texture2D>& texture, const float& numTiles)
@@ -643,6 +701,10 @@ namespace Forge {
 	void Renderer2D::DrawRotatedQuad(const glm::vec3& pos, const glm::vec2 size, const float& rotate, const Ref<Texture2D>& texture, const float& numTiles, const glm::vec4& color)
 	{
 		FG_PROFILE_FUNCTION();
+
+		if (s_data.QuadIndexCount >= s_data.MaxIndices) {
+			Renderer2D::ResetAndFlush();
+		}
 
 		glm::mat4 squareTransform = glm::mat4(1.0f);
 		squareTransform =  glm::translate(glm::mat4(1.0f), pos)*
@@ -693,11 +755,24 @@ namespace Forge {
 		s_data.QuadVertexptr++;
 
 		s_data.QuadIndexCount += 6;
+		s_data.stats.NumQuads++;
 	}
+
 
 	void Renderer2D::DrawRotatedQuad(const glm::vec2& pos, const glm::vec2 size, const float& rotate, const Ref<Texture2D>& texture, const float& numTiles, const glm::vec4& color)
 	{
-		Renderer2D::DrawRotatedQuad(glm::vec3(pos, 0.0f), size, rotate, texture, numTiles,color);
+		Renderer2D::DrawRotatedQuad(glm::vec3(pos, 0.0f), size, rotate, texture, numTiles, color);
+	}
+
+	Renderer2D::RendererStats Renderer2D::GetStat()
+	{
+		return s_data.stats;
+	}
+
+	void Renderer2D::ResetStats()
+	{
+		s_data.stats.DrawCalls = 0;
+		s_data.stats.NumQuads = 0;
 	}
 
 }

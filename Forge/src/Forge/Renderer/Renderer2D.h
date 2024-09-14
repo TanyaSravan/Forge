@@ -42,5 +42,17 @@ namespace Forge {
 
 		static void DrawRotatedQuad(const glm::vec2& pos, const glm::vec2 size, const float& rotate, const Ref<Texture2D>& texture, const float& numTiles, const glm::vec4& color);
 		static void DrawRotatedQuad(const glm::vec3& pos, const glm::vec2 size, const float& rotate, const Ref<Texture2D>& texture, const float& numTiles, const glm::vec4& color);
+
+		struct RendererStats {
+			uint32_t DrawCalls;
+			uint32_t NumQuads;
+		};
+
+		static RendererStats GetStat();
+		static void ResetStats();
+
+	private:
+		static void ResetAndFlush();
+
 	};
 }
