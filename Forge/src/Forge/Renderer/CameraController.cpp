@@ -9,7 +9,8 @@ namespace Forge {
 	OrthographicCameraController::OrthographicCameraController(float aspectRatio, bool rotation)
 		:m_aspectRatio(aspectRatio), 
 		m_Camera(-m_aspectRatio* m_ZoomLevel, m_aspectRatio* m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel), 
-		m_rotation(rotation) {}
+		m_rotation(rotation),
+		m_Bounds({ -m_aspectRatio * m_ZoomLevel, m_aspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel }) {}
 
 	void OrthographicCameraController::OnUpdate(Timestep time) {
 		FG_PROFILE_FUNCTION();
@@ -49,6 +50,10 @@ namespace Forge {
 		m_ZoomLevel = std::max(m_ZoomLevel, 0.25f);
 
 		m_Camera.SetCamProjection(-m_aspectRatio * m_ZoomLevel, m_aspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel);
+		m_Bounds.left = -m_aspectRatio * m_ZoomLevel;
+		m_Bounds.right = m_aspectRatio * m_ZoomLevel;
+		m_Bounds.bottom = -m_ZoomLevel;
+		m_Bounds.top = m_ZoomLevel;
 		return false;
 	}
 
@@ -56,6 +61,10 @@ namespace Forge {
 		FG_PROFILE_FUNCTION();
 		m_aspectRatio = (float)e.GetWindowWidth() / (float)e.GetWindowHeight();
 		m_Camera.SetCamProjection(-m_aspectRatio * m_ZoomLevel, m_aspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel);
+		m_Bounds.left = -m_aspectRatio * m_ZoomLevel;
+		m_Bounds.right = m_aspectRatio * m_ZoomLevel;
+		m_Bounds.bottom = -m_ZoomLevel;
+		m_Bounds.top = m_ZoomLevel;
 		return false;
 	}
 

@@ -1,5 +1,6 @@
 #pragma once
 #include "Forge.h"
+#include "ParticleSystem.h"
 
 
 class Sandbox2D : public Forge::Layer {
@@ -22,5 +23,8 @@ private:
 	glm::vec3 m_SquareColor = { 0.2f,0.6f,0.4f };
 
 	Forge::OrthographicCameraController m_orthoCamController;
+
+	ParticleSystem m_ParticleSystem;
+	ParticleProps m_Particle;
 
 };

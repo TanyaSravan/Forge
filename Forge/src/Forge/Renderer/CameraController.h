@@ -7,6 +7,14 @@
 
 namespace Forge {
 
+	struct OrthographicCameraBounds {
+		float left, right, bottom, top;
+
+		float GetWidth() { return right - left; }
+		float GetHeight() { return top - bottom; }
+	};
+
+
 	class OrthographicCameraController {
 	public:
 		OrthographicCameraController(float aspectRatio, bool rotation = false);
@@ -16,6 +24,8 @@ namespace Forge {
 
 		OrthographicCamera GetCamera() { return m_Camera; }
 		const OrthographicCamera GetCamera() const { return m_Camera; }
+
+		OrthographicCameraBounds GetBounds() { return m_Bounds; }
 
 	private:
 		bool OnMouseScrolledEvent(MouseScrolledEvent& e);
@@ -32,5 +42,7 @@ namespace Forge {
 		float m_CamRotation = 0.0f;
 		float m_CamMoveSpeed = 5.0f;
 		float m_CamRotSpeed = 180.0f;
+
+		OrthographicCameraBounds m_Bounds;
 	};
 }

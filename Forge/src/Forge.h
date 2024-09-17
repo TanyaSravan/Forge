@@ -13,6 +13,8 @@
 
 #include "Forge/Debug/Profiling.h"
 
+#include "Forge/Core/Random.h"
+
 //------------------Renderer---------------------------
 #include "Forge/Renderer/Buffers.h"
 #include "Forge/Renderer/Shader.h"

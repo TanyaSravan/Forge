@@ -46,6 +46,10 @@ namespace Forge {
 		struct RendererStats {
 			uint32_t DrawCalls;
 			uint32_t NumQuads;
+
+			uint32_t GetNumVertices() { return NumQuads * 4; }
+			uint32_t GetNumIndices() { return NumQuads * 6; }
+
 		};
 
 		static RendererStats GetStat();

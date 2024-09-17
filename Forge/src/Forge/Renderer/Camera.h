@@ -14,6 +14,9 @@ namespace Forge {
 		void SetPosition(const glm::vec3& position) { m_Position = position; RecalculateViewMatrix(); }
 		void SetRotation(const float& rotation) { m_Rotation = rotation; RecalculateViewMatrix(); }
 
+		glm::vec3 GetPosition() { return m_Position; }
+		float GetRotation() { return m_Rotation; }
+
 	private:
 		void RecalculateViewMatrix();
 

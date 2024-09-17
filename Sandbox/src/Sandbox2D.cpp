@@ -12,6 +12,14 @@ void Sandbox2D:: OnAttach() {
 	FG_PROFILE_FUNCTION();
 	m_Texture2D = Forge::Texture2D::Create("assets/Textures/CheckerBoard.png");
 
+	m_Particle.ColorBegin = { 254 / 255.0f, 212 / 255.0f, 123 / 255.0f, 1.0f };
+	m_Particle.ColorEnd = { 254 / 255.0f, 109 / 255.0f, 41 / 255.0f, 1.0f };
+	m_Particle.SizeBegin = 0.5f, m_Particle.SizeVariation = 0.3f, m_Particle.SizeEnd = 0.0f;
+	m_Particle.Lifetime = 1.0f;
+	m_Particle.Velocity = { 0.0f, 0.0f };
+	m_Particle.VelocityVariation = { 3.0f, 1.0f };
+	m_Particle.Position = { 0.0f, 0.0f };
+
 }
 void Sandbox2D:: OnDetach() {
 	FG_PROFILE_FUNCTION();
@@ -34,7 +42,6 @@ void Sandbox2D:: OnUpdate(Forge::Timestep time) {
 
 	Forge::Renderer2D::ResetStats();
 
-
 	Forge::Renderer2D::BeginScene(m_orthoCamController.GetCamera());
 
 	Forge::Renderer2D::DrawQuad({ 0.5f,0.0f,0.0f }, glm::vec2(1.0f), { m_SquareColor, 1.0f });
@@ -56,16 +63,42 @@ void Sandbox2D:: OnUpdate(Forge::Timestep time) {
 
 	Forge::Renderer2D::EndScene();
 
+
+	if (Forge::Input::IsMouseButtonPressed(FG_MOUSE_BUTTON_1))
+	{
+		auto [x, y] = Forge::Input::GetMousePosition();
+		auto width = Forge::Application::Get().GetWindow().GetWidth();
+		auto height = Forge::Application::Get().GetWindow().GetHeight();
+
+		auto bounds = m_orthoCamController.GetBounds();
+		auto pos = m_orthoCamController.GetCamera().GetPosition();
+		x = (x / width) * bounds.GetWidth() - bounds.GetWidth() * 0.5f;
+		y = bounds.GetHeight() * 0.5f - (y / height) * bounds.GetHeight();
+		m_Particle.Position = { x + pos.x, y + pos.y };
+		for (int i = 0; i < 5; i++)
+			m_ParticleSystem.Emit(m_Particle);
+	}
+
+	m_ParticleSystem.OnUpdate(time);
+	m_ParticleSystem.OnRender(m_orthoCamController.GetCamera());
+	
+
+
+
 }
 void Sandbox2D:: OnImGuiRender() {
 
 	FG_PROFILE_FUNCTION();
 
 	ImGui::Begin("Settings");
-	ImGui::ColorEdit3("Square Color", glm::value_ptr(m_SquareColor));
+	//ImGui::ColorEdit3("Square Color", glm::value_ptr(m_SquareColor));
+	ImGui::ColorEdit3("Begin Color", glm::value_ptr(m_Particle.ColorBegin));
+	ImGui::ColorEdit3("End Color", glm::value_ptr(m_Particle.ColorEnd));
 	ImGui::Text("RendererStats: ");
 	ImGui::Text("    Draw Calls: %d", Forge::Renderer2D::GetStat().DrawCalls);
 	ImGui::Text("    NumQuads: %d", Forge::Renderer2D::GetStat().NumQuads);
+	ImGui::Text("    Num Vertices: %d", Forge::Renderer2D::GetStat().GetNumVertices());
+	ImGui::Text("    Num Indices: %d", Forge::Renderer2D::GetStat().GetNumIndices());
 	ImGui::End();
 
 }
