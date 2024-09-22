@@ -157,6 +157,7 @@
     <ClInclude Include="src\Forge\Renderer\Renderer2D.h" />
     <ClInclude Include="src\Forge\Renderer\RendererAPI.h" />
     <ClInclude Include="src\Forge\Renderer\Shader.h" />
+    <ClInclude Include="src\Forge\Renderer\SubTextures2D.h" />
     <ClInclude Include="src\Forge\Renderer\Texture.h" />
     <ClInclude Include="src\Forge\Renderer\VertexArray.h" />
     <ClInclude Include="src\Forge\Core\Window.h" />
@@ -189,6 +190,7 @@
     <ClCompile Include="src\Forge\Renderer\Renderer2D.cpp" />
     <ClCompile Include="src\Forge\Renderer\RendererAPI.cpp" />
     <ClCompile Include="src\Forge\Renderer\Shader.cpp" />
+    <ClCompile Include="src\Forge\Renderer\SubTextures2D.cpp" />
     <ClCompile Include="src\Forge\Renderer\Texture.cpp" />
     <ClCompile Include="src\Forge\Renderer\VertexArray.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLRendererAPI.cpp" />

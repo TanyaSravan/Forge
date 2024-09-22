@@ -19,6 +19,10 @@ private:
 	Forge::Ref<Forge::Shader> m_BlueShader;
 
 	Forge::Ref<Forge::Texture2D> m_Texture2D;
+	Forge::Ref<Forge::Texture2D> m_SpriteSheet;
+
+	Forge::Ref<Forge::SubTextures2D> m_Bench;
+	Forge::Ref<Forge::SubTextures2D> m_Rocks;
 
 	glm::vec3 m_SquareColor = { 0.2f,0.6f,0.4f };
 

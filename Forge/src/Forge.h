@@ -22,6 +22,7 @@
 #include "Forge/Renderer/CameraController.h"
 #include "Forge/Renderer/VertexArray.h"
 #include "Forge/Renderer/Texture.h"
+#include "Forge/Renderer/SubTextures2D.h"
 
 #include "Forge/Renderer/Renderer.h"
 #include "Forge/Renderer/Renderer2D.h"

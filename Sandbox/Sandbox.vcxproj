@@ -133,6 +133,9 @@
     <ClInclude Include="src\ParticleSystem.h" />
     <ClInclude Include="src\Sandbox2D.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\kenney_rpg-base\PNG\rpgTile000.png" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

@@ -1,6 +1,7 @@
 #pragma once
 #include "Camera.h"
 #include "Texture.h"
+#include "SubTextures2D.h"
 
 namespace Forge {
 	class Renderer2D {
@@ -27,6 +28,15 @@ namespace Forge {
 
 		static void DrawQuad(const glm::vec2& pos, const glm::vec2 size, const Ref<Texture2D>& texture, const float& numTiles, const glm::vec4& color);
 		static void DrawQuad(const glm::vec3& pos, const glm::vec2 size, const Ref<Texture2D>& texture, const float& numTiles, const glm::vec4& color);
+
+		static void DrawQuad(const glm::vec2& pos, const glm::vec2 size, const Ref<SubTextures2D>& subTexture);
+		static void DrawQuad(const glm::vec3& pos, const glm::vec2 size, const Ref<SubTextures2D>& subTexture);
+		static void DrawQuad(const glm::vec2& pos, const glm::vec2 size, const Ref<SubTextures2D>& subTexture, const glm::vec4& color);
+		static void DrawQuad(const glm::vec3& pos, const glm::vec2 size, const Ref<SubTextures2D>& subTexture, const glm::vec4& color);
+		static void DrawQuad(const glm::vec2& pos, const glm::vec2 size, const Ref<SubTextures2D>& subTexture, const float& numTiles);
+		static void DrawQuad(const glm::vec3& pos, const glm::vec2 size, const Ref<SubTextures2D>& subTexture, const float& numTiles);
+		static void DrawQuad(const glm::vec2& pos, const glm::vec2 size, const Ref<SubTextures2D>& subTexture, const float& numTiles, const glm::vec4& color);
+		static void DrawQuad(const glm::vec3& pos, const glm::vec2 size, const Ref<SubTextures2D>& subTexture, const float& numTiles, const glm::vec4& color);
 
 		static void DrawRotatedQuad(const glm::vec2& pos, const glm::vec2 size, const float& rotate, const glm::vec4& color);
 		static void DrawRotatedQuad(const glm::vec3& pos, const glm::vec2 size, const float& rotate, const glm::vec4& color);	
