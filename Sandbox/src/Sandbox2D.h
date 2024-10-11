@@ -21,8 +21,7 @@ private:
 	Forge::Ref<Forge::Texture2D> m_Texture2D;
 	Forge::Ref<Forge::Texture2D> m_SpriteSheet;
 
-	Forge::Ref<Forge::SubTextures2D> m_Bench;
-	Forge::Ref<Forge::SubTextures2D> m_Rocks;
+	Forge::Ref<Forge::SubTextures2D> m_Error;
 
 	glm::vec3 m_SquareColor = { 0.2f,0.6f,0.4f };
 
@@ -30,5 +29,10 @@ private:
 
 	ParticleSystem m_ParticleSystem;
 	ParticleProps m_Particle;
+
+	uint32_t m_mapHeight, m_mapWidth;
+
+	std::unordered_map<char, Forge::Ref<Forge::SubTextures2D>> m_mapTile;
+	std::unordered_map<char, Forge::Ref<Forge::SubTextures2D>> m_mapDecor;
 
 };

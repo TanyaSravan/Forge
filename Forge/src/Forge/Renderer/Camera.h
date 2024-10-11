@@ -17,6 +17,8 @@ namespace Forge {
 		glm::vec3 GetPosition() { return m_Position; }
 		float GetRotation() { return m_Rotation; }
 
+
+
 	private:
 		void RecalculateViewMatrix();
 

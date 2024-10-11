@@ -54,7 +54,7 @@ namespace Forge {
 		glTextureParameteri(m_RendererId, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 		glTextureParameteri(m_RendererId, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
-		glTextureSubImage2D(m_RendererId, 0, 0, 0, m_Width, m_Width, dataFormat, GL_UNSIGNED_BYTE, data);
+		glTextureSubImage2D(m_RendererId, 0, 0, 0, m_Width, m_Height, dataFormat, GL_UNSIGNED_BYTE, data);
 
 		stbi_image_free(data);
 	}
@@ -72,7 +72,7 @@ namespace Forge {
 	}
 
 	void OpenGlTexture2D::Bind(unsigned int slot) const {
-		FG_PROFILE_FUNCTION()
+		FG_PROFILE_FUNCTION();
 		glBindTextureUnit(slot , m_RendererId);
 	}
 }

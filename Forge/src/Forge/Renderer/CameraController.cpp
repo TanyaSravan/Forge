@@ -44,27 +44,31 @@ namespace Forge {
 		dispatcher.Dispatch<WindowResizeEvent>(FG_BIND_EVENT_FN(OrthographicCameraController::OnWindowResisedEvent));
 	}
 
+	void OrthographicCameraController::CalculateView()
+	{
+		m_Camera.SetCamProjection(-m_aspectRatio * m_ZoomLevel, m_aspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel);
+
+		m_Bounds.left = -m_aspectRatio * m_ZoomLevel;
+		m_Bounds.right = m_aspectRatio * m_ZoomLevel;
+		m_Bounds.bottom = -m_ZoomLevel;
+		m_Bounds.top = m_ZoomLevel;
+	}
+
 	bool OrthographicCameraController::OnMouseScrolledEvent(MouseScrolledEvent& e) {
 		FG_PROFILE_FUNCTION();
 		m_ZoomLevel -= e.GetYOffset()* 0.25f;
 		m_ZoomLevel = std::max(m_ZoomLevel, 0.25f);
 
-		m_Camera.SetCamProjection(-m_aspectRatio * m_ZoomLevel, m_aspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel);
-		m_Bounds.left = -m_aspectRatio * m_ZoomLevel;
-		m_Bounds.right = m_aspectRatio * m_ZoomLevel;
-		m_Bounds.bottom = -m_ZoomLevel;
-		m_Bounds.top = m_ZoomLevel;
+		CalculateView();
+
 		return false;
 	}
 
 	bool OrthographicCameraController::OnWindowResisedEvent(WindowResizeEvent& e) {
 		FG_PROFILE_FUNCTION();
 		m_aspectRatio = (float)e.GetWindowWidth() / (float)e.GetWindowHeight();
-		m_Camera.SetCamProjection(-m_aspectRatio * m_ZoomLevel, m_aspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel);
-		m_Bounds.left = -m_aspectRatio * m_ZoomLevel;
-		m_Bounds.right = m_aspectRatio * m_ZoomLevel;
-		m_Bounds.bottom = -m_ZoomLevel;
-		m_Bounds.top = m_ZoomLevel;
+		
+		CalculateView();
 		return false;
 	}
 

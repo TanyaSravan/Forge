@@ -27,6 +27,9 @@ namespace Forge {
 
 		OrthographicCameraBounds GetBounds() { return m_Bounds; }
 
+		void SetZoomLevel(const float& zoom) { m_ZoomLevel = zoom; CalculateView(); }
+		void CalculateView();
+
 	private:
 		bool OnMouseScrolledEvent(MouseScrolledEvent& e);
 		bool OnWindowResisedEvent(WindowResizeEvent& e);

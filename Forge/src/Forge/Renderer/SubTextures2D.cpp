@@ -16,8 +16,8 @@ namespace Forge {
 	{
 		glm::vec2 min = { (spriteIndex.x * cellSize.x) / texture->GetWidth(), (spriteIndex.y * cellSize.y) / texture->GetHeight() };
 		glm::vec2 max = { ((spriteIndex.x + spriteSize.x) * cellSize.x) / texture->GetWidth(), ((spriteIndex.y + spriteSize.y) * cellSize.y) / texture->GetHeight() };
-		FG_CORE_INFO("Min: {0},{1}", min.x,min.y);
-		FG_CORE_INFO("Max: {0},{1}", max.x,max.y);
 		return std::make_shared<SubTextures2D>(texture, min, max);
+		
+		
 	}
 }
