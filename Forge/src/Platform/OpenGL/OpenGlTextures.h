@@ -13,6 +13,7 @@ namespace Forge {
 
 		virtual unsigned int GetWidth() const override { return m_Width; }
 		virtual unsigned int GetHeight() const override { return m_Height; }
+		virtual uint32_t GetRendererID() const override { return m_RendererId; }
 
 		virtual void SetData(const void* data, const int& size) override;
 

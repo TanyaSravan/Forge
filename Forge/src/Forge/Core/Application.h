@@ -21,6 +21,8 @@ namespace Forge {
 
 		void PushOverlay(Layer* layer);
 
+		void Close();
+
 		inline Window& GetWindow() { return *m_window; }
 
 		static inline Application& Get() { return *s_Instance; }

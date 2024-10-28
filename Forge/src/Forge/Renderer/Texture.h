@@ -12,6 +12,8 @@ namespace Forge {
 		virtual unsigned int GetWidth() const = 0;
 		virtual unsigned int GetHeight() const = 0;
 
+		virtual uint32_t GetRendererID() const = 0;
+
 		virtual void SetData(const void* data, const int& size) = 0;
 
 		virtual void Bind(unsigned int slot = 0) const = 0;
